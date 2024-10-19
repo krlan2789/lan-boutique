@@ -149,7 +149,11 @@
                 <a href="#" class="px-3 py-2 navbar-link mobile">Your
                     Profile</a>
                 <a href="#" class="px-3 py-2 navbar-link mobile">Settings</a>
-                <a href="/login" class="px-3 py-2 navbar-link mobile danger">Logout</a>
+                @auth
+                    <a href="/login" class="px-4 py-2 navbar-link mobile">Login</a>
+                @else
+                    <a href="/login" class="px-4 py-2 navbar-link mobile danger">Logout</a>
+                @endauth
             </div>
         </div>
     </div>

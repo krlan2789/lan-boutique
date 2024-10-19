@@ -10,7 +10,7 @@
                             {{ env('APP_NAME', 'Boutique') }}
                         </h2>
 
-                        <p class="max-w-xl mt-6 text-quaternary">
+                        <p class="max-w-lg mt-6 xl:max-w-3xl text-quaternary">
                             {!! request()->is('login')
                                 ? 'Welcome back! <strong>Unleash your unique style</strong> with our exclusive collections. 🌟'
                                 : 'Join our community and step into <strong>the world of fashion</strong> with exclusive deals and trends. 💫' !!}
