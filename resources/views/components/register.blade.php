@@ -79,6 +79,12 @@
             </div>
 
             <div class="mt-4">
+                <p class="text-xs text-center">By clicking 'Register' button, you agree to our <a href="/term_of_use"
+                        class="simple-link" target="_blank">Term of Use</a> and <a href="/privacy_policy"
+                        class="simple-link" target="_blank">Privacy Policy</a>.</p>
+            </div>
+
+            <div class="mt-4">
                 <button type="submit" class="w-full btn-main">
                     Register
                 </button>

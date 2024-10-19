@@ -20,6 +20,19 @@ Route::get('/blog', function () {
     return view('blog');
 });
 
+// Policy
+Route::get('/term_of_use', function () {
+    return view('components.term-of-use', [
+        'head_title' => env('APP_NAME') . ' | Term of Use',
+    ]);
+});
+Route::get('/privacy_policy', function () {
+    return view('components.privacy-policy', [
+        'head_title' => env('APP_NAME') . ' | Privacy Policy',
+    ]);
+});
+// Policy
+
 // Route::get('/admin/login', [AdminController::class, 'index']);
 Route::get('/admin/{admin:username}', [AdminController::class, 'index']);
 
