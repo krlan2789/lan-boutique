@@ -1,4 +1,4 @@
-<div class="flex-1 h-auto min-h-screen px-6 pt-16 custom-scrollable bg-tertiary/80">
+<div class="flex-1 h-auto min-h-screen px-6 pt-16 custom-scrollable bg-tertiary/85">
     <div class="pt-16 text-center">
         <div class="flex justify-center mx-auto">
             <img class="w-auto h-12 sm:h-14" src="/img/logo/Logo_only_wb.webp" alt="">
