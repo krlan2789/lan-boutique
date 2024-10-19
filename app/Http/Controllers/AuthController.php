@@ -33,14 +33,21 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $redirectUrl = '/login';
+        $statusMessage = 'Registration successfull!! Please login';
 
         $validated = $request->validate([
             'name' => 'required|min:1|max:255',
             // 'username' => 'required|min:6|max:64|unique:users',
             'email' => 'required|email:dns|unique:users,username',
             'password' => 'required|min:8|max:64',
+            'verifyPassword' => 'required|min:8|max:64',
             'isMale' => 'nullable'
         ]);
+
+        if ($validated['password'] != $validated['verifyPassword']) {
+            return redirect($redirectUrl);
+        }
 
         $validated['username'] = $validated['email'];
         $validated['password'] = Hash::make($validated['password']);
@@ -49,8 +56,6 @@ class AuthController extends Controller
         if (!isset($validated['isMale']) || $validated['isMale'] != true) $validated['isMale'] = false;
         else $validated['isMale'] = true;
 
-        $redirectUrl = '/login';
-        $statusMessage = 'Registration successfull!! Please login';
         try {
             User::create($validated);
         } catch (Exception $e) {

@@ -1,10 +1,11 @@
 {{-- Wide screen : Desktop, Laptop, Tablet (Landscape) --}}
-<nav class="absolute top-0 left-0 z-20 hidden w-full md:block bg-tertiary" x-data="{ isOpen: false }">
+<nav class="fixed top-0 left-0 z-20 hidden w-full md:block bg-tertiary border-b-[1px] border-primary/25"
+    x-data="{ isOpen: false }">
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="w-8 h-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                    <img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
                 </div>
                 <div class="hidden md:block">
                     <div class="flex items-baseline ml-10 space-x-4">
@@ -69,8 +70,8 @@
 {{-- Wide screen : Desktop, Laptop, Tablet (Landscape) --}}
 
 {{-- Small screen : Phone, Tablet (Potrait) --}}
-<nav class="absolute top-0 left-0 z-20 flex flex-col w-full md:hidden bg-tertiary" :class="{ 'h-screen': isOpen }"
-    x-data="{ isOpen: false }">
+<nav class="fixed top-0 left-0 z-20 flex flex-col w-full md:hidden bg-tertiary border-b-[1px] border-primary/25"
+    :class="{ 'h-screen': isOpen }" x-data="{ isOpen: false }">
 
     <div class="px-6 mx-0 max-w-7xl">
         <div class="flex items-center justify-between h-16">
