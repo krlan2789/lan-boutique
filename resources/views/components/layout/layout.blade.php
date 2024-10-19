@@ -27,6 +27,8 @@
         @endisset
 
         {{ $slot }}
+
+        <x-layout.footer></x-layout.footer>
     </div>
 
     @if (session()->has('status'))
