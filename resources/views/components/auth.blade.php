@@ -1,6 +1,6 @@
 <x-layout.layout>
     <div class="bg-tertiary dark:bg-dark">
-        <div class="flex justify-center h-screen">
+        <div class="flex justify-center h-auto min-h-screen">
             <div class="hidden bg-cover md:w-1/2 md:block lg:w-2/3"
                 style="background-image: url(/img/beautiful-casual-woman-fashion-set.jpg)">
                 <div
@@ -19,7 +19,8 @@
                 </div>
             </div>
 
-            <div class="flex items-center w-full h-full max-w-md pt-16 mx-auto :w-1/2 lg:w-2/6">
+            <div class="flex items-center w-full h-full min-h-screen md:max-w-md md:mx-auto md:w-1/2 lg:w-2/6"
+                id="content-auth-page">
                 @if (request()->is('register'))
                     <x-register></x-register>
                 @else
@@ -29,3 +30,16 @@
         </div>
     </div>
 </x-layout.layout>
+
+<style scoped>
+    #content-auth-page {
+        background-image: url(/img/beautiful-casual-woman-fashion-set.jpg);
+        background-size: cover;
+    }
+
+    @media (min-width: 768px) {
+        #content-auth-page {
+            background-image: none;
+        }
+    }
+</style>

@@ -21,12 +21,12 @@ Route::get('/blog', function () {
 });
 
 // Policy
-Route::get('/term_of_use', function () {
+Route::get('/term-of-use', function () {
     return view('components.term-of-use', [
         'head_title' => env('APP_NAME') . ' | Term of Use',
     ]);
 });
-Route::get('/privacy_policy', function () {
+Route::get('/privacy-policy', function () {
     return view('components.privacy-policy', [
         'head_title' => env('APP_NAME') . ' | Privacy Policy',
     ]);
@@ -44,4 +44,6 @@ Route::post('/register', [AuthController::class, 'register']);
 
 // Route::post('/logout', [AuthController::class, 'logout']);
 
-// Route::redirect('/user', '/login')->middleware('guest');
+Route::fallback(function () {
+    return redirect('/');
+});

@@ -1,4 +1,4 @@
-<div class="flex-1 h-full px-6 custom-scrollable">
+<div class="flex-1 h-auto min-h-screen px-6 pt-16 custom-scrollable bg-tertiary/80">
     <div class="pt-16 text-center">
         <div class="flex justify-center mx-auto">
             <img class="w-auto h-12 sm:h-14" src="/img/logo/Logo_only_wb.webp" alt="">
@@ -79,8 +79,8 @@
             </div>
 
             <div class="mt-4">
-                <p class="text-xs text-center">By clicking 'Register' button, you agree to our <a href="/term_of_use"
-                        class="simple-link" target="_blank">Term of Use</a> and <a href="/privacy_policy"
+                <p class="text-xs text-center">By clicking 'Register' button, you agree to our <a href="/term-of-use"
+                        class="simple-link" target="_blank">Term of Use</a> and <a href="/privacy-policy"
                         class="simple-link" target="_blank">Privacy Policy</a>.</p>
             </div>
 

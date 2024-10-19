@@ -1,5 +1,5 @@
-<div class="flex-1 px-6 custom-scrollable">
-    <div class="pt-16 text-center">
+<div class="flex flex-col justify-center flex-1 min-h-screen px-6 pt-16 align-middle custom-scrollable bg-tertiary/80">
+    <div class="w-full pt-16 text-center">
         <div class="flex justify-center mx-auto">
             <img class="w-auto h-12 sm:h-14" src="/img/logo/Logo_only_wb.webp" alt="">
         </div>
@@ -7,7 +7,7 @@
         <p class="mt-8 text-primary dark:text-quaternary">Login to access your account</p>
     </div>
 
-    <div class="pt-6 pb-16">
+    <div class="w-full pt-6 pb-16">
         <form action="/login" method="POST">
             @csrf
             <div>
