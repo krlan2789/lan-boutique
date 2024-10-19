@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        font-family: "Quicksand", sans-serif;
+        @apply select-none;
+    }
+}
+
+@layer components {
+    .brand-name {
+        font-family: "EB Garamond", serif;
+    }
+
+    .navbar-link {
+        @apply text-sm font-medium text-primary hover:bg-primary hover:text-tertiary focus:text-primary;
+    }
+
+    .navbar-link.active {
+        @apply text-sm font-medium text-tertiary bg-primary focus:text-primary;
+    }
+
+    .navbar-link.mobile {
+        @apply block text-base font-medium text-primary hover:bg-tertiary hover:text-tertiary focus:text-primary;
+    }
+
+    .navbar-link.mobile.active {
+        @apply block text-base font-medium text-tertiary bg-primary focus:text-primary;
+    }
+
+    .simple-link {
+        @apply text-primary focus:outline-none focus:underline hover:underline font-semibold;
+    }
+
+    .btn-main {
+        @apply px-4 py-2 tracking-wide transition-colors duration-300 transform bg-primary text-tertiary hover:bg-primary focus:outline-none focus:bg-primary focus:ring focus:ring-primary focus:ring-opacity-50 hover:bg-primary/90;
+    }
+
+    .input-main {
+        @apply block px-4 py-2 mt-2 placeholder-opacity-75 border text-primary placeholder-primary border-primary/25 bg-tertiary dark:placeholder-primary dark:bg-dark dark:text-quaternary dark:border-primary focus:border-primary dark:focus:border-primary focus:ring-primary focus:outline-none focus:ring focus:ring-opacity-25;
+    }
+
+    .toggle-switch {
+        @apply flex h-8 items-center gap-4 rounded-full bg-primary px-3 after:absolute after:left-1 after:h-6 after:w-[49%] after:rounded-full after:bg-tertiary/25 after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-focus:outline-none dark:border-quaternary dark:bg-quaternary text-sm text-tertiary;
+    }
+
+    .custom-scrollable {
+        @apply overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none];
+    }
+}
