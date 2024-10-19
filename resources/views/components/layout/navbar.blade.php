@@ -5,18 +5,23 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                    <a href="/"><img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology"></a>
                 </div>
                 <div class="hidden md:block">
                     <div class="flex items-baseline ml-10 space-x-4">
-                        <a href="/"
-                            class="px-3 py-2 navbar-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                        <a href="/about"
-                            class="px-3 py-2 navbar-link {{ request()->is('about') ? 'active' : '' }}">About</a>
-                        <a href="/contact"
-                            class="px-3 py-2 navbar-link {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
-                        <a href="/blog"
-                            class="px-3 py-2 navbar-link {{ request()->is('blog') ? 'active' : '' }}">Blog</a>
+                        <a href="/products/new-arrival"
+                            class="px-3 py-2 navbar-link {{ request()->is('products/new-arrival') ? 'active' : '' }}">New
+                            Arrival</a>
+                        <a href="/products/women"
+                            class="px-3 py-2 navbar-link {{ request()->is('products/women') ? 'active' : '' }}">Women</a>
+                        <a href="/products/men"
+                            class="px-3 py-2 navbar-link {{ request()->is('products/men') ? 'active' : '' }}">Men</a>
+                        <a href="/products/top"
+                            class="px-3 py-2 navbar-link {{ request()->is('products/top') ? 'active' : '' }}">Top</a>
+                        <a href="/products/bottom"
+                            class="px-3 py-2 navbar-link {{ request()->is('products/bottom') ? 'active' : '' }}">Bottom</a>
+                        <a href="/products/accessories"
+                            class="px-3 py-2 navbar-link {{ request()->is('products/accessories') ? 'active' : '' }}">Accessories</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +46,8 @@
                             </button>
                         </div>
 
-                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform"
+                        <div x-show="isOpen" @click.outside="isOpen = false"
+                            x-transition:enter="transition ease-out duration-300 transform"
                             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                             x-transition:leave="transition ease-in duration-75 transform"
                             x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
@@ -108,15 +114,24 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div x-show="isOpen" class="flex-1 shadow-md md:hidden" id="mobile-menu">
+    <div x-show="isOpen" x-transition:enter="transition ease-out origin-top duration-300 transform"
+        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95" class="flex-1 shadow-md md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="/" class="px-3 py-2 navbar-link mobile {{ request()->is('/') ? 'active' : '' }}">Home</a>
-            <a href="/about"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('about') ? 'active' : '' }}">About</a>
-            <a href="/contact"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
-            <a href="/blog"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('blog') ? 'active' : '' }}">Blog</a>
+            <a href="/products/new-arrival"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('products/new-arrival') ? 'active' : '' }}">New
+                Arrival</a>
+            <a href="/products/women"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('products/women') ? 'active' : '' }}">Women</a>
+            <a href="/products/men"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('products/men') ? 'active' : '' }}">Men</a>
+            <a href="/products/top"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('products/top') ? 'active' : '' }}">Top</a>
+            <a href="/products/bottom"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('products/bottom') ? 'active' : '' }}">Bottom</a>
+            <a href="/products/accessories"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('products/accessories') ? 'active' : '' }}">Accessories</a>
         </div>
         <div class="pt-6 pb-4 border-t border-opacity-50 border-primary">
             <div class="flex items-center px-5">
@@ -134,7 +149,7 @@
                 <a href="#" class="px-3 py-2 navbar-link mobile">Your
                     Profile</a>
                 <a href="#" class="px-3 py-2 navbar-link mobile">Settings</a>
-                <a href="#" class="px-3 py-2 navbar-link mobile">Logout</a>
+                <a href="/login" class="px-3 py-2 navbar-link mobile">Logout</a>
             </div>
         </div>
     </div>
