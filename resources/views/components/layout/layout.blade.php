@@ -19,7 +19,7 @@
 </head>
 
 <body class="h-full" x-data="{ isModalWindowShow: true }">
-    <div class="min-h-full">
+    <div class="h-auto">
         @isset($admin)
             <x-layout.sidebar></x-layout.sidebar>
         @else
