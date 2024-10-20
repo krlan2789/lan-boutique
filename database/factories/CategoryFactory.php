@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,10 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->randomElement(['Women', 'Men', 'Top', 'Bottom', 'Accessories']);
         return [
-            //
+            'name' => $name,
+            'code' => Str::slug($name),
         ];
     }
 }

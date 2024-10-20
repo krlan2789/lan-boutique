@@ -11,9 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([PrivilegeSeeder::class]);
-        $this->call([EmployeeSeeder::class, RoleSeeder::class]);
-        $this->call([AdminSeeder::class, UserSeeder::class, CategorySeeder::class]);
+        $this->call([PrivilegeSeeder::class, CategorySeeder::class]);
+        $this->call([EmployeeSeeder::class, RoleSeeder::class, ProductSeeder::class]);
+        $this->call([AdminSeeder::class, UserSeeder::class, ProductVariantSeeder::class]);
         // Admin::factory(10)->recycle([Employee::all()])->create();
     }
 }

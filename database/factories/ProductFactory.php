@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,18 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $colors = collect([]);
+        $count = rand(0, 6);
+        for ($a = 0; $a < $count; $a++) {
+            $c = fake()->safeHexColor();
+            if (!$colors->contains($c)) $colors->add($c);
+            else $a--;
+        }
+        $name = fake()->unique()->city();
         return [
-            //
+            'name' => $name,
+            'code' => Str::slug($name),
+            'colors' => $colors,
         ];
     }
 }

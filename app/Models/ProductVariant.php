@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class ProductVariant extends Model
 {
-    /** @use HasFactory<\Database\Factories\CategoryFactory> */
+    /** @use HasFactory<\Database\Factories\ProductVariantFactory> */
     use HasFactory;
 
     /**
@@ -18,7 +18,10 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
-        'code',
+        'price',
+        'images',
+        'description',
+        'product_id',
     ];
 
     /**
@@ -29,13 +32,13 @@ class Category extends Model
     protected function casts(): array
     {
         return [
+            'images' => 'array',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
     }
 
-    public function products(): BelongsToMany
-    {
-        return $this->belongsToMany(Product::class, 'product_categories', 'category_id', 'product_id');
+    public function product(): BelongsTo {
+        return $this->belongsTo(Product::class);
     }
 }

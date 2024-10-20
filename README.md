@@ -23,7 +23,7 @@
 |     | Name       | Type   |                                    |
 | --- | ---------- | ------ | ---------------------------------- |
 | PK  | **id**     | int    | Auto-increament                    |
-|     | name       | string | Length(256)                        |
+|     | name       | string | Length(255)                        |
 |     | photo      | string |                                    |
 |     | start_date | string | Length(10), 'yyyy-mm-dd'           |
 |     | end_date   | string | Length(10), 'yyyy-mm-dd', nullable |
@@ -47,7 +47,7 @@
 |     | Name        | Type   |                                   |
 | --- | ----------- | ------ | --------------------------------- |
 | PK  | **id**      | int    | Auto-increament                   |
-|     | name        | string | Length(256)                       |
+|     | name        | string | Length(255)                       |
 |     | username    | string | Length(64), unique                |
 |     | password    | string | Length(64)                        |
 | FK  | **role_id** | int    |                                   |
@@ -116,13 +116,16 @@
 
 ### 1.2.10. Table products
 
-|     | Name       | Type   |                                   |
-| --- | ---------- | ------ | --------------------------------- |
-| PK  | **id**     | int    | Auto-increament                   |
-|     | name       | string | Length(256)                       |
-|     | code       | string | Length(256), unique               |
-|     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
-|     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | Name       | Type     |                                   |
+| --- | ---------- | -------- | --------------------------------- |
+| PK  | **id**     | int      | Auto-increament                   |
+|     | name       | string   | Length(255)                       |
+|     | code       | string   | Length(255), unique               |
+|     | tags       | string[] | nullable                          |
+|     | colors     | string[] | nullable                          |
+|     | size       | string[] | nullable                          |
+|     | created_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | updated_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
 ### 1.2.11. Table product_categories
 
@@ -139,7 +142,8 @@
 |     | Name           | Type     |                                   |
 | --- | -------------- | -------- | --------------------------------- |
 | PK  | **id**         | int      | Auto-increament                   |
-|     | name           | string   | Length(256)                       |
+|     | name           | string   | Length(255)                       |
+|     | code           | string   | Length(255), unique               |
 |     | price          | long     |                                   |
 |     | images         | string[] | nullable                          |
 |     | description    | string   | nullable                          |
@@ -152,8 +156,8 @@
 |     | Name       | Type     |                                   |
 | --- | ---------- | -------- | --------------------------------- |
 | PK  | **id**     | int      | Auto-increament                   |
-|     | name       | string   | Length(256)                       |
-|     | code       | string   | Length(256), unique               |
+|     | name       | string   | Length(255)                       |
+|     | code       | string   | Length(255), unique               |
 |     | images     | string[] |                                   |
 |     | created_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |

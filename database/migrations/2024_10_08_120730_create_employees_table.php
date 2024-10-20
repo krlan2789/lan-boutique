@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 256);
+            $table->string('name', 255);
             $table->text('photo')->nullable();
             $table->string('phone_number', 16)->unique()->nullable();
             $table->timestamp('start_date');
