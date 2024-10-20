@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
+// const aspectRatio = require('@tailwindcss/aspect-ratio')
 
 export default {
     darkMode: 'class',
