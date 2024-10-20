@@ -9,19 +9,19 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="flex items-baseline ml-10 space-x-4">
-                        <a href="/products/new-arrival"
-                            class="px-3 py-2 navbar-link {{ request()->is('products/new-arrival') ? 'active' : '' }}">New
+                        <a href="/new-arrival"
+                            class="px-3 py-2 navbar-link {{ request()->is('new-arrival') ? 'active' : '' }}">New
                             Arrival</a>
-                        <a href="/products/women"
-                            class="px-3 py-2 navbar-link {{ request()->is('products/women') ? 'active' : '' }}">Women</a>
-                        <a href="/products/men"
-                            class="px-3 py-2 navbar-link {{ request()->is('products/men') ? 'active' : '' }}">Men</a>
-                        <a href="/products/top"
-                            class="px-3 py-2 navbar-link {{ request()->is('products/top') ? 'active' : '' }}">Top</a>
-                        <a href="/products/bottom"
-                            class="px-3 py-2 navbar-link {{ request()->is('products/bottom') ? 'active' : '' }}">Bottom</a>
-                        <a href="/products/accessories"
-                            class="px-3 py-2 navbar-link {{ request()->is('products/accessories') ? 'active' : '' }}">Accessories</a>
+                        <a href="/c/women"
+                            class="px-3 py-2 navbar-link {{ request()->is('c/women') ? 'active' : '' }}">Women</a>
+                        <a href="/c/men"
+                            class="px-3 py-2 navbar-link {{ request()->is('c/men') ? 'active' : '' }}">Men</a>
+                        <a href="/c/top"
+                            class="px-3 py-2 navbar-link {{ request()->is('c/top') ? 'active' : '' }}">Top</a>
+                        <a href="/c/bottom"
+                            class="px-3 py-2 navbar-link {{ request()->is('c/bottom') ? 'active' : '' }}">Bottom</a>
+                        <a href="/c/accessories"
+                            class="px-3 py-2 navbar-link {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a>
                     </div>
                 </div>
             </div>
@@ -119,19 +119,19 @@
         x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95" class="flex-1 shadow-md md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="/products/new-arrival"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('products/new-arrival') ? 'active' : '' }}">New
+            <a href="/new-arrival"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('new-arrival') ? 'active' : '' }}">New
                 Arrival</a>
-            <a href="/products/women"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('products/women') ? 'active' : '' }}">Women</a>
-            <a href="/products/men"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('products/men') ? 'active' : '' }}">Men</a>
-            <a href="/products/top"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('products/top') ? 'active' : '' }}">Top</a>
-            <a href="/products/bottom"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('products/bottom') ? 'active' : '' }}">Bottom</a>
-            <a href="/products/accessories"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('products/accessories') ? 'active' : '' }}">Accessories</a>
+            <a href="/c/women"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('c/women') ? 'active' : '' }}">Women</a>
+            <a href="/c/men"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('c/men') ? 'active' : '' }}">Men</a>
+            <a href="/c/top"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('c/top') ? 'active' : '' }}">Top</a>
+            <a href="/c/bottom"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('c/bottom') ? 'active' : '' }}">Bottom</a>
+            <a href="/c/accessories"
+                class="px-3 py-2 navbar-link mobile {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a>
         </div>
         <div class="pt-6 pb-4 border-t border-opacity-50 border-primary">
             <div class="flex items-center px-5">
