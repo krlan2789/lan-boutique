@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductVariantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -23,6 +24,8 @@ Route::get('/blog', function () {
 
 Route::get('/new-arrival', [CategoryController::class, 'latest']);
 Route::get('/c/{category:code}', [CategoryController::class, 'index']);
+
+Route::get('/pv/{productVariant:code}', [ProductVariantController::class, 'index']);
 
 // Policy
 Route::get('/term-of-use', function () {

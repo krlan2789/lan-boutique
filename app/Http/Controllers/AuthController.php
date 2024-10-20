@@ -37,7 +37,7 @@ class AuthController extends Controller
         $statusMessage = 'Registration successfull!! Please login';
 
         $validated = $request->validate([
-            'name' => 'required|min:1|max:255',
+            'name' => 'required|min:1|max:256',
             // 'username' => 'required|min:6|max:64|unique:users',
             'email' => 'required|email:dns|unique:users,username',
             'password' => 'required|min:8|max:64',

@@ -9,10 +9,25 @@ class CategoryController extends Controller
 {
     public function index(Category $category)
     {
+        $items = collect([]);
+        foreach ($category->products as $product) {
+            foreach ($product->variants as $variant) {
+                $items->add([
+                    "productId" => $product->id,
+                    "name" => $product->name,
+                    "variantId" => $variant->id,
+                    "variantName" => $variant->name,
+                    "price" => $variant->price,
+                    "desc" => $variant->description,
+                    "images" => $variant->images,
+                    "url" => "/pv/$variant->code",
+                ]);
+            }
+        }
+
         return view('components.layout.list-view', [
             'title' => $category->name,
-            'componentItem' => 'layout.card-item',
-            'items' => [],//$category->products(),
+            'items' => $items,
         ]);
     }
 

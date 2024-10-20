@@ -2,7 +2,6 @@
 
 namespace App\View\Components\Layout;
 
-use App\Models\Product;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -13,11 +12,13 @@ class CardItem extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $name,
-        public string $code,
+        public string $title,
+        public string $subtitle,
+        public string $url,
         public int $price = 0,
+        public string $imageUrl = '',
         public string $shortDesc = '',
-        public array $colors = [],
+        public array|null $colors = [],
     )
     {}
 
