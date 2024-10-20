@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([PrivilegeSeeder::class]);
         $this->call([EmployeeSeeder::class, RoleSeeder::class]);
-        $this->call([AdminSeeder::class, UserSeeder::class]);
+        $this->call([AdminSeeder::class, UserSeeder::class, CategorySeeder::class]);
         // Admin::factory(10)->recycle([Employee::all()])->create();
     }
 }
