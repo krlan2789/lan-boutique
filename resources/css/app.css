@@ -15,39 +15,39 @@
     }
 
     .navbar-link {
-        @apply text-sm font-medium text-primary hover:bg-primary hover:text-tertiary;
+        @apply min-w-max text-sm font-medium text-primary hover:bg-primary hover:text-tertiary;
     }
 
     .navbar-link.danger {
-        @apply text-sm font-semibold hover:bg-danger hover:text-tertiary text-danger;
+        @apply min-w-max text-sm font-semibold hover:bg-danger hover:text-tertiary text-danger;
     }
 
     .navbar-link.active {
-        @apply text-sm font-medium text-tertiary bg-primary;
+        @apply min-w-max text-sm font-medium text-tertiary bg-primary;
     }
 
     .navbar-link.active.danger {
-        @apply text-sm font-semibold text-tertiary bg-danger;
+        @apply min-w-max text-sm font-semibold text-tertiary bg-danger;
     }
 
     .navbar-link.mobile {
-        @apply block text-base font-medium text-primary hover:bg-primary hover:text-tertiary;
+        @apply min-w-max block text-base font-medium text-primary hover:bg-primary hover:text-tertiary;
     }
 
     .navbar-link.mobile.danger {
-        @apply block text-base font-semibold text-danger hover:bg-danger hover:text-tertiary;
+        @apply min-w-max block text-base font-semibold text-danger hover:bg-danger hover:text-tertiary;
     }
 
     .navbar-link.mobile.active {
-        @apply block text-base font-medium text-tertiary bg-primary;
+        @apply min-w-max block text-base font-medium text-tertiary bg-primary;
     }
 
     .navbar-link.mobile.active.danger {
-        @apply block text-base font-semibold text-tertiary bg-danger;
+        @apply min-w-max block text-base font-semibold text-tertiary bg-danger;
     }
 
     .simple-link {
-        @apply text-primary focus:outline-none focus:underline hover:underline font-semibold;
+        @apply min-w-max text-primary focus:outline-none focus:underline hover:underline font-semibold;
     }
 
     .btn-main {
