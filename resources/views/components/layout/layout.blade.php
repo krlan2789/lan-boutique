@@ -18,7 +18,7 @@
     <title>{{ $title ?? env('APP_NAME', 'Boutique') }}</title>
 </head>
 
-<body class="h-full">
+<body class="h-full" x-data="{ isLiveSearchShow: false }">
     <div class="h-auto">
         @isset($admin)
             <x-layout.sidebar></x-layout.sidebar>
@@ -35,6 +35,8 @@
         <x-layout.modal-dialog :title="'' . session('status.title')" :message="'' . session('status.message')" btnLabel="Okay"
             :autoShow="true"></x-layout.modal-dialog>
     @endif
+
+    <x-layout.loading></x-layout.loading>
 
     @vite('resources/js/app.js')
 </body>
