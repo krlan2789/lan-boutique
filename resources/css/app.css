@@ -12,6 +12,7 @@
 @layer components {
     .brand-name {
         font-family: "EB Garamond", serif;
+        @apply text-primary;
     }
 
     .navbar-link {
