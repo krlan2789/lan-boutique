@@ -3,20 +3,20 @@
     <div class="container px-6 py-12 mx-auto">
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div class="sm:col-span-2">
-                <h1 class="max-w-lg text-xl font-normal tracking-tight text-primary xl:text-2xl dark:text-tertiary">
+                <h1 class="max-w-lg text-xl font-normal tracking-tight text-dark xl:text-2xl dark:text-tertiary">
                     Subscribe our newsletter to get update.</h1>
 
                 <div class="flex flex-col mx-auto mt-6 md:flex-row">
                     <input id="email" type="email" class="md:w-full md:max-w-[300px] input-main"
                         placeholder="example@example.com">
 
-                    <button class="mt-2 md:ml-1 btn-main">Subscribe</button>
+                    <button class="md:ml-1 btn-main">Subscribe</button>
                 </div>
             </div>
 
             <div>
-                <p class="text-xl font-normal text-primary dark:text-tertiary">Our Information</p>
-                <div class="mt-2 border-b-[2px] border-primary/50"></div>
+                <p class="text-xl font-normal text-dark dark:text-tertiary">Our Information</p>
+                <div class="mt-2 border-b-[2px] border-dark/50"></div>
                 <div class="flex flex-col items-start mt-4 space-y-2">
                     <a href="/about" class="simple-link">About Us</a>
                     <a href="/contact" class="simple-link">Contact Us</a>
@@ -27,8 +27,8 @@
             </div>
 
             <div>
-                <p class="text-xl font-normal text-primary dark:text-tertiary">Explore</p>
-                <div class="mt-2 border-b-[2px] border-primary/50"></div>
+                <p class="text-xl font-normal text-dark dark:text-tertiary">Explore</p>
+                <div class="mt-2 border-b-[2px] border-dark/50"></div>
                 <div class="flex flex-col items-start mt-4 space-y-2">
                     <a href="/our-philosophy" class="simple-link">Our Philosophy</a>
                     <a href="/retail" class="simple-link">Retail</a>
@@ -37,15 +37,17 @@
             </div>
         </div>
 
-        <hr class="my-8 border-quaternary md:my-12 dark:border-primary">
+        <hr class="my-8 border-quaternary md:my-12 dark:border-dark">
 
         <div class="flex flex-col items-center justify-between gap-6 md:gap-2 md:flex-row">
             <a href="/" class="flex flex-row gap-2 align-middle brand-name">
-                <img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                <img class="size-8" src="/img/logo/Logo_only.webp" alt="LAN Technology">
                 <span class="text-2xl">{{ env('APP_NAME') }}</span>
             </a>
 
-            <span class="pt-1 text-xs">© 2024 | <span class="font-semibold">{{ env('APP_NAME') }}</span>. All rights
+            <span class="pt-1 text-xs text-dark">© 2024 | <span
+                    class="font-semibold text-primary">{{ env('APP_NAME') }}</span>. All
+                rights
                 reserved.</span>
 
             <div class="flex -mx-2">

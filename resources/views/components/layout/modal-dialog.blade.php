@@ -15,8 +15,8 @@
                     </div>
                 </div>
             </div>
-            <h3 class="my-4 text-3xl font-semibold text-center text-primary">{{ $title }}</h3>
-            <p class="w-auto max-w-4xl font-normal text-center min-w-max text-primary">{{ $message }}</p>
+            <h3 class="my-4 text-3xl font-semibold text-center text-dark">{{ $title }}</h3>
+            <p class="w-auto max-w-4xl font-normal text-center min-w-max text-dark">{{ $message }}</p>
             <button @click="isModalWindowShow = false"
                 class="block px-6 py-3 mx-auto mt-10 text-base font-medium text-center border-4 border-transparent text-tertiary bg-primary outline-8 hover:outline hover:duration-300">{{ $btnLabel }}</button>
         </div>

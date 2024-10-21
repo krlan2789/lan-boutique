@@ -33,7 +33,7 @@
             {!! dd($price) !!} --}}
 
             @if ($price > 0)
-                <p class="text-lg font-medium text-center text-primary">Rp
+                <p class="text-lg font-medium text-center text-dark">Rp
                     {{ Number::format(intval($price), locale: 'idr') }}
                 </p>
             @endif

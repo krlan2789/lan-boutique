@@ -57,9 +57,9 @@ plugins: [
                 <div @click.outside="isMobileFilterOpen = false"
                     class="relative flex flex-col w-full h-full max-w-xs py-4 pb-12 ml-auto overflow-y-auto shadow-xl bg-tertiary">
                     <div class="flex items-center justify-between px-4">
-                        <h2 class="text-lg font-medium text-primary">Filters</h2>
+                        <h2 class="text-lg font-medium text-dark">Filters</h2>
                         <button type="button" @click="isMobileFilterOpen = false"
-                            class="flex items-center justify-center w-10 h-10 p-2 -mr-2 rounded-md text-primary/40 bg-tertiary">
+                            class="flex items-center justify-center w-10 h-10 p-2 -mr-2 rounded-md text-dark/40 bg-tertiary">
                             <span class="sr-only">Close menu</span>
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" aria-hidden="true" data-slot="icon">
@@ -72,7 +72,7 @@ plugins: [
                     <form class="mt-4 border-t border-quaternary">
                         {{-- Filter : Category --}}
                         <h3 class="sr-only">Categories</h3>
-                        <ul role="list" class="px-2 py-3 font-medium text-primary">
+                        <ul role="list" class="px-2 py-3 font-medium text-dark">
                             <li>
                                 <a href="#" class="block px-2 py-3">Totes</a>
                             </li>
@@ -96,9 +96,9 @@ plugins: [
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
                                 <button type="button"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-primary/40 bg-tertiary hover:text-primary/50"
+                                    class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-mobile-1" aria-expanded="false">
-                                    <span class="font-medium text-primary">Category</span>
+                                    <span class="font-medium text-dark">Category</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
@@ -129,35 +129,35 @@ plugins: [
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-category-0"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">New Arrivals</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">New Arrivals</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-category-1" name="category[]" value="sale"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-category-1"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Sale</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Sale</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-category-2" name="category[]" value="travel"
                                             type="checkbox" checked
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-category-2"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Travel</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Travel</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-category-3" name="category[]" value="organization"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-category-3"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Organization</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Organization</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-category-4" name="category[]" value="accessories"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-category-4"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Accessories</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Accessories</label>
                                     </div>
                                 </div>
                             </div>
@@ -170,9 +170,9 @@ plugins: [
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
                                 <button type="button"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-primary/40 bg-tertiary hover:text-primary/50"
+                                    class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-mobile-2" aria-expanded="false">
-                                    <span class="font-medium text-primary">Size</span>
+                                    <span class="font-medium text-dark">Size</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
@@ -203,42 +203,42 @@ plugins: [
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-size-0"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">2L</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">2L</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-size-1" name="size[]" value="6l"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-size-1"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">6L</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">6L</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-size-2" name="size[]" value="12l"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-size-2"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">12L</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">12L</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-size-3" name="size[]" value="18l"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-size-3"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">18L</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">18L</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-size-4" name="size[]" value="20l"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-size-4"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">20L</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">20L</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-size-5" name="size[]" value="40l"
                                             type="checkbox" checked
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-size-5"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">40L</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">40L</label>
                                     </div>
                                 </div>
                             </div>
@@ -251,9 +251,9 @@ plugins: [
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
                                 <button type="button"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-primary/40 bg-tertiary hover:text-primary/50"
+                                    class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-mobile-0" aria-expanded="false">
-                                    <span class="font-medium text-primary">Color</span>
+                                    <span class="font-medium text-dark">Color</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
@@ -284,42 +284,42 @@ plugins: [
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-color-0"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">White</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">White</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-1" name="color[]" value="beige"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-color-1"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Beige</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Beige</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-2" name="color[]" value="blue"
                                             type="checkbox" checked
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-color-2"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Blue</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Blue</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-3" name="color[]" value="brown"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-color-3"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Brown</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Brown</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-4" name="color[]" value="green"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-color-4"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Green</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Green</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-5" name="color[]" value="purple"
                                             type="checkbox"
                                             class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
                                         <label for="filter-mobile-color-5"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Purple</label>
+                                            class="flex-1 min-w-0 ml-3 text-dark/50">Purple</label>
                                     </div>
                                 </div>
                             </div>
@@ -334,12 +334,12 @@ plugins: [
 
         <main class="mx-auto">
             <div class="flex items-baseline justify-between pb-6 border-b border-quaternary">
-                <div class="flex flex-col gap-2 text-primary">
+                <div class="flex flex-col gap-2 text-dark">
                     <h2 class="flex flex-row gap-2 text-2xl tracking-tight md:text-3xl">
                         <span class="hidden sm:block">Category:</span><strong>{{ $title }}</strong>
                     </h2>
                     @if ($items && count($items) > 0)
-                        <p class="text-sm text-primary/50">{{ count($items) }} products found</p>
+                        <p class="text-sm text-dark/50">{{ count($items) }} products found</p>
                     @endif
                 </div>
 
@@ -347,10 +347,10 @@ plugins: [
                     <div class="relative inline-block text-left" x-data="{ isSortOptionsOpen: false }">
                         <div>
                             <button type="button" @click="isSortOptionsOpen = !isSortOptionsOpen"
-                                class="inline-flex justify-center text-sm font-medium text-primary group hover:text-primary/80"
+                                class="inline-flex justify-center text-sm font-medium text-dark group hover:text-dark/80"
                                 id="menu-button" aria-expanded="false" aria-haspopup="true">
                                 Sort
-                                <svg class="flex-shrink-0 w-5 h-5 ml-1 -mr-1 text-primary/40 group-hover:text-primary/50"
+                                <svg class="flex-shrink-0 w-5 h-5 ml-1 -mr-1 text-dark/70 group-hover:text-dark/60"
                                     viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fill-rule="evenodd"
                                         d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
@@ -384,24 +384,24 @@ plugins: [
                                 {{--
                                     Active: "bg-gray-100", Not Active: ""
 
-                                    Selected: "font-medium text-primary", Not Selected: "text-primary/50"
+                                    Selected: "font-medium text-dark", Not Selected: "text-dark/50"
                                 --}}
 
-                                <a href="#" class="block px-4 py-2 text-sm font-medium text-primary"
+                                <a href="#" class="block px-4 py-2 text-sm font-medium text-dark"
                                     role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-primary/50" role="menuitem"
+                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
                                     tabindex="-1" id="menu-item-1">Best Rating</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-primary/50" role="menuitem"
+                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
                                     tabindex="-1" id="menu-item-2">Newest</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-primary/50" role="menuitem"
+                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
                                     tabindex="-1" id="menu-item-3">Price: Low to High</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-primary/50" role="menuitem"
+                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
                                     tabindex="-1" id="menu-item-4">Price: High to Low</a>
                             </div>
                         </div>
                     </div>
 
-                    {{-- <button type="button" class="p-2 ml-5 -m-2 text-primary/40 hover:text-primary/50 sm:ml-7">
+                    {{-- <button type="button" class="p-2 ml-5 -m-2 text-dark/40 hover:text-dark/50 sm:ml-7">
                         <span class="sr-only">View grid</span>
                         <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"
                             data-slot="icon">
@@ -411,13 +411,13 @@ plugins: [
                         </svg>
                     </button> --}}
                     <button type="button" @click="isMobileFilterOpen = !isMobileFilterOpen"
-                        class="p-2 ml-4 -m-2 text-primary/40 hover:text-primary/50 sm:ml-6 lg:hidden">
+                        class="ml-4 text-dark/70 hover:text-dark/60 size-6 sm:ml-6 lg:hidden">
                         <span class="sr-only">Filters</span>
-                        <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"
-                            data-slot="icon">
-                            <path fill-rule="evenodd"
-                                d="M2.628 1.601C5.028 1.206 7.49 1 10 1s4.973.206 7.372.601a.75.75 0 0 1 .628.74v2.288a2.25 2.25 0 0 1-.659 1.59l-4.682 4.683a2.25 2.25 0 0 0-.659 1.59v3.037c0 .684-.31 1.33-.844 1.757l-1.937 1.55A.75.75 0 0 1 8 18.25v-5.757a2.25 2.25 0 0 0-.659-1.591L2.659 6.22A2.25 2.25 0 0 1 2 4.629V2.34a.75.75 0 0 1 .628-.74Z"
-                                clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                            viewBox="0 0 24 24"class="fill-current" style="transform: ;msFilter:;">
+                            <path
+                                d="M21 3H5a1 1 0 0 0-1 1v2.59c0 .523.213 1.037.583 1.407L10 13.414V21a1.001 1.001 0 0 0 1.447.895l4-2c.339-.17.553-.516.553-.895v-5.586l5.417-5.417c.37-.37.583-.884.583-1.407V4a1 1 0 0 0-1-1zm-6.707 9.293A.996.996 0 0 0 14 13v5.382l-2 1V13a.996.996 0 0 0-.293-.707L6 6.59V5h14.001l.002 1.583-5.71 5.71z">
+                            </path>
                         </svg>
                     </button>
                 </div>
@@ -432,7 +432,7 @@ plugins: [
                         {{-- Filter : Category --}}
                         <h3 class="sr-only">Categories</h3>
                         <ul role="list"
-                            class="pb-6 space-y-4 text-sm font-medium border-b text-primary border-quaternary">
+                            class="pb-6 space-y-4 text-sm font-medium border-b text-dark border-quaternary">
                             <li>
                                 <a href="#">Totes</a>
                             </li>
@@ -456,9 +456,9 @@ plugins: [
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
                                 <button type="button"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-primary/40 bg-tertiary hover:text-primary/50"
+                                    class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-1" aria-expanded="false">
-                                    <span class="font-medium text-primary">Category</span>
+                                    <span class="font-medium text-dark">Category</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
@@ -529,9 +529,9 @@ plugins: [
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
                                 <button type="button"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-primary/40 bg-tertiary hover:text-primary/50"
+                                    class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-2" aria-expanded="false">
-                                    <span class="font-medium text-primary">Size</span>
+                                    <span class="font-medium text-dark">Size</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
@@ -599,9 +599,9 @@ plugins: [
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
                                 <button type="button"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-primary/40 bg-tertiary hover:text-primary/50"
+                                    class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-0" aria-expanded="false">
-                                    <span class="font-medium text-primary">Color</span>
+                                    <span class="font-medium text-dark">Color</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
@@ -680,7 +680,7 @@ plugins: [
                             <!-- List products... -->
                         @else
                             <!-- No product... -->
-                            <div class="flex items-center justify-center flex-1 text-xl text-primary">
+                            <div class="flex items-center justify-center flex-1 text-xl text-dark">
                                 No products found
                             </div>
                             <!-- No product... -->

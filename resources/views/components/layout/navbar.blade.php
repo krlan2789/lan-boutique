@@ -6,7 +6,7 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <a href="/" class="flex flex-row gap-2">
-                        <img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                        <img class="size-8" src="/img/logo/Logo_only.webp" alt="LAN Technology">
                         <span class="text-xl leading-relaxed align-middle brand-name">{{ env('APP_NAME') }}</span>
                     </a>
                 </div>
@@ -119,7 +119,7 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <a href="/" class="flex flex-row gap-2">
-                        <img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                        <img class="size-8" src="/img/logo/Logo_only.webp" alt="LAN Technology">
                         <span class="text-xl leading-relaxed align-middle brand-name">{{ env('APP_NAME') }}</span>
                     </a>
                 </div>
