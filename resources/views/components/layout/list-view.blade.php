@@ -24,7 +24,7 @@
                 <!-- No product... -->
             @endif --}}
 
-            <x-layout.list-filter :$items></x-layout.list-filter>
+            <x-layout.list-filter :$items :$title></x-layout.list-filter>
         </div>
     </div>
 </x-layout.layout>

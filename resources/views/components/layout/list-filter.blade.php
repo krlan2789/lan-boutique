@@ -13,7 +13,7 @@ plugins: [
 ```
 --}}
 
-<div class="bg-tertiary">
+<div class="bg-tertiary" x-data="{ isMobileFilterOpen: false }">
     <div>
 
         {{--
@@ -35,9 +35,13 @@ plugins: [
                     To: "opacity-0"
             --}}
 
-            <div class="fixed inset-0 bg-opacity-25 bg-dark" aria-hidden="true"></div>
+            <div x-show="isMobileFilterOpen" class="fixed inset-0 bg-opacity-25 bg-dark" aria-hidden="true"></div>
 
-            <div class="fixed inset-0 z-40 flex">
+            <div class="fixed inset-0 z-40 flex" x-show="isMobileFilterOpen"
+                x-transition:enter="transition ease-in-out duration-300 transform"
+                x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+                x-transition:leave="transition ease-in-out duration-300 transform"
+                x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
 
                 {{--
                     Off-canvas menu, show/hide based on off-canvas menu state.
@@ -50,11 +54,11 @@ plugins: [
                         To: "translate-x-full"
                 --}}
 
-                <div
+                <div @click.outside="isMobileFilterOpen = false"
                     class="relative flex flex-col w-full h-full max-w-xs py-4 pb-12 ml-auto overflow-y-auto shadow-xl bg-tertiary">
                     <div class="flex items-center justify-between px-4">
                         <h2 class="text-lg font-medium text-primary">Filters</h2>
-                        <button type="button"
+                        <button type="button" @click="isMobileFilterOpen = false"
                             class="flex items-center justify-center w-10 h-10 p-2 -mr-2 rounded-md text-primary/40 bg-tertiary">
                             <span class="sr-only">Close menu</span>
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -66,6 +70,7 @@ plugins: [
 
                     <!-- Filters -->
                     <form class="mt-4 border-t border-quaternary">
+                        {{-- Filter : Category --}}
                         <h3 class="sr-only">Categories</h3>
                         <ul role="list" class="px-2 py-3 font-medium text-primary">
                             <li>
@@ -84,81 +89,9 @@ plugins: [
                                 <a href="#" class="block px-2 py-3">Laptop Sleeves</a>
                             </li>
                         </ul>
+                        {{-- Filter : Category --}}
 
-                        <div class="px-4 py-6 border-t border-quaternary">
-                            <h3 class="flow-root -mx-2 -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-primary/40 bg-tertiary hover:text-primary/50"
-                                    aria-controls="filter-section-mobile-0" aria-expanded="false">
-                                    <span class="font-medium text-primary">Color</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                                            data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
-
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                                            data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
-
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-mobile-0">
-                                <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-0"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">White</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-1" name="color[]" value="beige" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-1"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Beige</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-2" name="color[]" value="blue" type="checkbox"
-                                            checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-2"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Blue</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-3" name="color[]" value="brown" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-3"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Brown</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-4" name="color[]" value="green" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-4"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Green</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-5" name="color[]" value="purple"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-5"
-                                            class="flex-1 min-w-0 ml-3 text-primary/50">Purple</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        {{-- Filter : Tags --}}
                         <div class="px-4 py-6 border-t border-quaternary">
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
@@ -168,16 +101,16 @@ plugins: [
                                     <span class="font-medium text-primary">Category</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                                            data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                                            data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -230,6 +163,9 @@ plugins: [
                             </div>
                             <!-- Filter section, show/hide based on section state. -->
                         </div>
+                        {{-- Filter : Tags --}}
+
+                        {{-- Filter : Size --}}
                         <div class="px-4 py-6 border-t border-quaternary">
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
@@ -308,6 +244,88 @@ plugins: [
                             </div>
                             <!-- Filter section, show/hide based on section state. -->
                         </div>
+                        {{-- Filter : Size --}}
+
+                        {{-- Filter : Colors --}}
+                        <div class="px-4 py-6 border-t border-quaternary">
+                            <h3 class="flow-root -mx-2 -my-3">
+                                <!-- Expand/collapse section button -->
+                                <button type="button"
+                                    class="flex items-center justify-between w-full px-2 py-3 text-primary/40 bg-tertiary hover:text-primary/50"
+                                    aria-controls="filter-section-mobile-0" aria-expanded="false">
+                                    <span class="font-medium text-primary">Color</span>
+                                    <span class="flex items-center ml-6">
+                                        <!-- Expand icon, show/hide based on section open state. -->
+                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true" data-slot="icon">
+                                            <path
+                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                        </svg>
+                                        <!-- Expand icon, show/hide based on section open state. -->
+
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true" data-slot="icon">
+                                            <path fill-rule="evenodd"
+                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                    </span>
+                                </button>
+                                <!-- Expand/collapse section button -->
+                            </h3>
+
+                            <!-- Filter section, show/hide based on section state. -->
+                            <div class="pt-6" id="filter-section-mobile-0">
+                                <div class="space-y-6">
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-0" name="color[]" value="white"
+                                            type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-mobile-color-0"
+                                            class="flex-1 min-w-0 ml-3 text-primary/50">White</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-1" name="color[]" value="beige"
+                                            type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-mobile-color-1"
+                                            class="flex-1 min-w-0 ml-3 text-primary/50">Beige</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-2" name="color[]" value="blue"
+                                            type="checkbox" checked
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-mobile-color-2"
+                                            class="flex-1 min-w-0 ml-3 text-primary/50">Blue</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-3" name="color[]" value="brown"
+                                            type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-mobile-color-3"
+                                            class="flex-1 min-w-0 ml-3 text-primary/50">Brown</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-4" name="color[]" value="green"
+                                            type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-mobile-color-4"
+                                            class="flex-1 min-w-0 ml-3 text-primary/50">Green</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-5" name="color[]" value="purple"
+                                            type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-mobile-color-5"
+                                            class="flex-1 min-w-0 ml-3 text-primary/50">Purple</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Filter section, show/hide based on section state. -->
+                        </div>
+                        {{-- Filter : Colors --}}
                     </form>
                     <!-- Filters -->
                 </div>
@@ -316,10 +334,14 @@ plugins: [
 
         <main class="mx-auto">
             <div class="flex items-baseline justify-between pb-6 border-b border-quaternary">
-                <h1 class="text-4xl font-bold tracking-tight text-primary">New Arrivals</h1>
-                @if ($items && count($items) > 0)
-                    <p class="text-sm text-primary/50">{{ 'Products 1 of ' . count($items) }}</p>
-                @endif
+                <div class="flex flex-col gap-2 text-primary">
+                    <h2 class="flex flex-row gap-2 text-2xl tracking-tight md:text-3xl">
+                        <span class="hidden sm:block">Category:</span><strong>{{ $title }}</strong>
+                    </h2>
+                    @if ($items && count($items) > 0)
+                        <p class="text-sm text-primary/50">{{ 'Products 1 of ' . count($items) }}</p>
+                    @endif
+                </div>
 
                 <div class="flex items-center">
                     <div class="relative inline-block text-left" x-data="{ isSortOptionsOpen: false }">
@@ -336,7 +358,6 @@ plugins: [
                                 </svg>
                             </button>
                         </div>
-
 
                         {{--
                             Dropdown menu, show/hide based on menu state.
@@ -389,7 +410,7 @@ plugins: [
                                 clip-rule="evenodd" />
                         </svg>
                     </button> --}}
-                    <button type="button"
+                    <button type="button" @click="isMobileFilterOpen = !isMobileFilterOpen"
                         class="p-2 ml-4 -m-2 text-primary/40 hover:text-primary/50 sm:ml-6 lg:hidden">
                         <span class="sr-only">Filters</span>
                         <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"
@@ -408,6 +429,7 @@ plugins: [
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                     <!-- Filters -->
                     <form class="hidden lg:block">
+                        {{-- Filter : Category --}}
                         <h3 class="sr-only">Categories</h3>
                         <ul role="list"
                             class="pb-6 space-y-4 text-sm font-medium border-b text-primary border-quaternary">
@@ -427,74 +449,9 @@ plugins: [
                                 <a href="#">Laptop Sleeves</a>
                             </li>
                         </ul>
+                        {{-- Filter : Category --}}
 
-                        <div class="py-6 border-b border-quaternary">
-                            <h3 class="flow-root -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-primary/40 bg-tertiary hover:text-primary/50"
-                                    aria-controls="filter-section-0" aria-expanded="false">
-                                    <span class="font-medium text-primary">Color</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
-
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
-
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-0">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <input id="filter-color-0" name="color[]" value="white" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-0" class="ml-3 text-sm text-gray-600">White</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-1" name="color[]" value="beige" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Beige</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-2" name="color[]" value="blue" type="checkbox"
-                                            checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-2" class="ml-3 text-sm text-gray-600">Blue</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-3" name="color[]" value="brown" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-3" class="ml-3 text-sm text-gray-600">Brown</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-4" name="color[]" value="green" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-4" class="ml-3 text-sm text-gray-600">Green</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-5" name="color[]" value="purple" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-5" class="ml-3 text-sm text-gray-600">Purple</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        {{-- Filter : Tags --}}
                         <div class="py-6 border-b border-quaternary">
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
@@ -565,6 +522,9 @@ plugins: [
                             </div>
                             <!-- Filter section, show/hide based on section state. -->
                         </div>
+                        {{-- Filter : Tags --}}
+
+                        {{-- Filter : Size --}}
                         <div class="py-6 border-b border-quaternary">
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
@@ -632,6 +592,77 @@ plugins: [
                             </div>
                             <!-- Filter section, show/hide based on section state. -->
                         </div>
+                        {{-- Filter : Size --}}
+
+                        {{-- Filter : Colors --}}
+                        <div class="py-6 border-b border-quaternary">
+                            <h3 class="flow-root -my-3">
+                                <!-- Expand/collapse section button -->
+                                <button type="button"
+                                    class="flex items-center justify-between w-full py-3 text-sm text-primary/40 bg-tertiary hover:text-primary/50"
+                                    aria-controls="filter-section-0" aria-expanded="false">
+                                    <span class="font-medium text-primary">Color</span>
+                                    <span class="flex items-center ml-6">
+                                        <!-- Expand icon, show/hide based on section open state. -->
+                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true" data-slot="icon">
+                                            <path
+                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                        </svg>
+                                        <!-- Expand icon, show/hide based on section open state. -->
+
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true" data-slot="icon">
+                                            <path fill-rule="evenodd"
+                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                    </span>
+                                </button>
+                                <!-- Expand/collapse section button -->
+                            </h3>
+
+                            <!-- Filter section, show/hide based on section state. -->
+                            <div class="pt-6" id="filter-section-0">
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <input id="filter-color-0" name="color[]" value="white" type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-color-0" class="ml-3 text-sm text-gray-600">White</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-color-1" name="color[]" value="beige" type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Beige</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-color-2" name="color[]" value="blue" type="checkbox"
+                                            checked
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-color-2" class="ml-3 text-sm text-gray-600">Blue</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-color-3" name="color[]" value="brown" type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-color-3" class="ml-3 text-sm text-gray-600">Brown</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-color-4" name="color[]" value="green" type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-color-4" class="ml-3 text-sm text-gray-600">Green</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-color-5" name="color[]" value="purple" type="checkbox"
+                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                        <label for="filter-color-5" class="ml-3 text-sm text-gray-600">Purple</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Filter section, show/hide based on section state. -->
+                        </div>
+                        {{-- Filter : Colors --}}
                     </form>
                     <!-- Filters -->
 

@@ -22,7 +22,8 @@
             @if ($colors != null && count($colors) > 0)
                 <ul role="list" class="flex justify-center w-full gap-2 py-2">
                     @foreach ($colors as $color)
-                        <li class="rounded-full size-4" title="" style="background-color: {{ $color }};">
+                        <li class="rounded-full size-4 border-secondary border-[1px]" title=""
+                            style="background-color: {{ $color }};">
                         </li>
                     @endforeach
                 </ul>

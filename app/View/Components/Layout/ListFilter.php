@@ -13,6 +13,7 @@ class ListFilter extends Component
      * Create a new component instance.
      */
     public function __construct(
+        public string $title,
         public array|Collection|null $items,
     )
     {
