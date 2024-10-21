@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('code', 255)->unique();
             $table->jsonb('tags')->nullable();
+            $table->jsonb('colors')->nullable();
+            $table->jsonb('size')->nullable();
             $table->timestamps();
         });
     }
