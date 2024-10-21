@@ -18,9 +18,9 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $colors = collect([]);
-        $count = rand(0, 6);
+        $count = rand(0, 5);
         for ($a = 0; $a < $count; $a++) {
-            $c = fake()->safeHexColor();
+            $c = fake('en_US')->safeColorName();
             if (!$colors->contains($c)) $colors->add($c);
             else $a--;
         }
