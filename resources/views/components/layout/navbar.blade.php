@@ -1,7 +1,7 @@
 {{-- Wide screen : Desktop, Laptop, Tablet (Landscape) --}}
 <nav class="fixed top-0 left-0 z-20 hidden w-full md:block bg-tertiary border-b-[1px] border-primary/25"
-    x-data="{ isOpen: false }">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    x-data="{ isNavbarOpen: false }">
+    <div class="container mx-auto md:px-6">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
@@ -30,7 +30,7 @@
                     <!-- Profile dropdown -->
                     <div class="relative ml-3">
                         <div>
-                            <button type="button" @click="isOpen = !isOpen"
+                            <button type="button" @click="isNavbarOpen = !isNavbarOpen"
                                 class="relative flex items-center max-w-xs text-sm bg-primary focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-offset-2 focus:ring-offset-primary"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="absolute -inset-1.5"></span>
@@ -46,7 +46,7 @@
                             </button>
                         </div>
 
-                        <div x-show="isOpen" @click.outside="isOpen = false"
+                        <div x-show="isNavbarOpen" @click.outside="isNavbarOpen = false"
                             x-transition:enter="transition ease-out duration-300 transform"
                             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                             x-transition:leave="transition ease-in duration-75 transform"
@@ -77,7 +77,7 @@
 
 {{-- Small screen : Phone, Tablet (Potrait) --}}
 <nav class="fixed top-0 left-0 z-20 flex flex-col w-full md:hidden bg-tertiary border-b-[1px] border-primary/25"
-    :class="{ 'h-screen': isOpen }" x-data="{ isOpen: false }">
+    :class="{ 'h-screen': isNavbarOpen }" x-data="{ isNavbarOpen: false }">
 
     <div class="px-6 mx-0 max-w-7xl">
         <div class="flex items-center justify-between h-16">
@@ -89,22 +89,22 @@
 
             <!-- Mobile menu button -->
             <div class="flex -mr-3 md:hidden">
-                <button type="button" @click="isOpen = !isOpen"
+                <button type="button" @click="isNavbarOpen = !isNavbarOpen"
                     class="relative inline-flex items-center justify-center p-2 text-tertiary bg-primary hover:bg-tertiary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-primary"
                     aria-controls="mobile-menu" aria-expanded="false">
                     <span class="absolute -inset-0.5"></span>
                     <span class="sr-only">Open main menu</span>
                     <!-- Menu open: "hidden", Menu closed: "block" -->
-                    <svg :class="{ 'hidden': isOpen, 'block': !isOpen }" class="block w-6 h-6" fill="none"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                    <svg :class="{ 'hidden': isNavbarOpen, 'block': !isNavbarOpen }" class="block w-6 h-6"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
                         data-slot="icon">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                     <!-- Menu open: "block", Menu closed: "hidden" -->
-                    <svg :class="{ 'hidden': !isOpen, 'block': isOpen }" class="hidden w-6 h-6" fill="none"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
-                        data-slot="icon">
+                    <svg :class="{ 'hidden': !isNavbarOpen, 'block': isNavbarOpen }" class="hidden w-6 h-6"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        aria-hidden="true" data-slot="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </button>
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div x-show="isOpen" x-transition:enter="transition ease-out origin-top duration-300 transform"
+    <div x-show="isNavbarOpen" x-transition:enter="transition ease-out origin-top duration-300 transform"
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95" class="flex-1 shadow-md md:hidden" id="mobile-menu">
