@@ -34,7 +34,8 @@
     <div class="container flex flex-col items-center justify-start min-h-screen mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary"
         x-data="{ pvsResults: [], keywords: '' }" x-effect="pvsResults = await liveSearch(keywords)">
         <div class="relative w-full">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none top-2 size-12">
+            <span
+                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none top-2 size-12 text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" class="fill-current"
                     viewBox="0 0 24 24" style="transform: ;msFilter:;">
                     <path
