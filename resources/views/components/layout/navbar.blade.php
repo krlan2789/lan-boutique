@@ -98,16 +98,35 @@
 <nav class="fixed top-0 left-0 z-20 flex flex-col w-full md:hidden bg-tertiary border-b-[1px] border-primary/25"
     :class="{ 'h-screen': isNavbarOpen }" x-data="{ isNavbarOpen: false }">
 
-    <div class="px-6 mx-0 max-w-7xl">
+    <div class="px-3 mx-0 max-w-7xl">
         <div class="flex items-center justify-between h-16">
+            {{-- Button Show LiveSearch --}}
+            <div class="relative text-primary size-10">
+                <button @click="isLiveSearchShow = true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
+                        style="transform: ;msFilter:;">
+                        <path
+                            d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z">
+                        </path>
+                        <path
+                            d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            {{-- Button Show LiveSearch --}}
+
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="w-8 h-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                    <a href="/" class="flex flex-row gap-2">
+                        <img class="size-8" src="/img/logo/Logo_only_wb.webp" alt="LAN Technology">
+                        <span class="text-xl leading-relaxed align-middle brand-name">{{ env('APP_NAME') }}</span>
+                    </a>
                 </div>
             </div>
 
             <!-- Mobile menu button -->
-            <div class="flex -mr-3 md:hidden">
+            <div class="flex md:hidden">
                 <button type="button" @click="isNavbarOpen = !isNavbarOpen"
                     class="relative inline-flex items-center justify-center p-2 text-tertiary bg-primary hover:bg-tertiary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-primary"
                     aria-controls="mobile-menu" aria-expanded="false">
@@ -134,9 +153,10 @@
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-show="isNavbarOpen ?? false" x-transition:enter="transition ease-out origin-top duration-300 transform"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95" class="flex-1 shadow-md md:hidden" id="mobile-menu">
+        x-transition:enter-start="opacity-0 scale-y-95" x-transition:enter-end="opacity-100 scale-y-100"
+        x-transition:leave="transition ease-in duration-75 transform"
+        x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"
+        class="flex-1 shadow-md md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="/new-arrival"
                 class="px-3 py-2 navbar-link mobile {{ request()->is('new-arrival') ? 'active' : '' }}">New
