@@ -19,16 +19,14 @@
                 </h3>
             @endif
 
-            {{-- @if ($colors != null && count($colors) > 0) --}}
-            <ul role="list" class="flex justify-center w-full gap-2 py-2">
-                <li class="rounded-full size-4" title="" style="background-color: rgb(254, 243, 199);">
-                </li>
-                <li class="rounded-full size-4" style="background-color: rgb(31, 41, 55);">
-                </li>
-                <li class="rounded-full size-4" style="background-color: rgb(124, 45, 18);">
-                </li>
-            </ul>
-            {{-- @endif --}}
+            @if ($colors != null && count($colors) > 0)
+                <ul role="list" class="flex justify-center w-full gap-2 py-2">
+                    @foreach ($colors as $color)
+                        <li class="rounded-full size-4" title="" style="background-color: {{ $color }};">
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
 
             @if ($price != null && $price > 0)
                 <p class="text-lg font-medium text-center text-primary">Rp

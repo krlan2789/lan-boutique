@@ -15,6 +15,7 @@ class CategoryController extends Controller
                 $items->add([
                     "productId" => $product->id,
                     "name" => $product->name,
+                    "colors" => $product->colors,
                     "variantId" => $variant->id,
                     "variantName" => $variant->name,
                     "price" => $variant->price,

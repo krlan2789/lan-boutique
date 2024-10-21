@@ -16,7 +16,7 @@
                         <br>
                         <br> --}}
                         <x-layout.card-item :subtitle="$item['name']" :title="$item['variantName']" :price="0 + $item['price']" :url="$item['url']"
-                            :short-desc="Str::limit('' . $item['desc'], 32)"></x-layout.card-item>
+                            :colors="$item['colors']" :short-desc="Str::limit('' . $item['desc'], 32)"></x-layout.card-item>
                     @endforeach
                 </div>
                 <!-- List products... -->
