@@ -4,7 +4,7 @@
             alt="Front of men&#039;s Basic Tee in black."
             class="object-cover object-center w-full h-full lg:h-full lg:w-full">
     </div>
-    <div class="flex justify-between mt-4">
+    <div class="flex justify-between mt-2">
         <div class="flex flex-col w-full gap-1">
             @if ($subtitle != null && Str::length($subtitle) > 0)
                 <p class="text-sm font-medium text-center text-secondary">{{ $subtitle }}</p>
@@ -20,9 +20,9 @@
             @endif
 
             @if ($colors != null && gettype($colors) == 'array' && collect($colors)->count() > 0)
-                <ul role="list" class="flex justify-center w-full gap-2 py-2">
+                <ul role="list" class="flex justify-center w-full gap-2 py-1">
                     @foreach ($colors as $color)
-                        <li class="rounded-full size-4 border-secondary border-[1px]" title=""
+                        <li class="rounded-full size-4 border-dark/25 border-[1px]" title=""
                             style="background-color: {{ $color }};">
                         </li>
                     @endforeach

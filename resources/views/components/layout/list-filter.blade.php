@@ -13,7 +13,15 @@ plugins: [
 ```
 --}}
 
-<div class="bg-tertiary" x-data="{ isMobileFilterOpen: false }">
+<div class="bg-tertiary" x-data="{
+    isMobileFilterOpen: false,
+    isFilterTagsOpen: true,
+    isFilterSizeOpen: false,
+    isFilterColorsOpen: false,
+    isMobileFilterTagsOpen: true,
+    isMobileFilterSizeOpen: false,
+    isMobileFilterColorsOpen: false,
+}">
     <div>
 
         {{--
@@ -70,47 +78,26 @@ plugins: [
 
                     <!-- Filters -->
                     <form class="mt-4 border-t border-quaternary">
-                        {{-- Filter : Category --}}
-                        <h3 class="sr-only">Categories</h3>
-                        <ul role="list" class="px-2 py-3 font-medium text-dark">
-                            <li>
-                                <a href="#" class="block px-2 py-3">Totes</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Backpacks</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Travel Bags</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Hip Bags</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Laptop Sleeves</a>
-                            </li>
-                        </ul>
-                        {{-- Filter : Category --}}
-
                         {{-- Filter : Tags --}}
                         <div class="px-4 py-6 border-t border-quaternary">
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
-                                <button type="button"
+                                <button type="button" @click="isMobileFilterTagsOpen = !isMobileFilterTagsOpen"
                                     class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-mobile-1" aria-expanded="false">
                                     <span class="font-medium text-dark">Category</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                                            data-slot="icon">
+                                        <svg x-show="!isMobileFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                                            data-slot="icon">
+                                        <svg x-show="isMobileFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -122,7 +109,12 @@ plugins: [
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-mobile-1">
+                            <div x-show="isMobileFilterTagsOpen"
+                                x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                class="pt-6" id="filter-section-mobile-1">
                                 <div class="space-y-6">
                                     <div class="flex items-center">
                                         <input id="filter-mobile-category-0" name="category[]" value="new-arrivals"
@@ -169,22 +161,22 @@ plugins: [
                         <div class="px-4 py-6 border-t border-quaternary">
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
-                                <button type="button"
+                                <button type="button" @click="isMobileFilterSizeOpen = !isMobileFilterSizeOpen"
                                     class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-mobile-2" aria-expanded="false">
                                     <span class="font-medium text-dark">Size</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="!isMobileFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="isMobileFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -196,7 +188,12 @@ plugins: [
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-mobile-2">
+                            <div x-show="isMobileFilterSizeOpen"
+                                x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                class="pt-6" id="filter-section-mobile-2">
                                 <div class="space-y-6">
                                     <div class="flex items-center">
                                         <input id="filter-mobile-size-0" name="size[]" value="2l"
@@ -250,22 +247,22 @@ plugins: [
                         <div class="px-4 py-6 border-t border-quaternary">
                             <h3 class="flow-root -mx-2 -my-3">
                                 <!-- Expand/collapse section button -->
-                                <button type="button"
+                                <button type="button" @click="isMobileFilterColorsOpen = !isMobileFilterColorsOpen"
                                     class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-mobile-0" aria-expanded="false">
                                     <span class="font-medium text-dark">Color</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="!isMobileFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="isMobileFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -277,7 +274,12 @@ plugins: [
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-mobile-0">
+                            <div x-show="isMobileFilterColorsOpen"
+                                x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                class="pt-6" id="filter-section-mobile-0">
                                 <div class="space-y-6">
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-0" name="color[]" value="white"
@@ -426,51 +428,29 @@ plugins: [
             <section aria-labelledby="products-heading" class="pt-6 pb-24">
                 <h2 id="products-heading" class="sr-only">Products</h2>
 
-                <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
                     <!-- Filters -->
                     <form class="hidden lg:block">
-                        {{-- Filter : Category --}}
-                        <h3 class="sr-only">Categories</h3>
-                        <ul role="list"
-                            class="pb-6 space-y-4 text-sm font-medium border-b text-dark border-quaternary">
-                            <li>
-                                <a href="#">Totes</a>
-                            </li>
-                            <li>
-                                <a href="#">Backpacks</a>
-                            </li>
-                            <li>
-                                <a href="#">Travel Bags</a>
-                            </li>
-                            <li>
-                                <a href="#">Hip Bags</a>
-                            </li>
-                            <li>
-                                <a href="#">Laptop Sleeves</a>
-                            </li>
-                        </ul>
-                        {{-- Filter : Category --}}
-
                         {{-- Filter : Tags --}}
                         <div class="py-6 border-b border-quaternary">
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
-                                <button type="button"
+                                <button type="button" @click="isFilterTagsOpen = !isFilterTagsOpen"
                                     class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-1" aria-expanded="false">
                                     <span class="font-medium text-dark">Category</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="!isFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="isFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -482,7 +462,12 @@ plugins: [
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-1">
+                            <div x-show="isFilterTagsOpen"
+                                x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                class="pt-6" id="filter-section-1">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <input id="filter-category-0" name="category[]" value="new-arrivals"
@@ -528,22 +513,22 @@ plugins: [
                         <div class="py-6 border-b border-quaternary">
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
-                                <button type="button"
+                                <button type="button" @click="isFilterSizeOpen = !isFilterSizeOpen"
                                     class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-2" aria-expanded="false">
                                     <span class="font-medium text-dark">Size</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="!isFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="isFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -555,7 +540,12 @@ plugins: [
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-2">
+                            <div x-show="isFilterSizeOpen"
+                                x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                class="pt-6" id="filter-section-2">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <input id="filter-size-0" name="size[]" value="2l" type="checkbox"
@@ -598,22 +588,22 @@ plugins: [
                         <div class="py-6 border-b border-quaternary">
                             <h3 class="flow-root -my-3">
                                 <!-- Expand/collapse section button -->
-                                <button type="button"
+                                <button type="button" @click="isFilterColorsOpen = !isFilterColorsOpen"
                                     class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
                                     aria-controls="filter-section-0" aria-expanded="false">
                                     <span class="font-medium text-dark">Color</span>
                                     <span class="flex items-center ml-6">
                                         <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="!isFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                                         </svg>
                                         <!-- Expand icon, show/hide based on section open state. -->
 
                                         <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true" data-slot="icon">
+                                        <svg x-show="isFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" data-slot="icon">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
                                                 clip-rule="evenodd" />
@@ -625,7 +615,12 @@ plugins: [
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-0">
+                            <div x-show="isFilterColorsOpen"
+                                x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                class="pt-6" id="filter-section-0">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <input id="filter-color-0" name="color[]" value="white" type="checkbox"
@@ -667,7 +662,7 @@ plugins: [
                     <!-- Filters -->
 
                     <!-- Product grid -->
-                    <div class="lg:col-span-3">
+                    <div class="lg:col-span-4">
                         @if ($items && count($items) > 0)
                             <!-- List products... -->
                             <div
