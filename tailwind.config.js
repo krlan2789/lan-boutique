@@ -12,8 +12,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                secondary: "#181818", // Eerie Black
                 primary: "#79678F", // French Lilac
+                secondary: "#181818", // Eerie Black
                 tertiary: "#FFFFFF", // White
                 quaternary: "#F0F3FF", // Alice Blue
                 dark: "#020617", // Rich Black
