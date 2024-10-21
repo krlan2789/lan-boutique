@@ -31,7 +31,7 @@
     x-transition:leave="transition origin-top ease-in duration-75 transform"
     x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"
     class="fixed top-0 bottom-0 left-0 right-0 z-50 bg-dark/80">
-    <div class="container flex flex-col items-center justify-start min-h-screen mx-auto my-0 md:my-16 bg-tertiary"
+    <div class="container flex flex-col items-center justify-start min-h-screen mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary"
         x-data="{ pvsResults: [], keywords: '' }" x-effect="pvsResults = await liveSearch(keywords)">
         <div class="relative w-full">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none top-2 size-12">
@@ -46,7 +46,7 @@
                 </svg>
             </span>
             <input type="search" name="search" id="search" placeholder="Search" x-model="keywords"
-                class="w-full h-16 px-12 py-3 md:pl-16 md:pr-4 input-main" />
+                class="w-full h-16 px-16 py-3 md:pl-16 md:pr-4 input-main" />
         </div>
         <main class="grid flex-1 w-full custom-scrollable">
             <div x-show="pvsResults.length == 0" class="flex flex-1 mx-auto mt-16 text-xl text-primary">
