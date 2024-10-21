@@ -339,7 +339,7 @@ plugins: [
                         <span class="hidden sm:block">Category:</span><strong>{{ $title }}</strong>
                     </h2>
                     @if ($items && count($items) > 0)
-                        <p class="text-sm text-primary/50">{{ 'Products 1 of ' . count($items) }}</p>
+                        <p class="text-sm text-primary/50">{{ count($items) }} products found</p>
                     @endif
                 </div>
 
@@ -671,7 +671,7 @@ plugins: [
                         @if ($items && count($items) > 0)
                             <!-- List products... -->
                             <div
-                                class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                                class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 xl:gap-x-8">
                                 @foreach ($items as $item)
                                     <x-layout.card-item :subtitle="$item['name']" :title="$item['variantName']" :price="0 + $item['price']"
                                         :url="$item['url']" :colors="$item['colors']" :short-desc="Str::limit('' . $item['desc'], 32)"></x-layout.card-item>

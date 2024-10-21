@@ -18,7 +18,7 @@
     <title>{{ $title ?? env('APP_NAME', 'Boutique') }}</title>
 </head>
 
-<body class="h-full" x-data="{ isModalWindowShow: true }">
+<body class="h-full">
     <div class="h-auto">
         @isset($admin)
             <x-layout.sidebar></x-layout.sidebar>
@@ -32,31 +32,8 @@
     </div>
 
     @if (session()->has('status'))
-        <div x-show="isModalWindowShow" @click.outside="isModalWindowShow = false"
-            x-transition:enter="transition ease-out duration-300 transform"
-            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-75 transform"
-            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-            class="absolute top-0 bottom-0 left-0 right-0 z-50 bg-dark/40" id="modal-window">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="px-16 rounded-lg bg-tertiary py-14">
-                    <div class="flex justify-center">
-                        <div class="p-6 rounded-full bg-success/75">
-                            <div class="flex items-center justify-center w-16 h-16 p-4 rounded-full bg-success">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-tertiary">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="my-4 text-3xl font-semibold text-center text-primary">{{ session('status.title') }}</h3>
-                    <p class="w-[230px] text-center font-normal text-primary">{{ session('status.message') }}</p>
-                    <button @click="isModalWindowShow = false"
-                        class="block px-6 py-3 mx-auto mt-10 text-base font-medium text-center border-4 border-transparent text-tertiary bg-primary rounded-xl outline-8 hover:outline hover:duration-300">Okay</button>
-                </div>
-            </div>
-        </div>
+        <x-layout.modal-dialog :title="'' . session('status.title')" :message="'' . session('status.message')" btnLabel="Okay"
+            :autoShow="true"></x-layout.modal-dialog>
     @endif
 
     @vite('resources/js/app.js')
