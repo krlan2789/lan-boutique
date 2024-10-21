@@ -55,7 +55,7 @@
     }
 
     .input-main {
-        @apply block px-4 py-2 mt-2 placeholder-opacity-75 border text-primary placeholder-primary border-primary/25 bg-tertiary dark:placeholder-primary dark:bg-dark dark:text-quaternary dark:border-primary focus:border-primary dark:focus:border-primary focus:ring-primary focus:outline-none focus:ring focus:ring-opacity-25;
+        @apply block px-4 py-2 placeholder-opacity-75 border text-primary placeholder-primary border-primary/25 bg-tertiary dark:placeholder-primary dark:bg-dark dark:text-quaternary dark:border-primary focus:border-primary dark:focus:border-primary focus:ring-primary focus:outline-none focus:ring focus:ring-opacity-25;
     }
 
     .toggle-switch {

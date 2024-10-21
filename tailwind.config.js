@@ -23,6 +23,25 @@ export default {
             fontFamily: {
                 sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
             },
+            animation: {
+                bounce1: 'bounce1 1s infinite',
+                bounce2: 'bounce2 1s infinite 0.2s',
+                bounce3: 'bounce3 1s infinite 0.4s',
+            },
+            keyframes: {
+                bounce1: {
+                    '0%, 20%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-15px)' },
+                },
+                bounce2: {
+                    '0%, 20%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-15px)' },
+                },
+                bounce3: {
+                    '0%, 20%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-15px)' },
+                },
+            },
         },
     },
     plugins: [],

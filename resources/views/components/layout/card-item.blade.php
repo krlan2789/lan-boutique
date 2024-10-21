@@ -19,7 +19,7 @@
                 </h3>
             @endif
 
-            @if ($colors != null && count($colors) > 0)
+            @if ($colors != null && gettype($colors) == 'array' && collect($colors)->count() > 0)
                 <ul role="list" class="flex justify-center w-full gap-2 py-2">
                     @foreach ($colors as $color)
                         <li class="rounded-full size-4 border-secondary border-[1px]" title=""
@@ -29,9 +29,12 @@
                 </ul>
             @endif
 
-            @if ($price != null && $price > 0)
+            {{-- {!! gettype($price) . '::' !!}
+            {!! dd($price) !!} --}}
+
+            @if ($price > 0)
                 <p class="text-lg font-medium text-center text-primary">Rp
-                    {{ Number::format($price, locale: 'idr') }}
+                    {{ Number::format(intval($price), locale: 'idr') }}
                 </p>
             @endif
         </div>

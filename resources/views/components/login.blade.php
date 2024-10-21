@@ -16,14 +16,14 @@
             </div>
 
             <div class="mt-4">
-                <label for="email" class="block mb-2 text-sm text-primary dark:text-quaternary">Email
+                <label for="email" class="block mb-4 text-sm text-primary dark:text-quaternary">Email
                     Address</label>
                 <input type="email" name="email" id="email" placeholder="example@example.com"
                     class="w-full input-main" />
             </div>
 
             <div class="mt-6">
-                <div class="flex justify-between mb-2">
+                <div class="flex justify-between mb-4">
                     <label for="password" class="text-sm text-primary dark:text-quaternary">Password</label>
                     <a href="/forgot-password"
                         class="text-sm text-primary focus:text-primary hover:text-primary hover:underline">Forgot

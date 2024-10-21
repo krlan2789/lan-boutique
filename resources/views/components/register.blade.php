@@ -16,7 +16,7 @@
             </div>
 
             <div class="mt-4">
-                <label for="name" class="block mb-2 text-sm text-primary dark:text-quaternary">
+                <label for="name" class="block mb-4 text-sm text-primary dark:text-quaternary">
                     Your Name
                 </label>
                 <input type="name" name="name" id="name" placeholder="Your Name" class="w-full input-main"
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mt-4">
-                <label for="email" class="block mb-2 text-sm text-primary dark:text-quaternary">Gender</label>
+                <label for="email" class="block mb-4 text-sm text-primary dark:text-quaternary">Gender</label>
                 <label class="relative flex items-center w-full cursor-pointer">
                     <input type="checkbox" name="isMale" value="true" checked class="sr-only peer" />
                     <div class="w-full peer toggle-switch">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="mt-4">
-                <label for="email" class="block mb-2 text-sm text-primary dark:text-quaternary">Email
+                <label for="email" class="block mb-4 text-sm text-primary dark:text-quaternary">Email
                     Address</label>
                 <input type="email" name="email" id="email" placeholder="example@example.com"
                     value="{{ old('email') }}" class="w-full input-main" required />
@@ -53,10 +53,7 @@
             </div>
 
             <div class="mt-4">
-                <div class="flex justify-between mb-2">
-                    <label for="password" class="text-sm text-primary dark:text-quaternary">Password</label>
-                </div>
-
+                <label for="password" class="block mb-4 text-sm text-primary dark:text-quaternary">Password</label>
                 <input type="password" name="password" id="password" placeholder="Your Password"
                     class="w-full input-main" required x-model="password" />
                 @error('password')
@@ -65,11 +62,8 @@
             </div>
 
             <div class="mt-4">
-                <div class="flex justify-between mb-2">
-                    <label for="verify-password" class="text-sm text-primary dark:text-quaternary">Verify
-                        Password</label>
-                </div>
-
+                <label for="verify-password" class="block mb-4 text-sm text-primary dark:text-quaternary">Verify
+                    Password</label>
                 <input type="password" name="verifyPassword" id="verify-password" placeholder="Verify Password"
                     class="w-full input-main" required x-model="verifyPassword" />
 
