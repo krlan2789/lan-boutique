@@ -152,7 +152,7 @@
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
                                                 <input type="radio" name="color-choice" value="{{ $color }}"
                                                     class="sr-only peer">
-                                                <span aria-hidden="true"
+                                                <span
                                                     class="m-0.5 border rounded-full size-7 peer border-dark border-opacity-10 peer-checked:m-0 peer-checked:ring peer-checked:size-8 peer-checked:ring-primary peer-checked:ring-offset-1"
                                                     style="background-color: {{ $color }};"></span>
                                             </label>
@@ -164,116 +164,34 @@
                         <!-- Colors -->
 
                         <!-- Sizes -->
-                        <div class="mt-10">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-sm font-medium text-dark">Size</h3>
-                                <a href="#" class="text-sm font-medium text-primary hover:text-primary/80">Size
-                                    guide</a>
-                            </div>
-
-                            <fieldset aria-label="Choose a size" class="mt-4">
-                                <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border cursor-not-allowed text-quaternary group bg-tertiary hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="XXS" disabled
-                                            class="sr-only">
-                                        <span>XXS</span>
-                                        <span aria-hidden="true"
-                                            class="absolute border-2 pointer-events-none border-quaternary -inset-px">
-                                            <svg class="absolute inset-0 w-full h-full stroke-2 text-quaternary"
-                                                viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                                                <line x1="0" y1="100" x2="100" y2="0"
-                                                    vector-effect="non-scaling-stroke" />
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="XS" class="sr-only">
-                                        <span>XS</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px" aria-hidden="true"></span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="S" class="sr-only">
-                                        <span>S</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px"
-                                            aria-hidden="true"></span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="M" class="sr-only">
-                                        <span>M</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px"
-                                            aria-hidden="true"></span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="L" class="sr-only">
-                                        <span>L</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px"
-                                            aria-hidden="true"></span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="XL" class="sr-only">
-                                        <span>XL</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px"
-                                            aria-hidden="true"></span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="2XL" class="sr-only">
-                                        <span>2XL</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px"
-                                            aria-hidden="true"></span>
-                                    </label>
-                                    <!-- Active: "ring-2 ring-success/80" -->
-                                    <label
-                                        class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
-                                        <input type="radio" name="size-choice" value="3XL" class="sr-only">
-                                        <span>3XL</span>
-                                        <!--
-                                        Active: "border", Not Active: "border-2"
-                                        Checked: "border-success/80", Not Checked: "border-transparent"
-                                        -->
-                                        <span class="absolute pointer-events-none -inset-px"
-                                            aria-hidden="true"></span>
-                                    </label>
+                        @if (
+                            $data->product->size != null &&
+                                gettype($data->product->size) == 'array' &&
+                                collect($data->product->size)->count() > 0)
+                            <div class="mt-10">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-sm font-medium text-dark">Size</h3>
+                                    <a href="#"
+                                        class="text-sm font-medium text-primary hover:text-primary/80">Size
+                                        guide</a>
                                 </div>
-                            </fieldset>
-                        </div>
+
+                                <fieldset aria-label="Choose a size" class="mt-4">
+                                    <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                                        @foreach ($data->product->size as $s)
+                                            <label
+                                                class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
+                                                <input type="radio" name="size-choice" value="{{ $s }}"
+                                                    class="sr-only peer">
+                                                <span>{{ $s }}</span>
+                                                <span
+                                                    class="absolute pointer-events-none peer -inset-px peer-checked:ring peer-checked:ring-primary peer-checked:ring-offset-1"></span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </fieldset>
+                            </div>
+                        @endif
                         <!-- Sizes -->
 
                         <button type="submit"
