@@ -146,10 +146,22 @@
 |     | code           | string   | Length(255), unique               |
 |     | price          | long     |                                   |
 |     | images         | string[] | nullable                          |
-|     | description    | string   | nullable                          |
 | FK  | **product_id** | int      |                                   |
 |     | created_at     | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at     | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+
+### 1.2.12. Table product_detail
+
+|     | Name                   | Type     |                                   |
+| --- | ---------------------- | -------- | --------------------------------- |
+| PK  | **id**                 | int      | Auto-increament                   |
+|     | summary                | string   |                                   |
+|     | description            | string   | nullable                          |
+|     | highlights             | string[] | nullable                          |
+| FK  | **product_id**         | int      |                                   |
+| FK  | **product_variant_id** | int      |                                   |
+|     | created_at             | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | updated_at             | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
 ### 1.2.13. Table materials
 
@@ -164,13 +176,13 @@
 
 ### 1.2.14. Table product_materials
 
-|     | Name            | Type   |                                   |
-| --- | --------------- | ------ | --------------------------------- |
-| PK  | **id**          | int    | Auto-increament                   |
-| FK  | **product_id**  | int    |                                   |
-| FK  | **material_id** | int    |                                   |
-|     | created_at      | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
-|     | updated_at      | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | Name                   | Type   |                                   |
+| --- | ---------------------- | ------ | --------------------------------- |
+| PK  | **id**                 | int    | Auto-increament                   |
+| FK  | **product_variant_id** | int    |                                   |
+| FK  | **material_id**        | int    |                                   |
+|     | created_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | updated_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
 ### 1.2.15. Table orders
 

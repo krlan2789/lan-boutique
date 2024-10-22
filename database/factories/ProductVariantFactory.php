@@ -19,12 +19,13 @@ class ProductVariantFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->streetName();
+        $desc = rand(1, 9) % 2 == 0 ? null : fake()->sentence(rand(0, 40), false) ;
         return [
             'name' => $name,
             'code' => Str::slug($name),
             'price' => fake()->numberBetween(10, 200) * 1000,
-            'description' => fake()->sentence(rand(20, 40), false),
             'product_id' => Product::factory(),
+            // 'description' => $desc,
         ];
     }
 }

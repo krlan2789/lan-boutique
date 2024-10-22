@@ -9,10 +9,9 @@ class ProductVariantController extends Controller
 {
     public function index(ProductVariant $productVariant)
     {
-        return view('components.layout.list-view', [
+        return $this->show('components.product.overview', [
             'title' => $productVariant->name,
-            'componentItem' => 'layout.card-item',
-            'items' => $productVariant,
+            'data' => $productVariant,
         ]);
     }
 }

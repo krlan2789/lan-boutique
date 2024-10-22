@@ -20,7 +20,6 @@ class ProductVariant extends Model
         'name',
         'price',
         'images',
-        'description',
         'product_id',
     ];
 

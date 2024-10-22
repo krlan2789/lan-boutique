@@ -11,6 +11,9 @@ export default {
     ],
     theme: {
         extend: {
+            gridTemplateRows: {
+                '[auto,auto,1fr]': 'auto auto 1fr',
+            },
             colors: {
                 primary: "#79678F", // French Lilac
                 secondary: "#181818", // Eerie Black
@@ -19,6 +22,7 @@ export default {
                 dark: "#020617", // Rich Black
                 danger: "#C62E2E", // Persian Red
                 success: "#379777", // Illuminating Emerald
+                warning: "#FFDD00", // Golden Yellow
             },
             fontFamily: {
                 sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
