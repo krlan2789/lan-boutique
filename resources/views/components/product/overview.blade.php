@@ -35,17 +35,16 @@
                     </li>
                     <li>
                         <div class="flex items-center">
-                            <a href="#" class="mr-2 text-sm font-medium text-primary">Clothing</a>
+                            <a href="#"
+                                class="mr-2 text-sm font-medium text-primary">{{ $data->product->name }}</a>
                             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor"
                                 aria-hidden="true" class="w-4 h-5 text-dark/70">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                             </svg>
                         </div>
                     </li>
-
-                    <li class="text-sm">
-                        <a href="#" aria-current="page" class="font-medium text-dark/70 hover:text-dark">Basic
-                            Tee 6-Pack</a>
+                    <li class="text-sm font-bold text-dark/70">
+                        {{ $data->name }}
                     </li>
                 </ol>
             </nav>
