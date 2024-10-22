@@ -1,6 +1,8 @@
 <!-- component -->
 <footer class="bg-tertiary dark:bg-primary">
     <div class="container px-6 py-12 mx-auto">
+        <hr class="mb-8 border-dark/15 md:mb-12 dark:border-dark">
+
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div class="sm:col-span-2">
                 <h1 class="max-w-lg text-xl font-normal tracking-tight text-dark xl:text-2xl dark:text-tertiary">
@@ -20,7 +22,6 @@
                 <div class="flex flex-col items-start mt-4 space-y-2">
                     <a href="/about" class="simple-link">About Us</a>
                     <a href="/contact" class="simple-link">Contact Us</a>
-                    <a href="/blog" class="simple-link">Blog</a>
                     <a href="/privacy-policy" class="simple-link">Privacy Policy</a>
                     <a href="/term-of-use" class="simple-link">Term of Use</a>
                 </div>
@@ -32,12 +33,12 @@
                 <div class="flex flex-col items-start mt-4 space-y-2">
                     <a href="/our-philosophy" class="simple-link">Our Philosophy</a>
                     <a href="/retail" class="simple-link">Retail</a>
-                    <a href="/info-tech" class="simple-link">Information Technology</a>
+                    <a href="/blog" class="simple-link">Blog</a>
                 </div>
             </div>
         </div>
 
-        <hr class="my-8 border-quaternary md:my-12 dark:border-dark">
+        <hr class="my-8 border-dark/15 md:my-12 dark:border-dark">
 
         <div class="flex flex-col items-center justify-between gap-6 md:gap-2 md:flex-row">
             <a href="/" class="flex flex-row gap-2 align-middle brand-name">
