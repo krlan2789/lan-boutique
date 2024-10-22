@@ -12,7 +12,7 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="flex items-baseline ml-4 space-x-1 lg:ml-10 lg:space-x-4">
-                        <a href="/new-arrival"
+                        {{-- <a href="/new-arrival"
                             class="px-3 py-2 navbar-link {{ request()->is('new-arrival') ? 'active' : '' }}">New
                             Arrival</a>
                         <a href="/c/women"
@@ -24,7 +24,13 @@
                         <a href="/c/bottom"
                             class="px-3 py-2 navbar-link {{ request()->is('c/bottom') ? 'active' : '' }}">Bottom</a>
                         <a href="/c/accessories"
-                            class="px-3 py-2 navbar-link {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a>
+                            class="px-3 py-2 navbar-link {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a> --}}
+                        @foreach ($menu as $m)
+                            <a href="{{ $m['route'] }}"
+                                class="px-3 py-2 navbar-link {{ request()->is(Str::substr($m['route'], 1)) ? 'active' : '' }}">
+                                {{ $m['name'] }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -158,7 +164,7 @@
         x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"
         class="flex-1 shadow-md md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="/new-arrival"
+            {{-- <a href="/new-arrival"
                 class="px-3 py-2 navbar-link mobile {{ request()->is('new-arrival') ? 'active' : '' }}">New
                 Arrival</a>
             <a href="/c/women"
@@ -170,7 +176,13 @@
             <a href="/c/bottom"
                 class="px-3 py-2 navbar-link mobile {{ request()->is('c/bottom') ? 'active' : '' }}">Bottom</a>
             <a href="/c/accessories"
-                class="px-3 py-2 navbar-link mobile {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a>
+                class="px-3 py-2 navbar-link mobile {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a> --}}
+            @foreach ($menu as $m)
+                <a href="{{ $m['route'] }}"
+                    class="px-3 py-2 navbar-link mobile {{ request()->is(Str::substr($m['route'], 1)) ? 'active' : '' }}">
+                    {{ $m['name'] }}
+                </a>
+            @endforeach
         </div>
         <div class="pt-6 pb-4 border-t-2 border-dark/15">
             <div class="flex items-center px-5">

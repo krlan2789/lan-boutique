@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function index(Admin $admin)
     {
-        return $this->show('components.admin.dashboard', [
+        return view('components.admin.dashboard', [
             'title' => 'Dashboard Admin',
             'admin' => $admin,
         ]);

@@ -1,0 +1,40 @@
+{
+    "menu": [
+        {
+            "route": "/new-arrival",
+            "name": "New Arrival",
+            "styles": "",
+            "submenu": []
+        },
+        {
+            "route": "/c/women",
+            "name": "Women",
+            "styles": "",
+            "submenu": []
+        },
+        {
+            "route": "/c/men",
+            "name": "Men",
+            "styles": "",
+            "submenu": []
+        },
+        {
+            "route": "/c/top",
+            "name": "Top",
+            "styles": "",
+            "submenu": []
+        },
+        {
+            "route": "/c/bottom",
+            "name": "Bottom",
+            "styles": "",
+            "submenu": []
+        },
+        {
+            "route": "/c/accessories",
+            "name": "Accessories",
+            "styles": "",
+            "submenu": []
+        }
+    ]
+}

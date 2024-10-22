@@ -81,13 +81,13 @@
                     <h1 class="text-base italic font-medium tracking-tight text-dark/80 sm:text-lg">
                         {{ $data->product->name }}
                     </h1>
-                    <h1 class="text-2xl font-bold tracking-tight text-dark sm:text-3xl">{{ $data->name }}</h1>
+                    <h1 class="text-3xl font-semibold tracking-tight text-dark sm:text-4xl">{{ $data->name }}</h1>
                 </div>
 
                 <!-- Options -->
                 <div class="mt-4 lg:row-span-3 lg:mt-0">
                     <h2 class="sr-only">Product information</h2>
-                    <p class="text-3xl font-normal tracking-tight md:text-5xl text-dark">
+                    <p class="text-3xl font-normal tracking-tight md:text-4xl text-dark">
                         Rp {{ Number::format(intval($data->price), locale: 'idr') }}
                     </p>
 

@@ -24,7 +24,7 @@ class CategoryController extends Controller
             }
         }
 
-        return $this->show('components.layout.list-view', [
+        return view('components.layout.list-view', [
             'title' => $category->name,
             'items' => $items,
         ]);
@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
     public function latest()
     {
-        return $this->show('components.layout.list-view', [
+        return view('components.layout.list-view', [
             'title' => 'New Arrival',
             'componentItem' => 'layout.card-item',
             'items' => [],
