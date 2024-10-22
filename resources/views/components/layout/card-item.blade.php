@@ -7,7 +7,7 @@
     <div class="flex justify-between mt-2">
         <div class="flex flex-col w-full gap-1">
             @if ($subtitle != null && Str::length($subtitle) > 0)
-                <p class="text-sm font-medium text-center text-secondary">{{ $subtitle }}</p>
+                <p class="text-xs font-medium text-center text-secondary">{{ $subtitle }}</p>
             @endif
 
             @if ($title != null && Str::length($title) > 0)
@@ -33,8 +33,8 @@
             {!! dd($price) !!} --}}
 
             @if ($price > 0)
-                <p class="text-lg font-medium text-center text-dark">Rp
-                    {{ Number::format(intval($price), locale: 'idr') }}
+                <p class="text-lg font-medium text-center text-dark">
+                    Rp {{ Number::format(intval($price), locale: 'idr') }}
                 </p>
             @endif
         </div>

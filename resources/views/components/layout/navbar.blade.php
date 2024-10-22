@@ -1,5 +1,5 @@
 {{-- Wide screen : Desktop, Laptop, Tablet (Landscape) --}}
-<nav class="fixed top-0 left-0 z-20 hidden w-full md:block bg-tertiary border-b-[1px] border-primary/25"
+<nav class="fixed top-0 left-0 z-20 hidden w-full md:block bg-tertiary border-b-[1px] border-dark/15"
     x-data="{ isNavbarOpen: false }">
     <div class="container mx-auto md:px-6">
         <div class="flex items-center justify-between h-16">
@@ -95,7 +95,7 @@
 {{-- Wide screen : Desktop, Laptop, Tablet (Landscape) --}}
 
 {{-- Small screen : Phone, Tablet (Potrait) --}}
-<nav class="fixed top-0 left-0 z-20 flex flex-col w-full md:hidden bg-tertiary border-b-[1px] border-primary/25"
+<nav class="fixed top-0 left-0 z-20 flex flex-col w-full md:hidden bg-tertiary border-b-[1px] border-dark/15"
     :class="{ 'h-screen': isNavbarOpen }" x-data="{ isNavbarOpen: false }">
 
     <div class="px-3 mx-0 max-w-7xl">
@@ -172,7 +172,7 @@
             <a href="/c/accessories"
                 class="px-3 py-2 navbar-link mobile {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a>
         </div>
-        <div class="pt-6 pb-4 border-t border-opacity-50 border-primary">
+        <div class="pt-6 pb-4 border-t-2 border-dark/15">
             <div class="flex items-center px-5">
                 <div class="flex-shrink-0">
                     <img class="w-10 h-10"

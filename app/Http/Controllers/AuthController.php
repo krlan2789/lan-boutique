@@ -12,21 +12,21 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view('components.auth', [
+        return $this->show('components.auth', [
             'title' => 'Login'
         ]);
     }
 
     public function showRegister()
     {
-        return view('components.auth', [
+        return $this->show('components.auth', [
             'title' => 'Registration'
         ]);
     }
 
     public function login()
     {
-        return view('components.auth', [
+        return $this->show('components.auth', [
             'title' => 'Login'
         ]);
     }
