@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductDetail>
  */
-class ProductFactory extends Factory
+class ProductDetailFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -35,14 +36,23 @@ class ProductFactory extends Factory
             ['27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'],
         ]);
 
-        $name = fake()->unique()->city();
+        $highlights = fake()->words(rand(0, 10));
+        $tags = fake()->words(rand(1, 6));
+
+        $useProduct = rand(0, 20) % 2 == 0;
+        $detailableType = $useProduct ? Product::class : ProductVariant::class;
+        $allIds = $useProduct ? Product::pluck('id')->toArray() : ProductVariant::pluck('id')->toArray();
+        $detailableId = fake()->randomElement($allIds);
 
         return [
-            'name' => $name,
-            'code' => Str::slug($name),
-            // 'colors' => $colors,
-            // 'size' => $size,
-            // 'description' => fake()->sentence(rand(20, 40), false),
+            'summary' => fake()->sentence(10),
+            'description' => fake()->sentence(40),
+            'tags' => $tags,
+            'highlights' => $highlights,
+            'colors' => $colors,
+            'size' => $size,
+            'detailable_id' => $detailableId,
+            'detailable_type' => $detailableType,
         ];
     }
 }

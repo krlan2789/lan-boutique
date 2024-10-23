@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,9 +21,9 @@ class Product extends Model
     protected $fillable = [
         'name',
         'code',
-        'tags',
-        'colors',
-        'size',
+        // 'tags',
+        // 'colors',
+        // 'size',
     ];
 
     protected $with = [
@@ -39,9 +41,9 @@ class Product extends Model
         return [
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
-            'tags' => 'array',
-            'colors' => 'array',
-            'size' => 'array',
+            // 'tags' => 'array',
+            // 'colors' => 'array',
+            // 'size' => 'array',
         ];
     }
 
@@ -52,5 +54,10 @@ class Product extends Model
 
     public function variants(): HasMany {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function detail(): MorphOne
+    {
+        return $this->morphOne(ProductDetail::class, 'detailable')->chaperone();
     }
 }

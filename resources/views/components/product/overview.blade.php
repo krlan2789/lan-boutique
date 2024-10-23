@@ -137,15 +137,16 @@
                     <form class="mt-10">
                         <!-- Colors -->
                         @if (
-                            $data->product->colors != null &&
-                                gettype($data->product->colors) == 'array' &&
-                                collect($data->product->colors)->count() > 0)
+                            $data->product->detail &&
+                                $data->product->detail->colors != null &&
+                                gettype($data->product->detail->colors) == 'array' &&
+                                collect($data->product->detail->colors)->count() > 0)
                             <div>
                                 <h3 class="text-sm font-medium text-dark">Color</h3>
 
                                 <fieldset aria-label="Choose a color" class="mt-4">
                                     <div class="flex items-center space-x-2">
-                                        @foreach ($data->product->colors as $color)
+                                        @foreach ($data->product->detail->colors as $color)
                                             <!-- Active and Checked: "ring ring-offset-1" -->
                                             <label aria-label="White"
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
@@ -164,9 +165,10 @@
 
                         <!-- Sizes -->
                         @if (
-                            $data->product->size != null &&
-                                gettype($data->product->size) == 'array' &&
-                                collect($data->product->size)->count() > 0)
+                            $data->product->detail &&
+                                $data->product->detail->size != null &&
+                                gettype($data->product->detail->size) == 'array' &&
+                                collect($data->product->detail->size)->count() > 0)
                             <div class="mt-10">
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-sm font-medium text-dark">Size</h3>
@@ -177,7 +179,7 @@
 
                                 <fieldset aria-label="Choose a size" class="mt-4">
                                     <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                                        @foreach ($data->product->size as $s)
+                                        @foreach ($data->product->detail->size as $s)
                                             <label
                                                 class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
                                                 <input type="radio" name="size-choice" value="{{ $s }}"

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('code', 255)->unique();
             $table->unsignedBigInteger('price');
-            $table->jsonb('images')->nullable();
-            $table->text('description')->nullable();
+            // $table->jsonb('images')->nullable();
+            // $table->text('description')->nullable();
             $table->foreignId('product_id')->constrained(
                 table: "products",
                 indexName: "product_variants_product_id",

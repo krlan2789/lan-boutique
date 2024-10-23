@@ -14,11 +14,11 @@ class CategoryController extends Controller
             foreach ($product->variants as $variant) {
                 $items->add([
                     "name" => $product->name,
-                    "colors" => $product->colors,
+                    "colors" => $product->detail ? $product->detail->colors : [],
                     "variantId" => $variant->id,
                     "variantName" => $variant->name,
                     "price" => $variant->price,
-                    "images" => $variant->images,
+                    "images" => $variant->detail ? $variant->detail->images : [],
                     "url" => "/pv/$variant->code",
                 ]);
             }

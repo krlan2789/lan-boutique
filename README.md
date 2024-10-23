@@ -116,16 +116,13 @@
 
 ### 1.2.10. Table products
 
-|     | Name       | Type     |                                   |
-| --- | ---------- | -------- | --------------------------------- |
-| PK  | **id**     | int      | Auto-increament                   |
-|     | name       | string   | Length(255)                       |
-|     | code       | string   | Length(255), unique               |
-|     | tags       | string[] | nullable                          |
-|     | colors     | string[] | nullable                          |
-|     | size       | string[] | nullable                          |
-|     | created_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
-|     | updated_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | Name       | Type   |                                   |
+| --- | ---------- | ------ | --------------------------------- |
+| PK  | **id**     | int    | Auto-increament                   |
+|     | name       | string | Length(255)                       |
+|     | code       | string | Length(255), unique               |
+|     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
 ### 1.2.11. Table product_categories
 
@@ -139,16 +136,15 @@
 
 ### 1.2.12. Table product_variants
 
-|     | Name           | Type     |                                   |
-| --- | -------------- | -------- | --------------------------------- |
-| PK  | **id**         | int      | Auto-increament                   |
-|     | name           | string   | Length(255)                       |
-|     | code           | string   | Length(255), unique               |
-|     | price          | long     |                                   |
-|     | images         | string[] | nullable                          |
-| FK  | **product_id** | int      |                                   |
-|     | created_at     | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
-|     | updated_at     | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | Name           | Type   |                                   |
+| --- | -------------- | ------ | --------------------------------- |
+| PK  | **id**         | int    | Auto-increament                   |
+|     | name           | string | Length(255)                       |
+|     | code           | string | Length(255), unique               |
+|     | price          | long   |                                   |
+| FK  | **product_id** | int    |                                   |
+|     | created_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | updated_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
 ### 1.2.12. Table product_detail
 
@@ -157,7 +153,11 @@
 | PK  | **id**                 | int      | Auto-increament                   |
 |     | summary                | string   |                                   |
 |     | description            | string   | nullable                          |
+|     | tags                   | string[] | nullable                          |
+|     | images                 | string[] | nullable                          |
 |     | highlights             | string[] | nullable                          |
+|     | colors                 | string[] | nullable                          |
+|     | size                   | string[] | nullable                          |
 | FK  | **product_id**         | int      |                                   |
 | FK  | **product_variant_id** | int      |                                   |
 |     | created_at             | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class ProductVariant extends Model
 {
@@ -19,8 +20,8 @@ class ProductVariant extends Model
     protected $fillable = [
         'name',
         'price',
-        'images',
         'product_id',
+        // 'images',
     ];
 
     /**
@@ -31,7 +32,7 @@ class ProductVariant extends Model
     protected function casts(): array
     {
         return [
-            'images' => 'array',
+            // 'images' => 'array',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
@@ -39,5 +40,10 @@ class ProductVariant extends Model
 
     public function product(): BelongsTo {
         return $this->belongsTo(Product::class);
+    }
+
+    public function detail(): MorphOne
+    {
+        return $this->morphOne(ProductDetail::class, 'detailable')->chaperone();
     }
 }
