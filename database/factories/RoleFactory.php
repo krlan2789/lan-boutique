@@ -20,7 +20,7 @@ class RoleFactory extends Factory
         $name = fake()->unique()->jobTitle();
         return [
             'name' => $name,
-            'code' => Str::slug($name),
+            'slug' => Str::slug($name),
         ];
     }
 }

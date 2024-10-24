@@ -20,7 +20,7 @@ class Role extends Model
      */
     protected $fillable = [
         'name',
-        'code',
+        'slug',
     ];
 
     public function admins(): HasMany

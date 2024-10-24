@@ -14,7 +14,7 @@ class CategoryController extends Controller
             foreach ($product->variants as $variant) {
                 $items->add([
                     "name" => $product->name,
-                    "url" => "/pv/$variant->code",
+                    "url" => "/pv/$variant->slug",
                     "variantId" => $variant->id,
                     "variantName" => $variant->name,
                     "price" => $variant->price,

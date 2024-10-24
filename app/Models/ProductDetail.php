@@ -18,6 +18,7 @@ class ProductDetail extends Model
      */
     protected $fillable = [
         'summary',
+        'product_name',
         'description',
         'tags',
         'images',

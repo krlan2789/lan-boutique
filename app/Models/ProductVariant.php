@@ -20,6 +20,7 @@ class ProductVariant extends Model
     protected $fillable = [
         'name',
         'price',
+        'slug',
         'product_id',
         // 'images',
     ];

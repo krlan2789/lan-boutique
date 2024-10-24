@@ -45,8 +45,9 @@ class ProductDetailFactory extends Factory
         $detailableId = fake()->randomElement($allIds);
 
         return [
-            'summary' => fake()->sentence(10),
-            'description' => fake()->sentence(40),
+            'summary' => fake()->realText(128),
+            'product_code' => fake()->creditCardNumber(separator: ''),
+            'description' => fake()->realText(512),
             'tags' => $tags,
             'highlights' => $highlights,
             'colors' => $colors,

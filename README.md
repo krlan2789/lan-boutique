@@ -80,7 +80,7 @@
 | --- | ---------- | ------ | --------------------------------- |
 | PK  | **id**     | int    | Auto-increament                   |
 |     | name       | string | Length(128)                       |
-|     | code       | string | Length(128), unique               |
+|     | slug       | string | Length(128), unique               |
 |     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
@@ -90,7 +90,7 @@
 | --- | ---------- | ------ | --------------------------------- |
 | PK  | **id**     | int    | Auto-increament                   |
 |     | name       | string | Length(128)                       |
-|     | code       | string | Length(128), unique               |
+|     | slug       | string | Length(128), unique               |
 |     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
@@ -110,7 +110,7 @@
 | --- | ---------- | ------ | --------------------------------- |
 | PK  | **id**     | int    | Auto-increament                   |
 |     | name       | string | Length(128)                       |
-|     | code       | string | Length(128), unique               |
+|     | slug       | string | Length(128), unique               |
 |     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
@@ -120,7 +120,7 @@
 | --- | ---------- | ------ | --------------------------------- |
 | PK  | **id**     | int    | Auto-increament                   |
 |     | name       | string | Length(255)                       |
-|     | code       | string | Length(255), unique               |
+|     | slug       | string | Length(255), unique               |
 |     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
@@ -140,7 +140,7 @@
 | --- | -------------- | ------ | --------------------------------- |
 | PK  | **id**         | int    | Auto-increament                   |
 |     | name           | string | Length(255)                       |
-|     | code           | string | Length(255), unique               |
+|     | slug           | string | Length(255), unique               |
 |     | price          | long   |                                   |
 | FK  | **product_id** | int    |                                   |
 |     | created_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
@@ -152,6 +152,7 @@
 | --- | ---------------------- | -------- | --------------------------------- |
 | PK  | **id**                 | int      | Auto-increament                   |
 |     | summary                | string   |                                   |
+|     | product_code           | string   | nullable                          |
 |     | description            | string   | nullable                          |
 |     | tags                   | string[] | nullable                          |
 |     | images                 | string[] | nullable                          |
@@ -169,7 +170,7 @@
 | --- | ---------- | -------- | --------------------------------- |
 | PK  | **id**     | int      | Auto-increament                   |
 |     | name       | string   | Length(255)                       |
-|     | code       | string   | Length(255), unique               |
+|     | slug       | string   | Length(255), unique               |
 |     | images     | string[] |                                   |
 |     | created_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
@@ -226,7 +227,7 @@
 | --- | ------------ | ------ | --------------------------------- |
 | PK  | **id**       | int    | Auto-increament                   |
 |     | name         | string | Lengh(32)                         |
-|     | code         | string | Lengh(32), unique                 |
+|     | slug         | string | Lengh(32), unique                 |
 |     | is_available | int    |                                   |
 |     | created_at   | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at   | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
@@ -237,7 +238,7 @@
 | --- | ---------------------- | ------ | --------------------------------- |
 | PK  | **id**                 | int    | Auto-increament                   |
 |     | name                   | string | Lengh(32)                         |
-|     | code                   | string | Lengh(32), unique                 |
+|     | slug                   | string | Lengh(32), unique                 |
 |     | is_available           | int    |                                   |
 | FK  | **payment_service_id** | int    |                                   |
 |     | created_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
@@ -263,7 +264,7 @@
 | --- | ---------- | ------ | --------------------------------- |
 | PK  | **id**     | int    | Auto-increament                   |
 |     | name       | string | Length(128)                       |
-|     | code       | string | Length(128), unique               |
+|     | slug       | string | Length(128), unique               |
 |     | time_start | string | Length(8), 'HH:mm:ss'             |
 |     | time_end   | string | Length(8), 'HH:mm:ss'             |
 |     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |

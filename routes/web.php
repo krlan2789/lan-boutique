@@ -23,9 +23,9 @@ Route::get('/blog', function () {
 });
 
 Route::get('/new-arrival', [CategoryController::class, 'latest']);
-Route::get('/c/{category:code}', [CategoryController::class, 'index']);
+Route::get('/c/{category:slug}', [CategoryController::class, 'index']);
 
-Route::get('/pv/{productVariant:code}', [ProductVariantController::class, 'index']);
+Route::get('/pv/{productVariant:slug}', [ProductVariantController::class, 'index']);
 
 // Policy
 Route::get('/term-of-use', function () {

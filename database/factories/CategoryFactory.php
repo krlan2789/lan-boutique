@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
         $name = fake()->unique()->randomElement(['Women', 'Men', 'Top', 'Bottom', 'Accessories']);
         return [
             'name' => $name,
-            'code' => Str::slug($name),
+            'slug' => Str::slug($name),
         ];
     }
 }

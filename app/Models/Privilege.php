@@ -18,7 +18,7 @@ class Privilege extends Model
      */
     protected $fillable = [
         'name',
-        'code',
+        'slug',
     ];
 
     public function roles(): BelongsToMany

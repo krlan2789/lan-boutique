@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('privileges', function (Blueprint $table) {
             $table->id();
             $table->string('name', 128);
-            $table->string('code', 128)->unique();
+            $table->string('slug', 128)->unique();
             $table->timestamps();
         });
     }

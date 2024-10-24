@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('product_details', function (Blueprint $table) {
             $table->id();
             $table->text('summary');
+            $table->text('product_code')->nullable();
             $table->text('description')->nullable();
             $table->jsonb('tags')->nullable();
             $table->jsonb('images')->nullable();
