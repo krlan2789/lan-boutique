@@ -27,6 +27,13 @@ Route::get('/c/{category:slug}', [CategoryController::class, 'index']);
 
 Route::get('/pv/{productVariant:slug}', [ProductVariantController::class, 'index']);
 
+Route::get('/cart', function () {
+    return view('home');
+});
+Route::post('/cart', function () {
+    return redirect('/');
+});
+
 // Policy
 Route::get('/term-of-use', function () {
     return view('components.term-of-use', [

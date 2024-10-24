@@ -20,28 +20,28 @@
     ```
     -->
     <div class="bg-tertiary" x-data="{
-        @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) 'selectedColor' @endif: '',
-        @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) 'selectedSize' @endif: '',
+        @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor @endif: '',
+        @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize @endif: '',
     }">
-        <div class="container pt-24 mx-auto">
+        <div class="container pt-24 mx-auto max-w-7xl">
             <nav aria-label="Breadcrumb">
-                <ol role="list"
-                    class="flex items-center max-w-2xl px-4 mx-auto space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-                    <li>
+                <ol role="list" class="flex justify-start max-w-sm px-4 mx-0 space-x-2 sm:px-6 lg:max-w-2xl lg:px-8">
+                    {{-- <li>
                         <div class="flex items-center">
-                            <a href="#" class="mr-2 text-sm font-medium text-primary">Men</a>
+                            <a href="{{ $url_c }}"
+                                class="mr-2 text-sm font-medium text-primary">{{ $category->name }}</a>
                             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true"
                                 class="w-4 h-5 text-dark/70">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                             </svg>
                         </div>
-                    </li>
+                    </li> --}}
                     <li>
                         <div class="flex items-center">
-                            <a href="#"
+                            <a href="{{ $url_p }}"
                                 class="mr-2 text-sm font-medium text-primary">{{ $data->product->name }}</a>
-                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor"
-                                aria-hidden="true" class="w-4 h-5 text-dark/70">
+                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true"
+                                class="w-4 h-5 text-dark/70">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                             </svg>
                         </div>
@@ -229,7 +229,11 @@
                     </div> --}}
                     <!-- Reviews -->
 
-                    <form class="mt-0">
+                    <form action="/cart" method="POST" class="mt-0">
+                        @csrf
+
+                        <input hidden type="text" name="pv_slug" value="{{ $data->product->slug }}" />
+
                         <!-- Colors -->
                         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0)
                             <div>
@@ -245,7 +249,7 @@
                                             <label aria-label="White" id="{{ $index . '-' . $color }}"
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
                                                 <input type="radio" name="color-choice" value="{{ $color }}"
-                                                    x-model="{{ 'selectedColor' }} = {{ $color }}"
+                                                    x-model="{{ 'selectedColor' }} = '{{ $color }}'"
                                                     class="sr-only peer" {{ $index == 0 ? 'checked' : '' }}>
                                                 <span
                                                     class="m-0.5 border rounded-full size-7 peer border-dark border-opacity-10 peer-checked:m-0 peer-checked:ring peer-checked:size-8 peer-checked:ring-primary peer-checked:ring-offset-1"
@@ -274,6 +278,7 @@
                                             <label
                                                 class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
                                                 <input type="radio" name="size-choice" value="{{ $s }}"
+                                                    x-model="{{ 'selectedSize' }} = '{{ $s }}'"
                                                     class="sr-only peer">
                                                 <span>{{ $s }}</span>
                                                 <span
@@ -286,8 +291,8 @@
                         @endif
                         <!-- Sizes -->
 
-                        <button type="submit"
-                            class="flex items-center justify-center w-full px-8 py-3 mt-10 text-base font-medium border border-transparent text-tertiary bg-success text-tertiabg-tertiary hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
+                        <button type="submit" :disabled="selectedColor == '' || selectedSize == ''"
+                            class="flex items-center justify-center w-full px-8 py-3 mt-10 text-base font-medium border border-transparent cursor-pointer text-tertiary bg-success hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
                             Now</button>
                     </form>
                 </div>
