@@ -12,7 +12,7 @@ class ProductVariantController extends Controller
         return view('components.product.overview', [
             'title' => $productVariant->name,
             'data' => $productVariant,
-            "url_p" => "/pv/$productVariant->product->slug",
+            "url_p" => "/p/" . $productVariant->product->slug,
             'detail' => $productVariant->detail ?? $productVariant->product->detail,
         ]);
     }
