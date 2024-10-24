@@ -1,4 +1,4 @@
-<x-layout.layout>
+<x-layout.layout :$title>
     <!--
     This example requires some changes to your config:
     ```
@@ -19,8 +19,11 @@
     }
     ```
     -->
-    <div class="bg-tertiary">
-        <div class="pt-24">
+    <div class="bg-tertiary" x-data="{
+        @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) 'selectedColor' @endif: '',
+        @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) 'selectedSize' @endif: '',
+    }">
+        <div class="container pt-24 mx-auto">
             <nav aria-label="Breadcrumb">
                 <ol role="list"
                     class="flex items-center max-w-2xl px-4 mx-auto space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -35,7 +38,8 @@
                     </li>
                     <li>
                         <div class="flex items-center">
-                            <a href="#" class="mr-2 text-sm font-medium text-primary">{{ $data->name }}</a>
+                            <a href="#"
+                                class="mr-2 text-sm font-medium text-primary">{{ $data->product->name }}</a>
                             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor"
                                 aria-hidden="true" class="w-4 h-5 text-dark/70">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
@@ -48,8 +52,8 @@
                 </ol>
             </nav>
 
-            <!-- Image gallery -->
-            <div class="max-w-2xl mx-auto mt-6 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+            {{-- <!-- Image gallery -->
+            <div class="max-w-2xl mx-auto mt-6 sm:px-6 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                 <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">
                     <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
                         alt="Two each of gray, white, and black shirts laying flat."
@@ -70,25 +74,117 @@
                         alt="Model wearing plain white basic tee." class="object-cover object-center w-full h-full">
                 </div>
             </div>
-            <!-- Image gallery -->
+            <!-- Image gallery --> --}}
 
             <!-- Product info -->
-            <div
-                class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-                <div class="lg:col-span-2 lg:border-r lg:border-quaternary lg:pr-8">
+            <div class="px-6 pt-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,auto,1fr] lg:gap-x-8">
+
+                {{-- Product Images --}}
+                <div
+                    class="col-span-3 min-h-[512px] row-span-1 pb-8 lg:col-span-2 lg:pb-0 lg:grid lg:row-span-2 lg:grid-cols-3 lg:gap-x-8">
+                    <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">
+                        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
+                            alt="Two each of gray, white, and black shirts laying flat."
+                            class="object-cover object-center w-full h-full">
+                    </div>
+                    <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                        <div class="overflow-hidden aspect-h-2 aspect-w-3">
+                            <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
+                                alt="Model wearing plain black basic tee."
+                                class="object-cover object-center w-full h-full">
+                        </div>
+                        <div class="overflow-hidden aspect-h-2 aspect-w-3">
+                            <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
+                                alt="Model wearing plain gray basic tee."
+                                class="object-cover object-center w-full h-full">
+                        </div>
+                    </div>
+                    <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden">
+                        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
+                            alt="Model wearing plain white basic tee." class="object-cover object-center w-full h-full">
+                    </div>
+                </div>
+                {{-- Product Images --}}
+
+                {{-- Product Summary --}}
+                <div class="row-span-1 pb-8 lg:row-span-1 lg:col-span-1 lg:pr-8">
+                    {{-- Product Name --}}
                     <h1 class="text-base italic font-medium tracking-tight text-dark/80 sm:text-lg">
+                        {{ $data->product->name }}
+                    </h1>
+                    {{-- Product Name --}}
+
+                    {{-- Product Variant Name --}}
+                    <h1 class="text-3xl font-semibold tracking-tight text-dark sm:text-4xl">
                         {{ $data->name }}
                     </h1>
-                    <h1 class="text-3xl font-semibold tracking-tight text-dark sm:text-4xl">{{ $data->name }}</h1>
+                    {{-- Product Variant Name --}}
+
+                    {{-- Price --}}
+                    <div class="mt-8">
+                        <p class="text-2xl font-medium tracking-tight md:text-3xl text-dark">
+                            Rp {{ Number::format(intval($data->price), locale: 'idr') }}
+                        </p>
+                        <div class="flex items-center gap-2 text-lg md:text-xl">
+                            <p class="font-thin line-through decoration-slice decoration-dark/25 text-dark/70">
+                                Rp {{ Number::format(intval($data->price), locale: 'idr') }}</p>
+                            <p class="font-extrabold text-danger">0%<span class="text-base font-medium"> discount</span>
+                            </p>
+                        </div>
+                    </div>
+                    {{-- Price --}}
+
+                    {{-- Summary --}}
+                    @if ($detail && $detail->summary)
+                        <div class="mt-10">
+                            <h3 class="sr-only">Summary</h3>
+
+                            <div class="space-y-6">
+                                <p class="text-base text-dark/70">{{ $detail->summary }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    {{-- Summary --}}
+
                 </div>
+                {{-- Product Name --}}
 
-                <!-- Options -->
-                <div class="mt-4 lg:row-span-3 lg:mt-0">
+                {{-- Product Detail --}}
+                <div class="pb-8 lg:col-span-2 lg:mt-8 lg:row-span-1 lg:border-r lg:border-quaternary lg:pr-8">
+                    {{-- Highlights --}}
+                    @if ($detail && $detail->highlights)
+                        <div>
+                            <h4 class="text-lg font-medium text-dark">Highlights</h4>
+                            <div class="mt-4">
+                                <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
+                                    @foreach ($detail->highlights as $hl)
+                                        <li class="text-dark/15"><span class="text-dark/70">{{ $hl }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                    {{-- Highlights --}}
+
+                    {{-- Description --}}
+                    @if ($detail && $detail->description)
+                        <div class="mt-10">
+                            <h4 class="text-lg font-medium text-dark">Description</h4>
+                            <div class="mt-4 space-y-6">
+                                <p class="text-sm text-dark/70">{{ $detail->description }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    {{-- Description --}}
+                </div>
+                {{-- Product Detail --}}
+
+                {{-- <div class="hidden lg:block lg:row-span-1 lg:col-span-2"></div> --}}
+
+                {{-- Options --}}
+                <div class="lg:row-start-2 lg:col-start-3 lg:col-span-1 lg:row-span-1">
                     <h2 class="sr-only">Product information</h2>
-                    <p class="text-3xl font-normal tracking-tight md:text-4xl text-dark">
-                        Rp {{ Number::format(intval($data->price), locale: 'idr') }}
-                    </p>
-
                     <!-- Reviews -->
                     {{-- <div class="mt-6">
                         <h3 class="sr-only">Reviews</h3>
@@ -133,20 +229,24 @@
                     </div> --}}
                     <!-- Reviews -->
 
-                    <form class="mt-10">
+                    <form class="mt-0">
                         <!-- Colors -->
                         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0)
                             <div>
-                                <h3 class="text-sm font-medium text-dark">Color</h3>
+                                <div class="flex w-full gap-2">
+                                    <h3 class="text-xl font-semibold text-dark">Color</h3>
+                                    <span class="text-base text-dark/50" x-text="selectedColor"></span>
+                                </div>
 
                                 <fieldset aria-label="Choose a color" class="mt-4">
                                     <div class="flex items-center space-x-2">
-                                        @foreach ($detail->colors as $color)
+                                        @foreach ($detail->colors as $index => $color)
                                             <!-- Active and Checked: "ring ring-offset-1" -->
-                                            <label aria-label="White"
+                                            <label aria-label="White" id="{{ $index . '-' . $color }}"
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
                                                 <input type="radio" name="color-choice" value="{{ $color }}"
-                                                    class="sr-only peer">
+                                                    x-model="{{ 'selectedColor' }} = {{ $color }}"
+                                                    class="sr-only peer" {{ $index == 0 ? 'checked' : '' }}>
                                                 <span
                                                     class="m-0.5 border rounded-full size-7 peer border-dark border-opacity-10 peer-checked:m-0 peer-checked:ring peer-checked:size-8 peer-checked:ring-primary peer-checked:ring-offset-1"
                                                     style="background-color: {{ $color }};"></span>
@@ -162,7 +262,7 @@
                         @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0)
                             <div class="mt-10">
                                 <div class="flex items-center justify-between">
-                                    <h3 class="text-sm font-medium text-dark">Size</h3>
+                                    <h3 class="text-xl font-semibold text-dark">Size</h3>
                                     <a href="#"
                                         class="text-sm font-medium text-primary hover:text-primary/80">Size
                                         guide</a>
@@ -187,54 +287,11 @@
                         <!-- Sizes -->
 
                         <button type="submit"
-                            class="flex items-center justify-center w-full px-8 py-3 mt-10 text-base font-medium border border-transparent text-tertiary bg-success text-tertiabg-tertiary hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Add
-                            to bag</button>
+                            class="flex items-center justify-center w-full px-8 py-3 mt-10 text-base font-medium border border-transparent text-tertiary bg-success text-tertiabg-tertiary hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
+                            Now</button>
                     </form>
                 </div>
-
-                <div
-                    class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-quaternary lg:pb-16 lg:pr-8 lg:pt-6">
-                    {{-- Summary --}}
-                    @if ($detail && $detail->summary)
-                        <div>
-                            <h3 class="sr-only">Summary</h3>
-
-                            <div class="space-y-6">
-                                <p class="text-base text-dark/70">{{ $detail->summary }}</p>
-                            </div>
-                        </div>
-                    @endif
-                    {{-- Summary --}}
-
-                    {{-- Highlights --}}
-                    @if ($detail && $detail->highlights)
-                        <div class="mt-10">
-                            <h3 class="text-sm font-medium text-dark">Highlights</h3>
-
-                            <div class="mt-4">
-                                <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
-                                    @foreach ($detail->highlights as $hl)
-                                        <li class="text-dark/15"><span class="text-dark/70">{{ $hl }}</span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    @endif
-                    {{-- Highlights --}}
-
-                    {{-- Description --}}
-                    @if ($detail && $detail->description)
-                        <div class="mt-10">
-                            <h2 class="text-sm font-medium text-dark">Description</h2>
-
-                            <div class="mt-4 space-y-6">
-                                <p class="text-sm text-dark/70">{{ $detail->description }}</p>
-                            </div>
-                        </div>
-                    @endif
-                    {{-- Description --}}
-                </div>
+                {{-- Options --}}
             </div>
             <!-- Product info -->
         </div>
