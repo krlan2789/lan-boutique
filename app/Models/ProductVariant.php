@@ -24,6 +24,10 @@ class ProductVariant extends Model
         // 'images',
     ];
 
+    protected $with = [
+        'detail',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

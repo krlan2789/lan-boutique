@@ -12,6 +12,7 @@ class ProductVariantController extends Controller
         return view('components.product.overview', [
             'title' => $productVariant->name,
             'data' => $productVariant,
+            'detail' => $productVariant->detail ?? $productVariant->product->detail,
         ]);
     }
 }

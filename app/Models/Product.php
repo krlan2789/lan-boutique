@@ -28,7 +28,8 @@ class Product extends Model
 
     protected $with = [
         'categories',
-        'variants'
+        'variants',
+        'detail',
     ];
 
     /**

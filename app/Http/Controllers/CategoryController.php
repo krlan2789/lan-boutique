@@ -14,12 +14,18 @@ class CategoryController extends Controller
             foreach ($product->variants as $variant) {
                 $items->add([
                     "name" => $product->name,
-                    "colors" => $product->detail ? $product->detail->colors : [],
+                    "url" => "/pv/$variant->code",
                     "variantId" => $variant->id,
                     "variantName" => $variant->name,
                     "price" => $variant->price,
-                    "images" => $variant->detail ? $variant->detail->images : [],
-                    "url" => "/pv/$variant->code",
+                    "colors" =>
+                        $variant->detail && $variant->detail->colors ?
+                        $variant->detail->colors :
+                        ($product->detail ? $product->detail->colors : []),
+                    "images" =>
+                        $variant->detail && $variant->detail->images ?
+                        $variant->detail->images :
+                        ($product->detail ? $product->detail->images : []),
                 ]);
             }
         }

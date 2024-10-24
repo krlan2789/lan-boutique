@@ -135,17 +135,13 @@
 
                     <form class="mt-10">
                         <!-- Colors -->
-                        @if (
-                            $data->detail &&
-                                $data->detail->colors != null &&
-                                gettype($data->detail->colors) == 'array' &&
-                                collect($data->detail->colors)->count() > 0)
+                        @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0)
                             <div>
                                 <h3 class="text-sm font-medium text-dark">Color</h3>
 
                                 <fieldset aria-label="Choose a color" class="mt-4">
                                     <div class="flex items-center space-x-2">
-                                        @foreach ($data->detail->colors as $color)
+                                        @foreach ($detail->colors as $color)
                                             <!-- Active and Checked: "ring ring-offset-1" -->
                                             <label aria-label="White"
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
@@ -163,11 +159,7 @@
                         <!-- Colors -->
 
                         <!-- Sizes -->
-                        @if (
-                            $data->detail &&
-                                $data->detail->size != null &&
-                                gettype($data->detail->size) == 'array' &&
-                                collect($data->detail->size)->count() > 0)
+                        @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0)
                             <div class="mt-10">
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-sm font-medium text-dark">Size</h3>
@@ -178,7 +170,7 @@
 
                                 <fieldset aria-label="Choose a size" class="mt-4">
                                     <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                                        @foreach ($data->detail->size as $s)
+                                        @foreach ($detail->size as $s)
                                             <label
                                                 class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
                                                 <input type="radio" name="size-choice" value="{{ $s }}"
@@ -203,34 +195,25 @@
                 <div
                     class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-quaternary lg:pb-16 lg:pr-8 lg:pt-6">
                     {{-- Summary --}}
-                    @if ($data->detail && $data->detail->summary)
+                    @if ($detail && $detail->summary)
                         <div>
                             <h3 class="sr-only">Summary</h3>
 
                             <div class="space-y-6">
-                                <p class="text-base text-dark/70">{{ $data->detail->summary }}</p>
+                                <p class="text-base text-dark/70">{{ $detail->summary }}</p>
                             </div>
                         </div>
                     @endif
                     {{-- Summary --}}
 
                     {{-- Highlights --}}
-                    @if ($data->detail && $data->detail->highlights)
+                    @if ($detail && $detail->highlights)
                         <div class="mt-10">
                             <h3 class="text-sm font-medium text-dark">Highlights</h3>
 
                             <div class="mt-4">
                                 <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
-                                    {{-- <li class="text-dark/15"><span class="text-dark/70">Hand cut and sewn locally</span>
-                                    </li>
-                                    <li class="text-dark/15"><span class="text-dark/70">Dyed with our proprietary
-                                            colors</span></li>
-                                    <li class="text-dark/15"><span class="text-dark/70">Pre-washed &amp;
-                                            pre-shrunk</span>
-                                    </li>
-                                    <li class="text-dark/15"><span class="text-dark/70">Ultra-soft 100% cotton</span>
-                                    </li> --}}
-                                    @foreach ($data->detail->highlights as $hl)
+                                    @foreach ($detail->highlights as $hl)
                                         <li class="text-dark/15"><span class="text-dark/70">{{ $hl }}</span>
                                         </li>
                                     @endforeach
@@ -241,12 +224,12 @@
                     {{-- Highlights --}}
 
                     {{-- Description --}}
-                    @if ($data->detail && $data->detail->description)
+                    @if ($detail && $detail->description)
                         <div class="mt-10">
                             <h2 class="text-sm font-medium text-dark">Description</h2>
 
                             <div class="mt-4 space-y-6">
-                                <p class="text-sm text-dark/70">{{ $data->detail->description }}</p>
+                                <p class="text-sm text-dark/70">{{ $detail->description }}</p>
                             </div>
                         </div>
                     @endif
