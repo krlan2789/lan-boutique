@@ -21,6 +21,7 @@
 <body class="h-full" x-data="{ isLiveSearchShow: false }">
     <div class="h-auto">
         <x-layout.navbar></x-layout.navbar>
+        {{-- <x-layout.flyout-menu></x-layout.flyout-menu> --}}
 
         {{ $slot }}
 
