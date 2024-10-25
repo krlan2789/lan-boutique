@@ -23,7 +23,7 @@
         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor @endif: '',
         @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize @endif: '',
     }">
-        <div class="container pt-24 mx-auto max-w-7xl">
+        <div class="container pt-24 mx-auto xl:max-w-7xl">
             <nav aria-label="Breadcrumb">
                 <ol role="list" class="flex justify-start max-w-sm px-4 mx-0 space-x-2 sm:px-6 lg:max-w-2xl lg:px-8">
                     {{-- <li>
@@ -150,7 +150,7 @@
                 {{-- Product Name --}}
 
                 {{-- Product Detail --}}
-                <div class="pb-8 lg:col-span-2 lg:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
+                <div class="pb-8 lg:col-span-2 md:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
                     {{-- Highlights --}}
                     @if ($detail && $detail->highlights)
                         <div class="mt-4">
