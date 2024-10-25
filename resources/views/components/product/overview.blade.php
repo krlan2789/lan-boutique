@@ -94,66 +94,73 @@
             <div class="px-6 pt-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,auto,1fr] lg:gap-x-8">
 
                 {{-- Product Images --}}
-                <div x-data="{ selectedImage: 0, totalImages: {{ collect($detail->images)->count() }} }"
-                    class="col-span-3 min-h-[480px] max-h-[640px] h-[56vh] row-span-1 pb-4 lg:col-span-2 lg:pb-0 lg:row-span-2 grid grid-rows-[1fr,1fr,1fr,auto] grid-cols-[auto,1fr,1fr,1fr] gap-2">
-                    <!-- Carousel Wrapper -->
-                    <div class="relative col-span-4 row-span-3 overflow-hidden md:row-span-4 md:col-span-3">
-                        <div class="relative size-full bg-tertiary">
-                            @foreach ($detail->images as $index => $img)
-                                <div x-show="selectedImage == {{ $index }}"
-                                    x-transition:enter="transition transform duration-300"
-                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                    x-transition:leave="transition transform duration-300"
-                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                    class="absolute top-0 size-full">
-                                    {{-- style="background-image: url('{{ $img }}');" --}}
-                                    <img src="{{ $img }}" alt="{{ $data->name }}"
-                                        class="w-auto h-full mx-auto bg-contain" />
-                                </div>
-                            @endforeach
+                @if ($detail && $detail->images != null && gettype($detail->images) == 'array' && collect($detail->images)->count() > 0)
+                    <div x-data="{ selectedImage: 0, totalImages: {{ collect($detail->images)->count() }} }"
+                        class="col-span-3 min-h-[480px] max-h-[640px] h-[56vh] row-span-1 pb-4 lg:col-span-2 lg:pb-0 lg:row-span-2 grid grid-rows-[1fr,1fr,1fr,auto] grid-cols-[auto,1fr,1fr,1fr] gap-2">
+                        <!-- Carousel Wrapper -->
+                        <div class="relative col-span-4 row-span-3 overflow-hidden md:row-span-4 md:col-span-3">
+                            <div class="relative size-full bg-tertiary">
+                                @foreach ($detail->images as $index => $img)
+                                    <div x-show="selectedImage == {{ $index }}"
+                                        x-transition:enter="transition transform duration-300"
+                                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                        x-transition:leave="transition transform duration-300"
+                                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                        class="absolute top-0 size-full">
+                                        {{-- style="background-image: url('{{ $img }}');" --}}
+                                        <img src="{{ $img }}" alt="{{ $data->name }}"
+                                            class="w-auto h-full mx-auto bg-contain" />
+                                    </div>
+                                @endforeach
+                            </div>
+                            {{-- Previous Index --}}
+                            <button @click="selectedImage = carouselPrev(selectedImage, totalImages)"
+                                class="absolute top-0 bottom-0 left-0 h-full px-2 w-14 text-dark/70 from-tertiary/25 to-tertiary/0 hover:from-tertiary/50 bg-gradient-to-r hover:to-tertiary/0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    style="transform: ;msFilter:;">
+                                    <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z">
+                                    </path>
+                                </svg>
+                            </button>
+                            {{-- Previous Index --}}
+
+                            {{-- Next Index --}}
+                            <button @click="selectedImage = carouselNext(selectedImage, totalImages)"
+                                class="absolute top-0 bottom-0 right-0 h-full px-2 w-14 text-dark/70 from-tertiary/25 to-tertiary/0 hover:from-tertiary/50 bg-gradient-to-l hover:to-tertiary/0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    style="transform: ;msFilter:;">
+                                    <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z">
+                                    </path>
+                                </svg>
+                            </button>
+                            {{-- Next Index --}}
                         </div>
-                        {{-- Previous Index --}}
-                        <button @click="selectedImage = carouselPrev(selectedImage, totalImages)"
-                            class="absolute top-0 bottom-0 left-0 h-full px-2 w-14 text-dark/70 from-tertiary/25 to-tertiary/0 hover:from-tertiary/50 bg-gradient-to-r hover:to-tertiary/0">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                style="transform: ;msFilter:;">
-                                <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
-                            </svg>
-                        </button>
-                        {{-- Previous Index --}}
+                        <!-- Carousel Wrapper -->
 
-                        {{-- Next Index --}}
-                        <button @click="selectedImage = carouselNext(selectedImage, totalImages)"
-                            class="absolute top-0 bottom-0 right-0 h-full px-2 w-14 text-dark/70 from-tertiary/25 to-tertiary/0 hover:from-tertiary/50 bg-gradient-to-l hover:to-tertiary/0">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                style="transform: ;msFilter:;">
-                                <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z">
-                                </path>
-                            </svg>
-                        </button>
-                        {{-- Next Index --}}
+                        <!-- Carousel Index -->
+                        <div
+                            class="h-[72px] flex col-span-4 row-span-1 w-full custom-scrollable-x md:h-full md:w-32 md:row-start-1 md:col-span-1 md:row-span-4">
+                            <div class="flex h-full gap-3 pb-2 flex-nowrap md:flex-col">
+                                @foreach ($detail->images as $index => $img)
+                                    <button @click="selectedImage = {{ $index }}"
+                                        style="background-image: url('{{ $img }}');"
+                                        class="size-[72px] hover:opacity-80 bg-cover"
+                                        :class="{
+                                            'border-primary': selectedImage == {{ $index }},
+                                            'border-2': selectedImage == {{ $index }},
+                                            'opacity-80': selectedImage == {{ $index }}
+                                        }">
+                                    </button>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!-- Carousel Index -->
                     </div>
-                    <!-- Carousel Wrapper -->
-
-                    <!-- Carousel Index -->
+                @else
                     <div
-                        class="h-[72px] flex col-span-4 row-span-1 w-full custom-scrollable-x md:h-full md:w-32 md:row-start-1 md:col-span-1 md:row-span-4">
-                        <div class="flex h-full gap-3 pb-2 flex-nowrap md:flex-col">
-                            @foreach ($detail->images as $index => $img)
-                                <button @click="selectedImage = {{ $index }}"
-                                    style="background-image: url('{{ $img }}');"
-                                    class="size-[72px] hover:opacity-80 bg-cover"
-                                    :class="{
-                                        'border-primary': selectedImage == {{ $index }},
-                                        'border-2': selectedImage == {{ $index }},
-                                        'opacity-80': selectedImage == {{ $index }}
-                                    }">
-                                </button>
-                            @endforeach
-                        </div>
+                        class="col-span-3 min-h-[480px] max-h-[640px] h-[56vh] row-span-1 pb-4 lg:col-span-2 lg:pb-0 lg:row-span-2">
                     </div>
-                    <!-- Carousel Index -->
-                </div>
+                @endif
                 {{-- <div
                     class="col-span-3 min-h-96 max-h-[640px] row-span-1 pb-8 lg:col-span-2 lg:pb-0 lg:grid lg:row-span-2 lg:grid-cols-3 lg:gap-x-8">
                     <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">

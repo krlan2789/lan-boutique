@@ -12,21 +12,18 @@ class CategoryController extends Controller
         $items = collect([]);
         foreach ($category->products as $product) {
             foreach ($product->variants as $variant) {
-                $items->add([
-                    "name" => $product->name,
-                    "url" => "/pv/$variant->slug",
-                    "variantId" => $variant->id,
-                    "variantName" => $variant->name,
-                    "price" => $variant->price,
-                    "colors" =>
-                        $variant->detail && $variant->detail->colors ?
-                        $variant->detail->colors :
-                        ($product->detail ? $product->detail->colors : []),
-                    "images" =>
-                        $variant->detail && $variant->detail->images ?
-                        $variant->detail->images :
-                        ($product->detail ? $product->detail->images : []),
-                ]);
+                $detail = $variant->detail ?? $product->detail;
+                if ($detail) {
+                    $items->add([
+                        "name" => $product->name,
+                        "url" => "/pv/$variant->slug",
+                        "variantId" => $variant->id,
+                        "variantName" => $variant->name,
+                        "price" => $variant->price,
+                        "colors" => $detail->colors ?? [],
+                        "images" => $detail->images ?? [],
+                    ]);
+                }
             }
         }
 
