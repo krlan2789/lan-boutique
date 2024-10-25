@@ -139,7 +139,7 @@
 
                         <!-- Carousel Index -->
                         <div
-                            class="h-[72px] flex col-span-4 row-span-1 w-full custom-scrollable-x md:h-full md:w-32 md:row-start-1 md:col-span-1 md:row-span-4">
+                            class="h-[72px] flex col-span-4 row-span-1 w-full custom-scrollable-x md:custom-scrollable-y md:h-full md:w-32 md:row-start-1 md:col-span-1 md:row-span-4">
                             <div class="flex h-full gap-3 pb-2 flex-nowrap md:flex-col">
                                 @foreach ($detail->images as $index => $img)
                                     <button @click="selectedImage = {{ $index }}"

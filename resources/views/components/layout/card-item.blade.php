@@ -1,7 +1,6 @@
 <div class="relative group bg-tertiary">
     <div class="w-full overflow-hidden aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 lg:h-80">
-        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg"
-            alt="Front of men&#039;s Basic Tee in black."
+        <img src="{{ $imageUrl }}" alt="{{ $title }}"
             class="object-cover object-center w-full h-full lg:h-full lg:w-full">
     </div>
     <div class="flex justify-between mt-2">

@@ -21,7 +21,7 @@ class CategoryController extends Controller
                         "variantName" => $variant->name,
                         "price" => $variant->price,
                         "colors" => $detail->colors ?? [],
-                        "images" => $detail->images ?? [],
+                        "imageUrl" => $detail->images[0] ?? '',
                     ]);
                 }
             }
