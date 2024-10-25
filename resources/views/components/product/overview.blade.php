@@ -150,12 +150,12 @@
                 {{-- Product Name --}}
 
                 {{-- Product Detail --}}
-                <div class="pb-8 lg:col-span-2 lg:mt-8 lg:row-span-1 lg:border-r lg:border-quaternary lg:pr-8">
+                <div class="pb-8 lg:col-span-2 lg:mt-6 lg:row-span-1 lg:border-r lg:border-quaternary lg:pr-8">
                     {{-- Highlights --}}
                     @if ($detail && $detail->highlights)
                         <div>
                             <h4 class="text-lg font-medium text-dark">Highlights</h4>
-                            <div class="mt-4">
+                            <div class="mt-2">
                                 <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
                                     @foreach ($detail->highlights as $hl)
                                         <li class="text-dark/15"><span class="text-dark/70">{{ $hl }}</span>
@@ -169,7 +169,7 @@
 
                     {{-- Description --}}
                     @if ($detail && $detail->description)
-                        <div class="mt-10">
+                        <div class="mt-2">
                             <h4 class="text-lg font-medium text-dark">Description</h4>
                             <div class="mt-4 space-y-6">
                                 <p class="text-sm text-dark/70">{{ $detail->description }}</p>
