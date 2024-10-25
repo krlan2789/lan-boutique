@@ -39,6 +39,12 @@ class ProductDetailFactory extends Factory
         $highlights = fake()->words(rand(0, 10));
         $tags = fake()->words(rand(1, 6));
 
+        $availableImages = [];
+        for ($i = 1; $i <= 46; $i++) {
+            $availableImages [] = "/img/products/product.$i.jpg";
+        }
+        $images = fake()->randomElements($availableImages, rand(2, 8));
+
         $useProduct = rand(0, 20) % 2 == 0;
         $detailableType = $useProduct ? Product::class : ProductVariant::class;
         $allIds = $useProduct ? Product::pluck('id')->toArray() : ProductVariant::pluck('id')->toArray();
@@ -49,6 +55,7 @@ class ProductDetailFactory extends Factory
             'product_code' => fake()->creditCardNumber(separator: ''),
             'description' => fake()->realText(512),
             'tags' => $tags,
+            'images' => $images,
             'highlights' => $highlights,
             'colors' => $colors,
             'size' => $size,

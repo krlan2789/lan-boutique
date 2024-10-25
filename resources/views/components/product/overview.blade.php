@@ -1,3 +1,17 @@
+<script>
+    function carouselPrev(current, total) {
+        if (current <= 0) current = total - 1;
+        else current -= 1;
+        return current;
+    }
+
+    function carouselNext(current, total) {
+        if (current >= total - 1) current = 0;
+        else current += 1;
+        return current;
+    }
+</script>
+
 <x-layout.layout :title="$data->name">
     <!--
     This example requires some changes to your config:
@@ -20,8 +34,8 @@
     ```
     -->
     <div class="bg-tertiary" x-data="{
-        @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor @endif: '',
-        @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize @endif: '',
+        @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor: '', @endif
+        @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize: '', @endif
     }">
         <div class="container pt-24 mx-auto xl:max-w-7xl">
             <nav aria-label="Breadcrumb">
@@ -80,7 +94,67 @@
             <div class="px-6 pt-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,auto,1fr] lg:gap-x-8">
 
                 {{-- Product Images --}}
-                <div
+                <div x-data="{ selectedImage: 0, totalImages: {{ collect($detail->images)->count() }} }"
+                    class="col-span-3 min-h-[480px] max-h-[640px] h-[56vh] row-span-1 pb-4 lg:col-span-2 lg:pb-0 lg:row-span-2 grid grid-rows-[1fr,1fr,1fr,auto] grid-cols-[auto,1fr,1fr,1fr] gap-2">
+                    <!-- Carousel Wrapper -->
+                    <div class="relative col-span-4 row-span-3 overflow-hidden md:row-span-4 md:col-span-3">
+                        <div class="relative size-full bg-tertiary">
+                            @foreach ($detail->images as $index => $img)
+                                <div x-show="selectedImage == {{ $index }}"
+                                    x-transition:enter="transition transform duration-300"
+                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition transform duration-300"
+                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                    class="absolute top-0 size-full">
+                                    {{-- style="background-image: url('{{ $img }}');" --}}
+                                    <img src="{{ $img }}" alt="{{ $data->name }}"
+                                        class="w-auto h-full mx-auto bg-contain" />
+                                </div>
+                            @endforeach
+                        </div>
+                        {{-- Previous Index --}}
+                        <button @click="selectedImage = carouselPrev(selectedImage, totalImages)"
+                            class="absolute top-0 bottom-0 left-0 h-full px-2 w-14 text-dark/70 from-tertiary/25 to-tertiary/0 hover:from-tertiary/50 bg-gradient-to-r hover:to-tertiary/0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                style="transform: ;msFilter:;">
+                                <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                            </svg>
+                        </button>
+                        {{-- Previous Index --}}
+
+                        {{-- Next Index --}}
+                        <button @click="selectedImage = carouselNext(selectedImage, totalImages)"
+                            class="absolute top-0 bottom-0 right-0 h-full px-2 w-14 text-dark/70 from-tertiary/25 to-tertiary/0 hover:from-tertiary/50 bg-gradient-to-l hover:to-tertiary/0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                style="transform: ;msFilter:;">
+                                <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z">
+                                </path>
+                            </svg>
+                        </button>
+                        {{-- Next Index --}}
+                    </div>
+                    <!-- Carousel Wrapper -->
+
+                    <!-- Carousel Index -->
+                    <div
+                        class="h-[72px] flex col-span-4 row-span-1 w-full custom-scrollable-x md:h-full md:w-32 md:row-start-1 md:col-span-1 md:row-span-4">
+                        <div class="flex h-full gap-3 pb-2 flex-nowrap md:flex-col">
+                            @foreach ($detail->images as $index => $img)
+                                <button @click="selectedImage = {{ $index }}"
+                                    style="background-image: url('{{ $img }}');"
+                                    class="size-[72px] hover:opacity-80 bg-cover"
+                                    :class="{
+                                        'border-primary': selectedImage == {{ $index }},
+                                        'border-2': selectedImage == {{ $index }},
+                                        'opacity-80': selectedImage == {{ $index }}
+                                    }">
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+                    <!-- Carousel Index -->
+                </div>
+                {{-- <div
                     class="col-span-3 min-h-96 max-h-[640px] row-span-1 pb-8 lg:col-span-2 lg:pb-0 lg:grid lg:row-span-2 lg:grid-cols-3 lg:gap-x-8">
                     <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">
                         <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
@@ -103,40 +177,50 @@
                         <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
                             alt="Model wearing plain white basic tee." class="object-cover object-center w-full h-full">
                     </div>
-                </div>
+                </div> --}}
                 {{-- Product Images --}}
 
                 {{-- Product Summary --}}
-                <div class="row-span-1 pb-8 lg:row-span-1 lg:col-span-1 lg:pr-8">
+                <div class="row-span-1 pb-4 lg:pb-8 lg:row-span-1 lg:col-span-1 lg:pr-8">
                     {{-- Product Name --}}
-                    <h1 class="text-base italic font-medium tracking-tight text-dark/80 sm:text-lg">
+                    <h1 class="text-sm italic font-medium tracking-tight text-dark/80 sm:text-base">
                         {{ $data->product->name }}
                     </h1>
                     {{-- Product Name --}}
 
                     {{-- Product Variant Name --}}
-                    <h1 class="text-3xl font-semibold tracking-tight text-dark sm:text-4xl">
+                    <h1 class="text-2xl font-semibold tracking-tight text-dark sm:text-3xl">
                         {{ $data->name }}
                     </h1>
                     {{-- Product Variant Name --}}
 
                     {{-- Price --}}
-                    <div class="mt-8">
+                    <div class="mt-4 lg:mt-8">
                         <p class="text-2xl font-medium tracking-tight md:text-3xl text-dark">
                             Rp {{ Number::format(intval($data->price), locale: 'idr') }}
                         </p>
-                        <div class="flex items-center gap-2 text-lg md:text-xl">
-                            <p class="font-thin line-through decoration-slice decoration-dark/25 text-dark/70">
-                                Rp {{ Number::format(intval($data->price), locale: 'idr') }}</p>
-                            <p class="font-extrabold text-danger">0%<span class="text-base font-medium"> discount</span>
+                        <div class="flex items-center text-lg md:text-xl">
+                            <p
+                                class="flex flex-row mr-2 font-thin line-through decoration-slice decoration-dark/25 text-dark/70">
+                                Rp {{ Number::format(intval($data->price), locale: 'idr') }}
                             </p>
+                            <p class="text-3xl font-extrabold text-center text-danger">
+                                0{{-- <span class="text-base font-medium"> discount</span> --}}
+                            </p>
+                            <svg class="-translate-x-[1px] -translate-y-[3px] size-[22px] text-danger"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M20.29 8.567c.133.323.334.613.59.85v.002a3.536 3.536 0 0 1 0 5.166 2.442 2.442 0 0 0-.776 1.868 3.534 3.534 0 0 1-3.651 3.653 2.483 2.483 0 0 0-1.87.776 3.537 3.537 0 0 1-5.164 0 2.44 2.44 0 0 0-1.87-.776 3.533 3.533 0 0 1-3.653-3.654 2.44 2.44 0 0 0-.775-1.868 3.537 3.537 0 0 1 0-5.166 2.44 2.44 0 0 0 .775-1.87 3.55 3.55 0 0 1 1.033-2.62 3.594 3.594 0 0 1 2.62-1.032 2.401 2.401 0 0 0 1.87-.775 3.535 3.535 0 0 1 5.165 0 2.444 2.444 0 0 0 1.869.775 3.532 3.532 0 0 1 3.652 3.652c-.012.35.051.697.184 1.02ZM9.927 7.371a1 1 0 1 0 0 2h.01a1 1 0 0 0 0-2h-.01Zm5.889 2.226a1 1 0 0 0-1.414-1.415L8.184 14.4a1 1 0 0 0 1.414 1.414l6.218-6.217Zm-2.79 5.028a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01Z"
+                                    clip-rule="evenodd" />
+                            </svg>
                         </div>
                     </div>
                     {{-- Price --}}
 
                     {{-- Summary --}}
                     @if ($detail && $detail->summary)
-                        <div class="mt-10">
+                        <div class="mt-6 lg:mt-10">
                             <h3 class="sr-only">Summary</h3>
 
                             <div class="space-y-6">
@@ -150,7 +234,7 @@
                 {{-- Product Name --}}
 
                 {{-- Product Detail --}}
-                <div class="pb-8 lg:col-span-2 md:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
+                <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
                     {{-- Highlights --}}
                     @if ($detail && $detail->highlights)
                         <div class="mt-4">
@@ -293,18 +377,29 @@
 
                         <div
                             class="flex flex-row w-full h-20 gap-1 p-4 lg:h-14 max-lg:z-10 bg-tertiary max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:right-0 lg:mt-10 lg:p-0 lg:bg-transparent">
-                            <button type="submit" :disabled="selectedColor == '' || selectedSize == ''"
+                            <button type="submit"
+                                :disabled="(typeof selectedColor === 'string' && selectedColor == '') || (
+                                    typeof selectedSize === 'string' && selectedSize == '')"
                                 class="flex items-center justify-center w-full px-8 py-2 text-base font-medium border border-transparent cursor-pointer text-tertiary bg-success hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
                                 Now</button>
-                            <button type="button"
+                            <button type="button" @click=""
                                 class="flex items-center justify-center h-full p-2 bg-transparent border-2 cursor-pointer aspect-square text-danger border-danger hover:text-danger/50 hover:border-danger/50">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
-                                    style="transform: ;msFilter:;">
-                                    <title>Favorite</title>
-                                    <path
-                                        d="M12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412l7.332 7.332c.17.299.498.492.875.492a.99.99 0 0 0 .792-.409l7.415-7.415c2.354-2.354 2.354-6.049-.002-8.416a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595zm6.791 1.61c1.563 1.571 1.564 4.025.002 5.588L12 18.586l-6.793-6.793c-1.562-1.563-1.561-4.017-.002-5.584.76-.756 1.754-1.172 2.799-1.172s2.035.416 2.789 1.17l.5.5a.999.999 0 0 0 1.414 0l.5-.5c1.512-1.509 4.074-1.505 5.584-.002z">
-                                    </path>
-                                </svg>
+                                @isset($favorite)
+                                    <svg class="aspect-square" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 24 24">
+                                        <title>Remove from wishlist</title>
+                                        <path
+                                            d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                                    </svg>
+                                @else
+                                    <svg class="aspect-square" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24">
+                                        <title>Add to wishlist</title>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.4"
+                                            d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+                                    </svg>
+                                @endisset
                             </button>
                         </div>
                     </form>

@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center flex-1 min-h-screen px-6 pt-16 align-middle custom-scrollable bg-tertiary/85">
+<div class="flex flex-col justify-center flex-1 min-h-screen px-6 pt-16 align-middle custom-scrollable-y bg-tertiary/85">
     <div class="w-full pt-16 text-center">
         <div class="flex justify-center mx-auto">
             <img class="w-auto h-12 sm:h-14" src="/img/logo/Logo_only_wb.webp" alt="">

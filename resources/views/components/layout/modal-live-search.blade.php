@@ -49,7 +49,7 @@
             <input type="search" name="search" id="search" placeholder="Search" x-model="keywords"
                 class="w-full h-16 px-16 py-3 md:pl-16 md:pr-4 input-main" />
         </div>
-        <main class="grid flex-1 w-full custom-scrollable">
+        <main class="grid flex-1 w-full custom-scrollable-y">
             <div x-show="pvsResults.length == 0" class="flex flex-1 mx-auto mt-16 text-xl text-dark">
                 No products found
             </div>

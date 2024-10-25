@@ -63,7 +63,11 @@
         @apply flex h-8 items-center gap-4 rounded-full bg-primary px-3 after:absolute after:left-1 after:h-6 after:w-[49%] after:rounded-full after:bg-tertiary/25 after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-focus:outline-none dark:border-quaternary dark:bg-quaternary text-sm text-tertiary;
     }
 
-    .custom-scrollable {
+    .custom-scrollable-y {
         @apply overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none];
+    }
+
+    .custom-scrollable-x {
+        @apply overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none];
     }
 }
