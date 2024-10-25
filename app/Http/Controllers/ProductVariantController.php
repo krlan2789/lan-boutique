@@ -10,7 +10,6 @@ class ProductVariantController extends Controller
     public function index(ProductVariant $productVariant)
     {
         return view('components.product.overview', [
-            'title' => $productVariant->name,
             'data' => $productVariant,
             "url_p" => "/p/" . $productVariant->product->slug,
             'detail' => $productVariant->detail ?? $productVariant->product->detail,

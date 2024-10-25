@@ -1,4 +1,4 @@
-<x-layout.layout :$title>
+<x-layout.layout :title="$data->name">
     <!--
     This example requires some changes to your config:
     ```
@@ -81,7 +81,7 @@
 
                 {{-- Product Images --}}
                 <div
-                    class="col-span-3 min-h-[512px] row-span-1 pb-8 lg:col-span-2 lg:pb-0 lg:grid lg:row-span-2 lg:grid-cols-3 lg:gap-x-8">
+                    class="col-span-3 min-h-96 max-h-[640px] row-span-1 pb-8 lg:col-span-2 lg:pb-0 lg:grid lg:row-span-2 lg:grid-cols-3 lg:gap-x-8">
                     <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">
                         <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
                             alt="Two each of gray, white, and black shirts laying flat."
@@ -150,12 +150,12 @@
                 {{-- Product Name --}}
 
                 {{-- Product Detail --}}
-                <div class="pb-8 lg:col-span-2 lg:mt-6 lg:row-span-1 lg:border-r lg:border-quaternary lg:pr-8">
+                <div class="pb-8 lg:col-span-2 lg:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
                     {{-- Highlights --}}
                     @if ($detail && $detail->highlights)
                         <div>
                             <h4 class="text-lg font-medium text-dark">Highlights</h4>
-                            <div class="mt-2">
+                            <div class="mt-4">
                                 <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
                                     @foreach ($detail->highlights as $hl)
                                         <li class="text-dark/15"><span class="text-dark/70">{{ $hl }}</span>
@@ -169,7 +169,7 @@
 
                     {{-- Description --}}
                     @if ($detail && $detail->description)
-                        <div class="mt-2">
+                        <div class="mt-4">
                             <h4 class="text-lg font-medium text-dark">Description</h4>
                             <div class="mt-4 space-y-6">
                                 <p class="text-sm text-dark/70">{{ $detail->description }}</p>
@@ -183,7 +183,7 @@
                 {{-- <div class="hidden lg:block lg:row-span-1 lg:col-span-2"></div> --}}
 
                 {{-- Options --}}
-                <div class="lg:row-start-2 lg:col-start-3 lg:col-span-1 lg:row-span-1">
+                <div class="lg:row-start-2 lg:col-start-3 lg:col-span-1 lg:row-span-2">
                     <h2 class="sr-only">Product information</h2>
                     <!-- Reviews -->
                     {{-- <div class="mt-6">
@@ -291,9 +291,22 @@
                         @endif
                         <!-- Sizes -->
 
-                        <button type="submit" :disabled="selectedColor == '' || selectedSize == ''"
-                            class="flex items-center justify-center w-full px-8 py-3 mt-10 text-base font-medium border border-transparent cursor-pointer text-tertiary bg-success hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
-                            Now</button>
+                        <div
+                            class="flex flex-row w-full h-20 gap-1 p-4 lg:h-14 max-lg:z-10 bg-tertiary max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:right-0 lg:mt-10 lg:p-0 lg:bg-transparent">
+                            <button type="submit" :disabled="selectedColor == '' || selectedSize == ''"
+                                class="flex items-center justify-center w-full px-8 py-2 text-base font-medium border border-transparent cursor-pointer text-tertiary bg-success hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
+                                Now</button>
+                            <button type="button"
+                                class="flex items-center justify-center h-full p-2 bg-transparent border-2 cursor-pointer aspect-square text-danger border-danger hover:text-danger/50 hover:border-danger/50">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                    style="transform: ;msFilter:;">
+                                    <title>Favorite</title>
+                                    <path
+                                        d="M12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412l7.332 7.332c.17.299.498.492.875.492a.99.99 0 0 0 .792-.409l7.415-7.415c2.354-2.354 2.354-6.049-.002-8.416a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595zm6.791 1.61c1.563 1.571 1.564 4.025.002 5.588L12 18.586l-6.793-6.793c-1.562-1.563-1.561-4.017-.002-5.584.76-.756 1.754-1.172 2.799-1.172s2.035.416 2.789 1.17l.5.5a.999.999 0 0 0 1.414 0l.5-.5c1.512-1.509 4.074-1.505 5.584-.002z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
                     </form>
                 </div>
                 {{-- Options --}}
