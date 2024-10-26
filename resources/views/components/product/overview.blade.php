@@ -256,7 +256,8 @@
 
                     {{-- Highlights Content --}}
                     @if ($detail && $detail->highlights)
-                        <div x-show="selectedTab == 0" class="mt-4">
+                        <div x-show="selectedTab == 0" x-transition:enter="transition transform duration-300"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="mt-4">
                             <div class="my-2">
                                 <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
                                     @foreach ($detail->highlights as $hl)
@@ -271,7 +272,8 @@
 
                     {{-- Description Content --}}
                     @if ($detail && $detail->description)
-                        <div x-show="selectedTab == 1" class="mt-4">
+                        <div x-show="selectedTab == 1" x-transition:enter="transition transform duration-300"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="mt-4">
                             <div class="my-2 space-y-6">
                                 <p class="text-sm text-dark/70">{{ $detail->description }}</p>
                             </div>
