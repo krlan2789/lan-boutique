@@ -218,7 +218,7 @@
                 {{-- Product Name --}}
 
                 {{-- Product Detail --}}
-                <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
+                <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-8 lg:row-span-2 lg:border-r lg:border-dark/15 lg:pr-8">
                     {{-- Tabs --}}
                     @if ($detail && $detail->highlights && $detail->description)
                         <div class="flex flex-row w-full h-14 bg-dark/5">
@@ -226,7 +226,7 @@
                             @if ($detail && $detail->highlights)
                                 <button @click="selectedTab = 0" class="w-auto px-4 text-lg font-medium"
                                     :class="{
-                                        'text-dark': selectedTab != 0,
+                                        'text-dark/80': selectedTab != 0,
                                         'border-b-primary': selectedTab == 0,
                                         'text-primary': selectedTab == 0,
                                         'border-b-2': selectedTab == 0,
@@ -241,7 +241,7 @@
                                 <button @click="selectedTab = 1"
                                     class="w-auto px-4 text-lg font-medium border-b-2 text-primary border-b-primary"
                                     :class="{
-                                        'text-dark': selectedTab != 1,
+                                        'text-dark/80': selectedTab != 1,
                                         'border-b-primary': selectedTab == 1,
                                         'text-primary': selectedTab == 1,
                                         'border-b-2': selectedTab == 1,
@@ -392,7 +392,7 @@
                         <!-- Sizes -->
 
                         <div
-                            class="flex flex-row w-full h-20 gap-1 p-4 lg:h-14 max-lg:z-10 bg-tertiary max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:right-0 lg:mt-10 lg:p-0 lg:bg-transparent">
+                            class="flex flex-row w-full h-20 gap-1 px-6 py-4 lg:h-14 max-lg:z-10 bg-tertiary max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:right-0 lg:mt-10 lg:p-0 lg:bg-transparent">
                             <button type="submit"
                                 :disabled="(typeof selectedColor === 'string' && selectedColor == '') || (
                                     typeof selectedSize === 'string' && selectedSize == '')"
