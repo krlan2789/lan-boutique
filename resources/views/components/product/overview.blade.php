@@ -215,7 +215,7 @@
                     {{-- Summary --}}
 
                 </div>
-                {{-- Product Name --}}
+                {{-- Product Summary --}}
 
                 {{-- Product Detail --}}
                 <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-8 lg:row-span-2 lg:border-r lg:border-dark/15 lg:pr-8">
