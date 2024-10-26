@@ -375,10 +375,10 @@
                                 </div>
 
                                 <fieldset aria-label="Choose a size" class="mt-4">
-                                    <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                                    <div class="grid grid-cols-4 gap-3 sm:grid-cols-8 lg:grid-cols-6">
                                         @foreach ($detail->size as $s)
                                             <label
-                                                class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-6">
+                                                class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-4">
                                                 <input type="radio" name="size-choice" value="{{ $s }}"
                                                     x-model="{{ 'selectedSize' }} = '{{ $s }}'"
                                                     class="sr-only peer">
