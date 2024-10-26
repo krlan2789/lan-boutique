@@ -34,6 +34,7 @@
     ```
     -->
     <div class="bg-tertiary" x-data="{
+        selectedTab: 0,
         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor: '', @endif
         @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize: '', @endif
     }">
@@ -161,30 +162,6 @@
                         class="col-span-3 min-h-[480px] max-h-[640px] h-[56vh] row-span-1 pb-4 lg:col-span-2 lg:pb-0 lg:row-span-2">
                     </div>
                 @endif
-                {{-- <div
-                    class="col-span-3 min-h-96 max-h-[640px] row-span-1 pb-8 lg:col-span-2 lg:pb-0 lg:grid lg:row-span-2 lg:grid-cols-3 lg:gap-x-8">
-                    <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">
-                        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
-                            alt="Two each of gray, white, and black shirts laying flat."
-                            class="object-cover object-center w-full h-full">
-                    </div>
-                    <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                        <div class="overflow-hidden aspect-h-2 aspect-w-3">
-                            <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
-                                alt="Model wearing plain black basic tee."
-                                class="object-cover object-center w-full h-full">
-                        </div>
-                        <div class="overflow-hidden aspect-h-2 aspect-w-3">
-                            <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
-                                alt="Model wearing plain gray basic tee."
-                                class="object-cover object-center w-full h-full">
-                        </div>
-                    </div>
-                    <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden">
-                        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
-                            alt="Model wearing plain white basic tee." class="object-cover object-center w-full h-full">
-                    </div>
-                </div> --}}
                 {{-- Product Images --}}
 
                 {{-- Product Summary --}}
@@ -242,10 +219,44 @@
 
                 {{-- Product Detail --}}
                 <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-4 lg:row-span-2 lg:border-r lg:border-quaternary lg:pr-8">
-                    {{-- Highlights --}}
+                    {{-- Tabs --}}
+                    @if ($detail && $detail->highlights && $detail->description)
+                        <div class="flex flex-row w-full h-14 bg-dark/5">
+                            {{-- Highlights --}}
+                            @if ($detail && $detail->highlights)
+                                <button @click="selectedTab = 0" class="w-auto px-4 text-lg font-medium"
+                                    :class="{
+                                        'text-dark': selectedTab != 0,
+                                        'border-b-primary': selectedTab == 0,
+                                        'text-primary': selectedTab == 0,
+                                        'border-b-2': selectedTab == 0,
+                                    }">
+                                    Highlights
+                                </button>
+                            @endif
+                            {{-- Highlights --}}
+
+                            {{-- Description --}}
+                            @if ($detail && $detail->description)
+                                <button @click="selectedTab = 1"
+                                    class="w-auto px-4 text-lg font-medium border-b-2 text-primary border-b-primary"
+                                    :class="{
+                                        'text-dark': selectedTab != 1,
+                                        'border-b-primary': selectedTab == 1,
+                                        'text-primary': selectedTab == 1,
+                                        'border-b-2': selectedTab == 1,
+                                    }">
+                                    Description
+                                </button>
+                            @endif
+                            {{-- Description --}}
+                        </div>
+                    @endif
+                    {{-- Tabs --}}
+
+                    {{-- Highlights Content --}}
                     @if ($detail && $detail->highlights)
-                        <div class="mt-4">
-                            <h4 class="text-lg font-medium text-dark">Highlights</h4>
+                        <div x-show="selectedTab == 0" class="mt-4">
                             <div class="my-2">
                                 <ul role="list" class="pl-4 space-y-2 text-sm list-disc">
                                     @foreach ($detail->highlights as $hl)
@@ -256,22 +267,19 @@
                             </div>
                         </div>
                     @endif
-                    {{-- Highlights --}}
+                    {{-- Highlights Content --}}
 
-                    {{-- Description --}}
+                    {{-- Description Content --}}
                     @if ($detail && $detail->description)
-                        <div class="mt-4">
-                            <h4 class="text-lg font-medium text-dark">Description</h4>
+                        <div x-show="selectedTab == 1" class="mt-4">
                             <div class="my-2 space-y-6">
                                 <p class="text-sm text-dark/70">{{ $detail->description }}</p>
                             </div>
                         </div>
                     @endif
-                    {{-- Description --}}
+                    {{-- Description Content --}}
                 </div>
                 {{-- Product Detail --}}
-
-                {{-- <div class="hidden lg:block lg:row-span-1 lg:col-span-2"></div> --}}
 
                 {{-- Options --}}
                 <div class="lg:row-start-2 lg:col-start-3 lg:col-span-1 lg:row-span-2">
@@ -339,7 +347,8 @@
                                             <!-- Active and Checked: "ring ring-offset-1" -->
                                             <label aria-label="White" id="{{ $index . '-' . $color }}"
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
-                                                <input type="radio" name="color-choice" value="{{ $color }}"
+                                                <input type="radio" name="color-choice"
+                                                    value="{{ $color }}"
                                                     x-model="{{ 'selectedColor' }} = '{{ $color }}'"
                                                     class="sr-only peer" {{ $index == 0 ? 'checked' : '' }}>
                                                 <span
