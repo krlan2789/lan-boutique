@@ -669,7 +669,8 @@ plugins: [
                                 class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 xl:gap-x-8">
                                 @foreach ($items as $item)
                                     <x-layout.card-item :subtitle="$item['name']" :title="$item['variantName']" :price="$item['price']"
-                                        :image-url="$item['imageUrl']" :url="$item['url']" :colors="$item['colors']"></x-layout.card-item>
+                                        :image-url="$item['imageUrl']" :url="$item['url']" :colors="$item['colors']"
+                                        :promo-price="$item['promoPrice']"></x-layout.card-item>
                                 @endforeach
                             </div>
                             <!-- List products... -->

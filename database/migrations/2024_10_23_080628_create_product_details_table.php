@@ -22,14 +22,6 @@ return new class extends Migration
             $table->jsonb('colors')->nullable();
             $table->jsonb('size')->nullable();
             $table->morphs('detailable');
-            // $table->foreignId('product_id')->nullable()->constrained(
-            //     table: 'products',
-            //     indexName: 'product_details_product_id',
-            // );
-            // $table->foreignId('product_variant_id')->nullable()->constrained(
-            //     table: 'product_variants',
-            //     indexName: 'product_details_product_variant_id',
-            // );
             $table->timestamps();
         });
     }

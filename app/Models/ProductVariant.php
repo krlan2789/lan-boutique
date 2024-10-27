@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductVariant extends Model
 {
@@ -22,11 +23,11 @@ class ProductVariant extends Model
         'price',
         'slug',
         'product_id',
-        // 'images',
     ];
 
     protected $with = [
         'detail',
+        'promo',
     ];
 
     /**
@@ -37,7 +38,6 @@ class ProductVariant extends Model
     protected function casts(): array
     {
         return [
-            // 'images' => 'array',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
@@ -50,5 +50,19 @@ class ProductVariant extends Model
     public function detail(): MorphOne
     {
         return $this->morphOne(ProductDetail::class, 'detailable')->chaperone();
+    }
+
+    // public function promos(): MorphMany
+    // {
+    //     return $this->morphMany(Promo::class, 'promoable');
+    // }
+
+    public function promo(): MorphOne
+    {
+        return $this->morphOne(Promo::class, 'promoable')->ofMany([
+            'applies_to' => 'max',
+        ], function (Builder $query) {
+            $query->where('applies_to', '<=', now())->where('expired_at', '>=', now());
+        });
     }
 }

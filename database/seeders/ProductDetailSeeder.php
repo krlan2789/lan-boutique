@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\ProductDetail;
 use App\Models\ProductVariant;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ProductDetailSeeder extends Seeder
 {

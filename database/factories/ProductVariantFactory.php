@@ -22,7 +22,7 @@ class ProductVariantFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'price' => fake()->numberBetween(10, 200) * 1000,
+            'price' => fake()->numberBetween(10, 200) * 1_000,
             'product_id' => Product::factory(),
             // 'description' => $desc,
         ];

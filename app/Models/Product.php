@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
@@ -21,15 +22,13 @@ class Product extends Model
     protected $fillable = [
         'name',
         'slug',
-        // 'tags',
-        // 'colors',
-        // 'size',
     ];
 
     protected $with = [
         'categories',
         'variants',
         'detail',
+        'promo',
     ];
 
     /**
@@ -42,9 +41,6 @@ class Product extends Model
         return [
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
-            // 'tags' => 'array',
-            // 'colors' => 'array',
-            // 'size' => 'array',
         ];
     }
 
@@ -60,5 +56,19 @@ class Product extends Model
     public function detail(): MorphOne
     {
         return $this->morphOne(ProductDetail::class, 'detailable')->chaperone();
+    }
+
+    // public function promos(): MorphMany
+    // {
+    //     return $this->morphMany(Promo::class, 'promoable');
+    // }
+
+    public function promo(): MorphOne
+    {
+        return $this->morphOne(Promo::class, 'promoable')->ofMany([
+            'applies_to' => 'max',
+        ], function (Builder $query) {
+            $query->where('applies_to', '<=', now())->where('expired_at', '>=', now());
+        });
     }
 }

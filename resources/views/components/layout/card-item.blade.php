@@ -28,13 +28,24 @@
                 </ul>
             @endif
 
-            {{-- {!! gettype($price) . '::' !!}
-            {!! dd($price) !!} --}}
+            {{-- {!! '(' . gettype($price) . ')' !!}
+            {!! '(' . gettype($promoPrice) . ')' !!}
+            {!! dd($promoPrice) !!} --}}
 
-            @if ($price > 0)
-                <p class="text-lg font-medium text-center text-dark">
-                    Rp {{ Number::format(intval($price), locale: 'idr') }}
-                </p>
+            @if ($price > 0 && gettype($price) == 'integer')
+                @if ($promoPrice > 0 && gettype($price) == 'integer')
+                    <p class="text-lg font-medium text-center text-dark">
+                        Rp {{ Number::format(intval($promoPrice), locale: 'idr') }}
+                    </p>
+                    <p
+                        class="text-base font-normal text-center line-through text-dark/50 decoration-slice decoration-dark/25">
+                        Rp {{ Number::format(intval($price), locale: 'idr') }}
+                    </p>
+                @else
+                    <p class="text-lg font-medium text-center text-dark">
+                        Rp {{ Number::format(intval($price), locale: 'idr') }}
+                    </p>
+                @endif
             @endif
         </div>
     </div>

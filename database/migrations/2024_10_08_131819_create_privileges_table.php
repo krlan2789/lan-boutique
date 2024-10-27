@@ -17,6 +17,19 @@ return new class extends Migration
             $table->string('slug', 128)->unique();
             $table->timestamps();
         });
+
+        Schema::create('role_privilege', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('role_id')->constrained(
+                table: "roles",
+                indexName: "role_privilege_role_id",
+            )->onDelete('cascade');
+            $table->foreignId('privilege_id')->constrained(
+                table: "privileges",
+                indexName: "role_privilege_privilege_id",
+            )->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,5 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('privileges');
+        Schema::dropIfExists('role_privilege');
     }
 };

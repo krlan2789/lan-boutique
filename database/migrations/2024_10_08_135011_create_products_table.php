@@ -15,9 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('slug', 255)->unique();
-            // $table->jsonb('tags')->nullable();
-            // $table->jsonb('colors')->nullable();
-            // $table->jsonb('size')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('product_categories', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained(
+                table: "products",
+                indexName: "product_categories_product_id",
+            )->onDelete('cascade');
+            $table->foreignId('category_id')->constrained(
+                table: "categories",
+                indexName: "product_categories_category_id",
+            )->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,5 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('products');
+        Schema::dropIfExists('product_categories');
     }
 };
