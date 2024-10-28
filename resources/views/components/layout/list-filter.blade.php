@@ -682,6 +682,7 @@ plugins: [
                             <!-- No product... -->
                         @endif
                     </div>
+
                 </div>
             </section>
         </main>

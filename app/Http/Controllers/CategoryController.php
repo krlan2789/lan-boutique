@@ -45,6 +45,50 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function variants(Category $category)
+    {
+        $productVariants = $category->products()
+            ->with('variants')
+            ->get()
+            ->pluck('variants')
+            ->flatten();
+
+        // return response()->json($productVariants);
+
+        $items = collect([]);
+        foreach ($productVariants as $variant) {
+            $detail = $variant->detail ?? $variant->product->detail;
+            $promo = $variant->promo ?? ($product->promo ?? null);
+            if ($detail) {
+                $promoPrice = 0;
+                if ($promo) {
+                    $value = $promo->discount > 0 ? ($variant->price * (floatval($promo->discount) / 100.0)) : $promo->nominal;
+                    // if ($promo->discount > 0 && $value > $promo->nominal_max) $value = $promo->nominal_max;
+                    if ($promo->discount > 0 && $value > $variant->price) $value = $variant->price;
+
+                    $promoPrice = $variant->price - $value;
+                }
+
+                $items->add([
+                    "name" => $variant->product->name,
+                    "url" => "/pv/$variant->slug",
+                    "variantId" => $variant->id,
+                    "variantName" => $variant->name,
+                    "price" => $variant->price,
+                    "promoPrice" => $promoPrice,
+                    "colors" => $detail->colors ?? [],
+                    "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
+                ]);
+            }
+        }
+
+        return view('components.layout.list-view', [
+            'title' => $category->name,
+            'items' => $items,
+            'variants' => $productVariants,
+        ]);
+    }
+
     public function latest()
     {
         return view('components.layout.list-view', [
