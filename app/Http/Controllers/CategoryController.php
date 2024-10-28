@@ -33,7 +33,7 @@ class CategoryController extends Controller
                         "price" => $variant->price,
                         "promoPrice" => $promoPrice,
                         "colors" => $detail->colors ?? [],
-                        "imageUrl" => Str::replace('.jpg', ' (Custom).jpg', $detail->images[0]) ?? '',
+                        "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
                     ]);
                 }
             }

@@ -34,7 +34,7 @@
     ```
     -->
     <div class="bg-tertiary" x-data="{
-        selectedTab: 0,
+        @if ($detail && ($detail->highlights || $detail->description)) selectedTab: @if ($detail->highlights) 0 @else 1 @endif @endif,
         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor: '', @endif
         @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize: '', @endif
     }">
@@ -66,30 +66,6 @@
                     </li>
                 </ol>
             </nav>
-
-            {{-- <!-- Image gallery -->
-            <div class="max-w-2xl mx-auto mt-6 sm:px-6 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                <div class="hidden overflow-hidden aspect-h-4 aspect-w-3 lg:block">
-                    <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
-                        alt="Two each of gray, white, and black shirts laying flat."
-                        class="object-cover object-center w-full h-full">
-                </div>
-                <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                    <div class="overflow-hidden aspect-h-2 aspect-w-3">
-                        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
-                            alt="Model wearing plain black basic tee." class="object-cover object-center w-full h-full">
-                    </div>
-                    <div class="overflow-hidden aspect-h-2 aspect-w-3">
-                        <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
-                            alt="Model wearing plain gray basic tee." class="object-cover object-center w-full h-full">
-                    </div>
-                </div>
-                <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden">
-                    <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
-                        alt="Model wearing plain white basic tee." class="object-cover object-center w-full h-full">
-                </div>
-            </div>
-            <!-- Image gallery --> --}}
 
             <!-- Product info -->
             <div class="px-6 pt-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,auto,1fr] lg:gap-x-8">
@@ -144,7 +120,7 @@
                             <div class="flex h-full gap-3 pb-2 flex-nowrap md:flex-col">
                                 @foreach ($detail->images as $index => $img)
                                     <button @click="selectedImage = {{ $index }}"
-                                        style="background-image: url('{{ $img }}');"
+                                        style="background-image: url('{{ Str::replace('.jpg', '_5(0.05).jpg', $img) }}');"
                                         class="size-[72px] hover:opacity-80 bg-cover"
                                         :class="{
                                             'border-primary': selectedImage == {{ $index }},
@@ -224,7 +200,7 @@
                 {{-- Product Detail --}}
                 <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-8 lg:row-span-2 lg:border-r lg:border-dark/15 lg:pr-8">
                     {{-- Tabs --}}
-                    @if ($detail && $detail->highlights && $detail->description)
+                    @if ($detail && ($detail->highlights || $detail->description))
                         <div class="flex flex-row w-full h-14 bg-dark/5">
                             {{-- Highlights --}}
                             @if ($detail && $detail->highlights)
