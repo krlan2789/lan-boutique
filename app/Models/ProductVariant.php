@@ -52,11 +52,6 @@ class ProductVariant extends Model
         return $this->morphOne(ProductDetail::class, 'detailable')->chaperone();
     }
 
-    // public function promos(): MorphMany
-    // {
-    //     return $this->morphMany(Promo::class, 'promoable');
-    // }
-
     public function promo(): MorphOne
     {
         return $this->morphOne(Promo::class, 'promoable')->ofMany([
@@ -64,5 +59,15 @@ class ProductVariant extends Model
         ], function (Builder $query) {
             $query->where('applies_to', '<=', now())->where('expired_at', '>=', now());
         });
+    }
+
+    public function scopeFilter(Builder $query, array $filters): Builder {
+        $query->when($filters['category'] ?? false, fn($query, $category)
+            => $query->whereHas('product.categories', fn($query)
+                => $query->where('categories.id', $category->id)
+            )
+        );
+
+        return $query;
     }
 }

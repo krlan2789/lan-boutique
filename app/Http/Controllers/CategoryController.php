@@ -49,17 +49,17 @@ class CategoryController extends Controller
 
     public function variants(Category $category)
     {
-        $productVariants = ProductVariant::with(['product'])
-            ->whereHas('product.categories', function($query) use ($category) { $query->where('categories.id', $category->id); })
-            // ->get()
-            ->paginate(20)
-            ->withQueryString()
+        $productVariants = ProductVariant::with(['product', 'product.detail'])
+            ->filter(['category' => $category])
+            ->get()
+            // ->paginate(20)
+            // ->withQueryString()
             ;
 
         // return response()->json($productVariants);
 
         $items = collect([]);
-        foreach ($productVariants->items() as $variant) {
+        foreach ($productVariants/*->items()*/ as $variant) {
             $detail = $variant->detail ?? $variant->product->detail;
             $promo = $variant->promo ?? ($product->promo ?? null);
             if ($detail) {

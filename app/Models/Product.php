@@ -58,11 +58,6 @@ class Product extends Model
         return $this->morphOne(ProductDetail::class, 'detailable')->chaperone();
     }
 
-    // public function promos(): MorphMany
-    // {
-    //     return $this->morphMany(Promo::class, 'promoable');
-    // }
-
     public function promo(): MorphOne
     {
         return $this->morphOne(Promo::class, 'promoable')->ofMany([

@@ -42,11 +42,6 @@ class Category extends Model
         return $this->belongsToMany(Product::class, 'product_categories', 'category_id', 'product_id');
     }
 
-    // public function promos(): MorphMany
-    // {
-    //     return $this->morphMany(Promo::class, 'promoable');
-    // }
-
     public function promo(): MorphOne
     {
         return $this->morphOne(Promo::class, 'promoable')->ofMany([
