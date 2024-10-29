@@ -683,6 +683,9 @@ plugins: [
                         @endif
                     </div>
 
+                    @isset($variants)
+                        {{ $variants->links() }}
+                    @endisset
                 </div>
             </section>
         </main>

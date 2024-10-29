@@ -25,10 +25,10 @@ class Product extends Model
     ];
 
     protected $with = [
-        'categories',
-        'variants',
-        'detail',
-        'promo',
+        // 'categories',
+        // 'variants',
+        // 'detail',
+        // 'promo',
     ];
 
     /**
