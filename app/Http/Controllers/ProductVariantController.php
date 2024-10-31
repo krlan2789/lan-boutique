@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
 
 class ProductVariantController extends Controller
 {
     public function index(ProductVariant $productVariant)
     {
+        $others = $productVariant->others($productVariant->id)->limit(8)->get()->flatten();
+
+        // return response()->json($others);
+
         $appliedPromo = [];
         $price = $productVariant->price;
         $promo = $productVariant->promo ?? $productVariant->product->promo;
@@ -26,9 +30,10 @@ class ProductVariantController extends Controller
         return view('components.product.overview', [
             'data' => $productVariant,
             'detail' => $productVariant->detail ?? $productVariant->product->detail,
-            "url_p" => "/p/" . $productVariant->product->slug,
+            "url" => "/p/" . $productVariant->product->slug,
             'price' => $price,
             'promo' => $appliedPromo,
+            'moreItems' => ProductVariant::formated($others),
         ]);
     }
 }

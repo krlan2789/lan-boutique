@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -70,5 +71,48 @@ class ProductVariant extends Model
         );
 
         return $query;
+    }
+
+    public function scopeOthers(Builder $query, int $id): Builder
+    {
+        $query->when($id ?? false, fn($query, $id)
+            => $query->with('product.variants')->whereHas('product.variants', fn($query)
+                => $query->where('product_variants.id', '!=', $id)
+                //->where('products.id', '==', 'product_variants.product_id')
+            )
+        );
+
+        return $query;
+    }
+
+    public static function formated($raw)
+    {
+        $items = collect([]);
+        foreach ($raw as $variant) {
+            $detail = $variant->detail ?? $variant->product->detail;
+            $promo = $variant->promo ?? ($product->promo ?? null);
+            if ($detail) {
+                $promoPrice = 0;
+                if ($promo) {
+                    $value = $promo->discount > 0 ? ($variant->price * (floatval($promo->discount) / 100.0)) : $promo->nominal;
+                    // if ($promo->discount > 0 && $value > $promo->nominal_max) $value = $promo->nominal_max;
+                    if ($promo->discount > 0 && $value > $variant->price) $value = $variant->price;
+
+                    $promoPrice = $variant->price - $value;
+                }
+
+                $items->add([
+                    "name" => $variant->product->name,
+                    "url" => "/pv/$variant->slug",
+                    "variantId" => $variant->id,
+                    "variantName" => $variant->name,
+                    "price" => $variant->price,
+                    "promoPrice" => $promoPrice,
+                    "colors" => $detail->colors ?? [],
+                    "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
+                ]);
+            }
+        }
+        return $items;
     }
 }
