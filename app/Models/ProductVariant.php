@@ -61,7 +61,8 @@ class ProductVariant extends Model
         });
     }
 
-    public function scopeFilter(Builder $query, array $filters): Builder {
+    public function scopeFilter(Builder $query, array $filters): Builder
+    {
         $query->when($filters['category'] ?? false, fn($query, $category)
             => $query->whereHas('product.categories', fn($query)
                 => $query->where('categories.id', $category->id)

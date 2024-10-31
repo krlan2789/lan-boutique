@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\ProductVariant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
 
 class CategoryController extends Controller
 {
@@ -51,15 +51,14 @@ class CategoryController extends Controller
     {
         $productVariants = ProductVariant::with(['product', 'product.detail'])
             ->filter(['category' => $category])
-            ->get()
-            // ->paginate(20)
-            // ->withQueryString()
+            ->paginate(10)
+            ->withQueryString()
             ;
 
         // return response()->json($productVariants);
 
         $items = collect([]);
-        foreach ($productVariants/*->items()*/ as $variant) {
+        foreach ($productVariants->items() as $variant) {
             $detail = $variant->detail ?? $variant->product->detail;
             $promo = $variant->promo ?? ($product->promo ?? null);
             if ($detail) {
@@ -85,10 +84,10 @@ class CategoryController extends Controller
             }
         }
 
+        $results = ['items' => $items, 'variants' => $productVariants];
         return view('components.layout.list-view', [
             'title' => $category->name,
-            'items' => $items,
-            'variants' => $productVariants,
+            'results' => $results,
         ]);
     }
 

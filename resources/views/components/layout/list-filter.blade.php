@@ -12,7 +12,7 @@ plugins: [
 }
 ```
 --}}
-
+{{-- {{ dd($results) }} --}}
 <div class="bg-tertiary" x-data="{
     isMobileFilterOpen: false,
     isFilterTagsOpen: true,
@@ -26,10 +26,8 @@ plugins: [
 
         {{--
             Mobile filter dialog
-
             Off-canvas filters for mobile, show/hide based on off-canvas filters state.
         --}}
-
         <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
 
             {{--
@@ -333,6 +331,10 @@ plugins: [
                 </div>
             </div>
         </div>
+        {{--
+            Mobile filter dialog
+            Off-canvas filters for mobile, show/hide based on off-canvas filters state.
+        --}}
 
         <main class="mx-auto">
             <div class="flex items-baseline justify-between pb-6 border-b border-quaternary">
@@ -340,9 +342,9 @@ plugins: [
                     <h2 class="flex flex-row gap-2 text-2xl tracking-tight md:text-3xl">
                         <span class="hidden sm:block">Category:</span><strong>{{ $title }}</strong>
                     </h2>
-                    @if ($items && count($items) > 0)
-                        <p class="text-sm text-dark/50">{{ count($items) }} products found</p>
-                    @endif
+                    {{-- @if (isset($results) && $results['items'] && count($results['items']) > 0)
+                        <p class="text-sm text-dark/50">{{ count($results['variants']->items()) }} products found</p>
+                    @endif --}}
                 </div>
 
                 <div class="flex items-center">
@@ -662,12 +664,12 @@ plugins: [
                     <!-- Filters -->
 
                     <!-- Product grid -->
-                    <div class="lg:col-span-4">
-                        @if ($items && count($items) > 0)
+                    <div class="col-span-5 lg:col-span-4">
+                        @if (isset($results) && $results['items'] && count($results['items']) > 0)
                             <!-- List products... -->
                             <div
                                 class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 xl:gap-x-8">
-                                @foreach ($items as $item)
+                                @foreach ($results['items'] as $item)
                                     <x-layout.card-item :subtitle="$item['name']" :title="$item['variantName']" :price="$item['price']"
                                         :image-url="$item['imageUrl']" :url="$item['url']" :colors="$item['colors']"
                                         :promo-price="$item['promoPrice']"></x-layout.card-item>
@@ -683,9 +685,12 @@ plugins: [
                         @endif
                     </div>
 
-                    @isset($variants)
-                        {{ $variants->links() }}
-                    @endisset
+                    @if (isset($results) && $results['variants'])
+                        <div class="hidden lg:block"></div>
+                        <div class="justify-end col-span-5 lg:col-span-4">
+                            {{ $results['variants']->links() }}
+                        </div>
+                    @endif
                 </div>
             </section>
         </main>
