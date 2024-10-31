@@ -13,26 +13,6 @@
 </script>
 
 <x-layout.layout :title="$data->name">
-    <!--
-    This example requires some changes to your config:
-    ```
-    // tailwind.config.js
-    module.exports = {
-        // ...
-        theme: {
-            extend: {
-                gridTemplateRows: {
-                    '[auto,auto,1fr]': 'auto auto 1fr',
-                },
-            },
-        },
-        plugins: [
-            // ...
-            require('@tailwindcss/aspect-ratio'),
-        ],
-    }
-    ```
-    -->
     <div class="bg-tertiary" x-data="{
         @if ($detail && ($detail->highlights || $detail->description)) selectedTab: @if ($detail->highlights) 0 @else 1 @endif @endif,
         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor: '', @endif
@@ -53,7 +33,7 @@
                     </li> --}}
                     <li>
                         <div class="flex items-center">
-                            <a href="{{ $url_p }}"
+                            <a href="{{ $url }}"
                                 class="mr-2 text-sm font-medium text-primary">{{ $data->product->name }}</a>
                             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true"
                                 class="w-4 h-5 text-dark/70">
@@ -405,6 +385,11 @@
                 {{-- Options --}}
             </div>
             <!-- Product info -->
+
+            @isset($moreItems)
+                {{-- {{ dd($moreItems) }} --}}
+                <x-layout.horizontal-list title="Complete Your Appearance" :items="$moreItems"></x-layout.horizontal-list>
+            @endisset
         </div>
     </div>
 </x-layout.layout>

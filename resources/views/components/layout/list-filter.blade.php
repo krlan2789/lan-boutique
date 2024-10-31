@@ -1,17 +1,3 @@
-{{--
-This example requires some changes to your config:
-
-```
-// tailwind.config.js
-module.exports = {
-// ...
-plugins: [
-    // ...
-    require('@tailwindcss/forms'),
-],
-}
-```
---}}
 {{-- {{ dd($results) }} --}}
 <div class="bg-tertiary" x-data="{
     isMobileFilterOpen: false,

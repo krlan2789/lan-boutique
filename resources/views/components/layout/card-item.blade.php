@@ -1,4 +1,5 @@
-<div class="relative group bg-tertiary">
+<div
+    {{ isset($attributes) ? $attributes->merge(['class' => 'relative group bg-tertiary']) : 'class="relative group bg-tertiary"' }}>
     <div class="w-full overflow-hidden aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 lg:h-80">
         <img src="{{ $imageUrl }}" alt="{{ $title }}"
             class="object-cover object-center w-full h-full lg:h-full lg:w-full">
