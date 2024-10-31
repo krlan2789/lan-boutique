@@ -24,8 +24,8 @@ Route::get('/blog', function () {
 });
 
 Route::get('/new-arrival', [CategoryController::class, 'latest']);
-Route::get('/c/{category:slug}', [CategoryController::class, 'index']);
-Route::get('/cpv/{category:slug}', [CategoryController::class, 'variants']);
+// Route::get('/c/{category:slug}', [CategoryController::class, 'index']);
+Route::get('/c/{category:slug}', [CategoryController::class, 'variants']);
 
 Route::get('/pv/{productVariant:slug}', [ProductVariantController::class, 'index']);
 

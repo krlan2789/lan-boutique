@@ -51,7 +51,7 @@ class CategoryController extends Controller
     {
         $productVariants = ProductVariant::with(['product', 'product.detail'])
             ->filter(['category' => $category])
-            ->paginate(10)
+            ->paginate(20)
             ->withQueryString()
             ;
 
