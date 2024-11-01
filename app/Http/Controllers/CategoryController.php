@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 
@@ -14,36 +13,10 @@ class CategoryController extends Controller
     {
         $products = $category->products()->with(['variants', 'detail', 'promo'])->get();
         $items = collect(Product::formated($products));
-        // foreach ($products as $product) {
-        //     foreach ($product->variants as $variant) {
-        //         $detail = $variant->detail ?? $product->detail;
-        //         $promo = $variant->promo ?? ($product->promo ?? null);
-        //         if ($detail) {
-        //             $promoPrice = 0;
-        //             if ($promo) {
-        //                 $value = $promo->discount > 0 ? ($variant->price * (floatval($promo->discount) / 100.0)) : $promo->nominal;
-        //                 // if ($promo->discount > 0 && $value > $promo->nominal_max) $value = $promo->nominal_max;
-        //                 if ($promo->discount > 0 && $value > $variant->price) $value = $variant->price;
-
-        //                 $promoPrice = $variant->price - $value;
-        //             }
-
-        //             $items->add([
-        //                 "name" => $product->name,
-        //                 "url" => "/pv/$variant->slug",
-        //                 "variantId" => $variant->id,
-        //                 "variantName" => $variant->name,
-        //                 "price" => $variant->price,
-        //                 "promoPrice" => $promoPrice,
-        //                 "colors" => $detail->colors ?? [],
-        //                 "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
-        //             ]);
-        //         }
-        //     }
-        // }
 
         return view('components.layout.list-view', [
             'title' => $category->name,
+            'viewType' => 'filter',
             'items' => $items,
         ]);
     }
@@ -56,48 +29,13 @@ class CategoryController extends Controller
             ->withQueryString()
             ;
 
-        // return response()->json($productVariants);
-
         $items = ProductVariant::formated($productVariants->items());
-        // foreach ($productVariants->items() as $variant) {
-        //     $detail = $variant->detail ?? $variant->product->detail;
-        //     $promo = $variant->promo ?? ($product->promo ?? null);
-        //     if ($detail) {
-        //         $promoPrice = 0;
-        //         if ($promo) {
-        //             $value = $promo->discount > 0 ? ($variant->price * (floatval($promo->discount) / 100.0)) : $promo->nominal;
-        //             // if ($promo->discount > 0 && $value > $promo->nominal_max) $value = $promo->nominal_max;
-        //             if ($promo->discount > 0 && $value > $variant->price) $value = $variant->price;
-
-        //             $promoPrice = $variant->price - $value;
-        //         }
-
-        //         $items->add([
-        //             "name" => $variant->product->name,
-        //             "url" => "/pv/$variant->slug",
-        //             "variantId" => $variant->id,
-        //             "variantName" => $variant->name,
-        //             "price" => $variant->price,
-        //             "promoPrice" => $promoPrice,
-        //             "colors" => $detail->colors ?? [],
-        //             "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
-        //         ]);
-        //     }
-        // }
 
         $results = ['items' => $items, 'variants' => $productVariants];
         return view('components.layout.list-view', [
             'title' => $category->name,
+            'viewType' => 'filter',
             'results' => $results,
-        ]);
-    }
-
-    public function latest()
-    {
-        return view('components.layout.list-view', [
-            'title' => 'New Arrival',
-            'componentItem' => 'layout.card-item',
-            'items' => [],
         ]);
     }
 }

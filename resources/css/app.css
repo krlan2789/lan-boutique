@@ -70,4 +70,14 @@
     .custom-scrollable-x {
         @apply overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none];
     }
+
+    .trapezoid-left {
+        clip-path: polygon(0 0, 100% 0, 50% 100%, 0% 100%);
+        /* clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%); */
+    }
+
+    .trapezoid-right {
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 0% 100%);
+        /* clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%); */
+    }
 }

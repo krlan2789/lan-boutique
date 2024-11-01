@@ -40,7 +40,7 @@ class ProductDetailFactory extends Factory
         $tags = fake()->words(rand(1, 6));
 
         $availableImages = [];
-        for ($i = 1; $i <= 46; $i++) {
+        for ($i = 1; $i <= 77; $i++) {
             $availableImages [] = "/img/products/product.$i.jpg";
         }
         $images = fake()->randomElements($availableImages, rand(2, 8));

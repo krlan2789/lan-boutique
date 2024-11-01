@@ -1,13 +1,14 @@
 {{-- {{ dd($results) }} --}}
-<div class="bg-tertiary" x-data="{
-    isMobileFilterOpen: false,
-    isFilterTagsOpen: true,
-    isFilterSizeOpen: false,
-    isFilterColorsOpen: false,
-    isMobileFilterTagsOpen: true,
-    isMobileFilterSizeOpen: false,
-    isMobileFilterColorsOpen: false,
-}">
+<div {{ isset($attributes) ? $attributes->merge(['class' => 'bg-tertiary']) : 'class="bg-tertiary"' }}
+    x-data="{
+        isMobileFilterOpen: false,
+        isFilterTagsOpen: true,
+        isFilterSizeOpen: false,
+        isFilterColorsOpen: false,
+        isMobileFilterTagsOpen: true,
+        isMobileFilterSizeOpen: false,
+        isMobileFilterColorsOpen: false,
+    }">
     <div>
 
         {{--
@@ -649,12 +650,12 @@
                     </form>
                     <!-- Filters -->
 
-                    <!-- Product grid -->
+                    {{-- Product grid --}}
                     <div class="col-span-5 lg:col-span-4">
                         @if (isset($results) && $results['items'] && count($results['items']) > 0)
                             <!-- List products... -->
                             <div
-                                class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 xl:gap-x-8">
+                                class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-8">
                                 @foreach ($results['items'] as $item)
                                     <x-layout.card-item :subtitle="$item['name']" :title="$item['variantName']" :price="$item['price']"
                                         :image-url="$item['imageUrl']" :url="$item['url']" :colors="$item['colors']"
@@ -670,6 +671,7 @@
                             <!-- No product... -->
                         @endif
                     </div>
+                    {{-- Product grid --}}
 
                     @if (isset($results) && $results['variants'])
                         <div class="hidden lg:block"></div>

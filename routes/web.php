@@ -23,10 +23,10 @@ Route::get('/blog', function () {
     return view('blog');
 });
 
-Route::get('/new-arrival', [CategoryController::class, 'latest']);
 // Route::get('/c/{category:slug}', [CategoryController::class, 'index']);
 Route::get('/c/{category:slug}', [CategoryController::class, 'variants']);
 
+Route::get('/new-arrival', [ProductVariantController::class, 'latest']);
 Route::get('/pv/{productVariant:slug}', [ProductVariantController::class, 'index']);
 
 Route::get('/cart', function () {

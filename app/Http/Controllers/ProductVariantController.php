@@ -36,4 +36,22 @@ class ProductVariantController extends Controller
             'moreItems' => ProductVariant::formated($others),
         ]);
     }
+
+    public function latest()
+    {
+        $variants = ProductVariant::with(['product'])
+            ->latest('created_at')
+            ->limit(12)
+            ->get()
+            ->flatten();
+
+        $variants = ProductVariant::formated($variants);
+
+        return view('components.layout.list-view', [
+            'title' => 'New Arrival',
+            'viewType' => 'new-arrival',
+            // 'viewType' => 'simple',
+            'results' => ['items' => $variants],
+        ]);
+    }
 }
