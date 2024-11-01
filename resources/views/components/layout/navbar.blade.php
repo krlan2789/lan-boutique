@@ -25,7 +25,7 @@
                             class="px-3 py-2 navbar-link {{ request()->is('c/bottom') ? 'active' : '' }}">Bottom</a>
                         <a href="/c/accessories"
                             class="px-3 py-2 navbar-link {{ request()->is('c/accessories') ? 'active' : '' }}">Accessories</a> --}}
-                        @foreach ($menu as $m)
+                        @foreach ($menu as $idx => $m)
                             <a href="{{ $m['route'] }}"
                                 class="px-3 py-2 navbar-link {{ request()->is(Str::substr($m['route'], 1)) ? 'active' : '' }}">
                                 {{ $m['name'] }}

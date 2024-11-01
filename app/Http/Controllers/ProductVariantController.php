@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 
@@ -48,9 +49,27 @@ class ProductVariantController extends Controller
         $variants = ProductVariant::formated($variants);
 
         return view('components.layout.list-view', [
-            'title' => 'New Arrival',
+            'title' => 'All New Arrival',
             'viewType' => 'new-arrival',
             // 'viewType' => 'simple',
+            'results' => ['items' => $variants],
+        ]);
+    }
+
+    public function latestCategory(Category $category)
+    {
+        $variants = ProductVariant::with(['product', 'product.detail'])
+            ->filter(['category' => $category])
+            ->latest('created_at')
+            ->limit(12)
+            ->get()
+            ;
+
+        $variants = ProductVariant::formated($variants);
+
+        return view('components.layout.list-view', [
+            'title' => "$category->name - New Arrival",
+            'viewType' => 'new-arrival-category',
             'results' => ['items' => $variants],
         ]);
     }

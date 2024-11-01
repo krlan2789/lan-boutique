@@ -1,40 +1,40 @@
 {
-    "menu": [
-        {
+    "menu": {
+        "new-arrival": {
             "route": "/new-arrival",
             "name": "New Arrival",
             "styles": "",
             "submenu": []
         },
-        {
+        "women": {
             "route": "/c/women",
             "name": "Women",
             "styles": "",
             "submenu": []
         },
-        {
+        "men": {
             "route": "/c/men",
             "name": "Men",
             "styles": "",
             "submenu": []
         },
-        {
+        "top": {
             "route": "/c/top",
             "name": "Top",
             "styles": "",
             "submenu": []
         },
-        {
+        "bottom": {
             "route": "/c/bottom",
             "name": "Bottom",
             "styles": "",
             "submenu": []
         },
-        {
+        "accessories": {
             "route": "/c/accessories",
             "name": "Accessories",
             "styles": "",
             "submenu": []
         }
-    ]
+    }
 }

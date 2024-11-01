@@ -24,7 +24,7 @@
                                             class="text-2xl font-bold text-center w-36 md:w-44 md:text-3xl xl:w-56 xl:text-4xl text-tertiary">
                                             MEN
                                         </h2>
-                                        <button
+                                        <a href="{{ $menu['new-arrival']['route'] }}/men"
                                             class="flex items-center justify-center gap-1 text-sm w-36 md:w-44 md:text-lg xl:w-60 xl:py-4 xl:text-2xl btn-main">
                                             See products
                                             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor"
@@ -33,7 +33,7 @@
                                                     d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z">
                                                 </path>
                                             </svg>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                             class="text-2xl font-bold text-center w-36 md:w-44 md:text-3xl xl:w-56 xl:text-4xl text-tertiary">
                                             WOMEN
                                         </h2>
-                                        <button
+                                        <a href="{{ $menu['new-arrival']['route'] }}/women"
                                             class="flex items-center justify-center gap-1 text-sm w-36 md:w-44 md:text-lg xl:w-60 xl:py-4 xl:text-2xl btn-main">
                                             See products
                                             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor"
@@ -61,29 +61,29 @@
                                                     d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z">
                                                 </path>
                                             </svg>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="w-full h-auto pt-12 -mb-12 lg:px-6">
+                    {{-- @break --}}
+                @case('new-arrival-category')
+                    <div class="w-full h-auto pt-12 -mb-12 lg:px-6 @if ($viewType == 'new-arrival-category') mt-16 @endif">
                         <h1 class="flex justify-center text-xl font-semibold text-center lg:text-3xl text-dark">
-                            All New Arrival
+                            {{ $title }}
                         </h1>
                         @if (isset($results) && $results['items'] && count($results['items']) > 0)
                             <p class="flex justify-center pt-4 text-sm text-center lg:text-base">{{ count($results['items']) }}
                                 Products</p>
                         @endif
                     </div>
-                    {{-- @break --}}
                 @case('simple')
                     {{-- Product grid --}}
                     @if (isset($results) && $results['items'] && count($results['items']) > 0)
                         <!-- List products... -->
                         <div
-                            class="grid grid-cols-1 px-6 mt-24 md:mt-28 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 xl:gap-x-10 xl:gap-y-14">
+                            class="grid grid-cols-1 px-6 mt-24 md:mt-28 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-10 xl:gap-y-14">
                             @foreach ($results['items'] as $item)
                                 <x-layout.card-item :subtitle="$item['name']" :title="$item['variantName']" :price="$item['price']" :image-url="$item['imageUrl']"
                                     :url="$item['url']" :colors="$item['colors']" :promo-price="$item['promoPrice']"></x-layout.card-item>
