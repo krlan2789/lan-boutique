@@ -1,8 +1,9 @@
-<div x-init="isModalWindowShow = {{ $autoShow ?? false }}" x-show="isModalWindowShow" x-data="{ isModalWindowShow: true }" @click.outside="isModalWindowShow = false"
-    x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
-    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75 transform"
-    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-    class="fixed top-0 bottom-0 left-0 right-0 z-50 bg-dark/40" id="modal-window">
+<div x-cloak x-init="isModalWindowShow = {{ $autoShow ?? false }}" x-show="isModalWindowShow" x-data="{ isModalWindowShow: true }"
+    @click.outside="isModalWindowShow = false" x-transition:enter="transition ease-out duration-300 transform"
+    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+    x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
+    x-transition:leave-end="opacity-0 scale-95" class="fixed top-0 bottom-0 left-0 right-0 z-50 bg-dark/40"
+    id="modal-window">
     <div class="flex items-center justify-center min-h-screen">
         <div class="px-16 py-8 bg-tertiary">
             <div class="flex justify-center">

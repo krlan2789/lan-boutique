@@ -15,6 +15,11 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     <title>{{ $title ?? env('APP_NAME', 'Boutique') }}</title>
 </head>
 
@@ -33,7 +38,7 @@
             :autoShow="true"></x-layout.modal-dialog>
     @endif
 
-    <x-layout.loading></x-layout.loading>
+    {{-- <x-layout.loading></x-layout.loading> --}}
 
     @vite('resources/js/app.js')
 </body>

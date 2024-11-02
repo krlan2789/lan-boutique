@@ -2,7 +2,7 @@
     {{ isset($attributes) ? $attributes->merge(['class' => 'relative group bg-tertiary']) : 'class="relative group bg-tertiary"' }}>
     <div class="w-full overflow-hidden aspect-h-1 aspect-w-1 lg:aspect-none group-hover:opacity-75 sm:h-80">
         <img src="{{ $imageUrl }}" alt="{{ $title }}"
-            class="object-cover object-center w-full h-full lg:h-full lg:w-full">
+            class="object-cover object-center w-full h-full transition-transform scale-100 lg:h-full lg:w-full group-hover:scale-125">
     </div>
     <div class="flex justify-between mt-2">
         <div class="flex flex-col w-full gap-1">

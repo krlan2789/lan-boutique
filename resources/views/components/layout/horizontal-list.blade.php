@@ -39,13 +39,13 @@
         return {
             prev() {
                 document.querySelector('.overflow-x-scroll').scrollBy({
-                    left: -240,
+                    left: -272,
                     behavior: 'smooth'
                 });
             },
             next() {
                 document.querySelector('.overflow-x-scroll').scrollBy({
-                    left: 240,
+                    left: 272,
                     behavior: 'smooth'
                 });
             }

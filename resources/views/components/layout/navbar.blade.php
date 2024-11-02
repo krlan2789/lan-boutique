@@ -71,7 +71,7 @@
                             </button>
                         </div>
 
-                        <div x-show="isNavbarOpen ?? false" @click.outside="isNavbarOpen = false"
+                        <div x-cloak x-show="isNavbarOpen ?? false" @click.outside="isNavbarOpen = false"
                             x-transition:enter="transition ease-out duration-300 transform"
                             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                             x-transition:leave="transition ease-in duration-75 transform"
@@ -158,7 +158,8 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div x-show="isNavbarOpen ?? false" x-transition:enter="transition ease-out origin-top duration-300 transform"
+    <div x-cloak x-show="isNavbarOpen ?? false"
+        x-transition:enter="transition ease-out origin-top duration-300 transform"
         x-transition:enter-start="opacity-0 scale-y-95" x-transition:enter-end="opacity-100 scale-y-100"
         x-transition:leave="transition ease-in duration-75 transform"
         x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"

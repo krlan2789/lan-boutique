@@ -361,7 +361,7 @@
                                 To: "transform opacity-0 scale-95"
                         --}}
 
-                        <div x-show="isSortOptionsOpen" @click.outside="isSortOptionsOpen = false"
+                        <div x-cloak x-show="isSortOptionsOpen" @click.outside="isSortOptionsOpen = false"
                             x-transition:enter="transition ease-out duration-300 transform"
                             x-transition:enter-start="opacity-0 scale-95"
                             x-transition:enter-end="opacity-100 scale-100"
@@ -529,7 +529,7 @@
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isFilterSizeOpen"
+                            <div x-cloak x-show="isFilterSizeOpen"
                                 x-transition:enter="transition origin-top ease-out duration-300 transform"
                                 x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
                                 x-transition:leave="transition origin-top ease-in duration-75 transform"
@@ -604,7 +604,7 @@
                             </h3>
 
                             <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isFilterColorsOpen"
+                            <div x-cloak x-show="isFilterColorsOpen"
                                 x-transition:enter="transition origin-top ease-out duration-300 transform"
                                 x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
                                 x-transition:leave="transition origin-top ease-in duration-75 transform"
