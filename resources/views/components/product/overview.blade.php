@@ -48,7 +48,7 @@
             </nav>
 
             <!-- Product info -->
-            <div class="px-6 pt-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,auto,1fr] lg:gap-x-8">
+            <div class="px-6 pt-8 mb-12 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,auto,1fr] lg:gap-x-8">
 
                 {{-- Product Images --}}
                 @if ($detail && $detail->images != null && gettype($detail->images) == 'array' && collect($detail->images)->count() > 0)

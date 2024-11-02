@@ -13,7 +13,7 @@ class HorizontalList extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $title,
+        public string $title = '',
         public array|Collection|null $items = null,
     )
     {

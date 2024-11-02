@@ -67,9 +67,34 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @break --}}
+
+                    @if (isset($results) && $results['items'] && count($results['items']) > 0)
+                        <div class="w-full h-auto">
+                            <div class="px-0 py-16 lg:px-6 lg:mx-6 bg-quaternary">
+                                <h1
+                                    class="flex justify-start px-8 pb-2 text-xl font-semibold text-center lg:px-12 lg:text-3xl text-dark">
+                                    {{ $title }}
+                                </h1>
+                                <p class="flex flex-row px-8 pb-6 text-sm lg:px-12 text-dark/80">
+                                    Our new products for this year
+                                    <a href="{{ $menu['new-arrival']['route'] }}/all"
+                                        class="flex flex-row items-center justify-center gap-2 simple-link">
+                                        <svg class="w-8 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M34 14H5m29 0-4 4m4-4-4-4" />
+                                        </svg>
+                                        View all
+                                    </a>
+                                </p>
+                                <x-layout.horizontal-list class="lg:mx-6" :items="$results['items']->take(8)"></x-layout.horizontal-list>
+                            </div>
+                        </div>
+                    @endif
+                @break
+
                 @case('new-arrival-category')
-                    <div class="w-full h-auto pt-12 -mb-12 lg:px-6 @if ($viewType == 'new-arrival-category') mt-16 @endif">
+                    <div class="w-full h-auto pt-12 mt-16 -mb-12 lg:px-6">
                         <h1 class="flex justify-center text-xl font-semibold text-center lg:text-3xl text-dark">
                             {{ $title }}
                         </h1>

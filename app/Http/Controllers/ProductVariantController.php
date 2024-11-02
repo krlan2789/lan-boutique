@@ -42,14 +42,14 @@ class ProductVariantController extends Controller
     {
         $variants = ProductVariant::with(['product'])
             ->latest('created_at')
-            ->limit(12)
+            ->limit(24)
             ->get()
             ->flatten();
 
         $variants = ProductVariant::formated($variants);
 
         return view('components.layout.list-view', [
-            'title' => 'All New Arrival',
+            'title' => 'New Arrival',
             'viewType' => 'new-arrival',
             // 'viewType' => 'simple',
             'results' => ['items' => $variants],
@@ -61,7 +61,7 @@ class ProductVariantController extends Controller
         $variants = ProductVariant::with(['product', 'product.detail'])
             ->filter(['category' => $category])
             ->latest('created_at')
-            ->limit(12)
+            ->limit(24)
             ->get()
             ;
 
@@ -69,6 +69,23 @@ class ProductVariantController extends Controller
 
         return view('components.layout.list-view', [
             'title' => "$category->name - New Arrival",
+            'viewType' => 'new-arrival-category',
+            'results' => ['items' => $variants],
+        ]);
+    }
+
+    public function latestAll()
+    {
+        $variants = ProductVariant::with(['product', 'product.detail'])
+            ->latest('created_at')
+            ->limit(24)
+            ->get()
+            ;
+
+        $variants = ProductVariant::formated($variants);
+
+        return view('components.layout.list-view', [
+            'title' => "All - New Arrival",
             'viewType' => 'new-arrival-category',
             'results' => ['items' => $variants],
         ]);
