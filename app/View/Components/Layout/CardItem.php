@@ -4,6 +4,7 @@ namespace App\View\Components\Layout;
 
 use Closure;
 use Illuminate\View\Component;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
 
 class CardItem extends Component
@@ -17,7 +18,7 @@ class CardItem extends Component
         public string $url,
         public int $price = 0,
         public int $promoPrice = 0,
-        public string $imageUrl = '',
+        public array|Collection|null $imageUrl = [],
         public string $shortDesc = '',
         public array|null $colors = [],
     )

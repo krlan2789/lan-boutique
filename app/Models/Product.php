@@ -85,6 +85,11 @@ class Product extends Model
                         $promoPrice = $variant->price - $value;
                     }
 
+                    $images = [];
+                    foreach ($detail->images as $value) {
+                        $images[] = Str::replace('.jpg', '_10(0.1).jpg', $value);
+                    }
+
                     $items->add([
                         "name" => $product->name,
                         "url" => "/pv/$variant->slug",
@@ -93,7 +98,8 @@ class Product extends Model
                         "price" => $variant->price,
                         "promoPrice" => $promoPrice,
                         "colors" => $detail->colors ?? [],
-                        "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
+                        "imageUrl" => $images ?? [],
+                        // "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
                     ]);
                 }
             }
