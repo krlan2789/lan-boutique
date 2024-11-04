@@ -14,34 +14,36 @@
                     @endforeach
                 </div>
 
-                <button @click="imageIndex = (imageIndex <= 0 ? {{ count($imageUrl) - 1 }} : imageIndex - 1)"
-                    class="absolute z-10 hidden group-hover:block left-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
+                @if (count($imageUrl) > 0)
+                    <button @click="imageIndex = (imageIndex <= 0 ? {{ count($imageUrl) - 1 }} : imageIndex - 1)"
+                        class="absolute z-10 hidden group-hover:block left-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
 
-                <button @click="imageIndex = (imageIndex < {{ count($imageUrl) - 1 }} ? imageIndex + 1 : 0)"
-                    class="absolute z-10 hidden group-hover:block right-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
+                    <button @click="imageIndex = (imageIndex < {{ count($imageUrl) - 1 }} ? imageIndex + 1 : 0)"
+                        class="absolute z-10 hidden group-hover:block right-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                @endif
             </div>
         </div>
     @endif
     <div class="flex justify-between mt-2 mb-4">
         <div class="flex flex-col w-full gap-[2px]">
             @if ($subtitle != null && Str::length($subtitle) > 0)
-                <p class="text-xs font-medium text-center text-secondary">{{ $subtitle }}</p>
+                <p class="text-xs italic font-light text-center text-secondary">{{ $subtitle }}</p>
             @endif
 
             @if ($title != null && Str::length($title) > 0)
-                <h3 class="text-base font-semibold text-center text-primary">
+                <h3 class="text-base font-medium text-center text-primary">
                     <a href="{{ $url }}">
                         <span aria-hidden="true" class="absolute inset-0"></span>
                         {{ $title }}
@@ -65,7 +67,7 @@
 
             @if ($price > 0 && gettype($price) == 'integer')
                 @if ($promoPrice > 0 && gettype($price) == 'integer')
-                    <p class="text-base font-medium text-center text-dark">
+                    <p class="text-base font-medium text-center text-danger">
                         Rp {{ Number::format(intval($promoPrice), locale: 'idr') }}
                     </p>
                     <p
