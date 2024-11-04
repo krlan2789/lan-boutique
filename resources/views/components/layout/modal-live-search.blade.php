@@ -28,7 +28,7 @@
 
 <div x-cloak x-show="isLiveSearchShow ?? false" x-transition:enter="transition origin-top ease-out duration-300 transform"
     x-transition:enter-start="opacity-0 scale-y-95" x-transition:enter-end="opacity-100 scale-y-100"
-    x-transition:leave="transition origin-top ease-in duration-75 transform"
+    x-transition:leave="transition origin-top ease-in duration-150 transform"
     x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"
     class="fixed top-0 bottom-0 left-0 right-0 z-50 bg-dark/80">
     <div class="container flex flex-col items-center justify-start min-h-screen mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary"

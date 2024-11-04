@@ -4,14 +4,14 @@
         <img src="{{ $imageUrl }}" alt="{{ $title }}"
             class="object-cover object-center w-full h-full transition-transform scale-100 lg:h-full lg:w-full group-hover:scale-125">
     </div>
-    <div class="flex justify-between mt-2">
-        <div class="flex flex-col w-full gap-1">
+    <div class="flex justify-between mt-2 mb-4">
+        <div class="flex flex-col w-full gap-[2px]">
             @if ($subtitle != null && Str::length($subtitle) > 0)
                 <p class="text-xs font-medium text-center text-secondary">{{ $subtitle }}</p>
             @endif
 
             @if ($title != null && Str::length($title) > 0)
-                <h3 class="text-lg font-semibold text-center text-primary">
+                <h3 class="text-base font-semibold text-center text-primary">
                     <a href="{{ $url }}">
                         <span aria-hidden="true" class="absolute inset-0"></span>
                         {{ $title }}
@@ -35,15 +35,15 @@
 
             @if ($price > 0 && gettype($price) == 'integer')
                 @if ($promoPrice > 0 && gettype($price) == 'integer')
-                    <p class="text-lg font-medium text-center text-dark">
+                    <p class="text-base font-medium text-center text-dark">
                         Rp {{ Number::format(intval($promoPrice), locale: 'idr') }}
                     </p>
                     <p
-                        class="text-base font-normal text-center line-through text-dark/50 decoration-slice decoration-dark/25">
+                        class="text-xs font-normal text-center line-through text-dark/50 decoration-slice decoration-dark/25">
                         Rp {{ Number::format(intval($price), locale: 'idr') }}
                     </p>
                 @else
-                    <p class="text-lg font-medium text-center text-dark">
+                    <p class="text-base font-medium text-center text-dark">
                         Rp {{ Number::format(intval($price), locale: 'idr') }}
                     </p>
                 @endif
