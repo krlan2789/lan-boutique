@@ -10,7 +10,7 @@
                     <div class="w-full h-screen pt-16 lg:px-6">
                         <div class="relative w-full h-full overflow-hidden bg-dark/20">
                             <div
-                                class="absolute overflow-hidden group origin-bottom-left bottom-0 left-0 w-[66.6%] text-dark top-0 h-full bg-quaternary trapezoid-left flex flex-col justify-between items-start scale-x-100 transition-all duration-300 hover:scale-x-[1.0075] hover:z-10 hover:bg-dark/5">
+                                class="absolute overflow-hidden group origin-bottom-left bottom-0 left-0 w-[66.6%] text-dark top-0 h-full bg-tertiary trapezoid-left flex flex-col justify-between items-start scale-x-100 transition-all duration-300 hover:scale-x-[1.0075] hover:z-10 hover:bg-dark/5">
                                 <div class="relative w-full h-full">
                                     {{-- Background Image --}}
                                     <div style="background-image: url(/img/products/product.64-removebg-preview.png)"
@@ -19,7 +19,7 @@
                                     </div>
                                     {{-- Background Image --}}
                                     <div
-                                        class="absolute flex flex-col-reverse gap-4 py-32 lg:py-24 items-start justify-start w-full h-full bg-dark/20 scale-x-100 transition-all duration-300 group-hover:scale-x-[1.0075] group-hover:bg-dark/60">
+                                        class="absolute flex flex-col-reverse gap-4 py-32 lg:py-24 items-start justify-start w-full h-full bg-dark/0 scale-x-100 transition-all duration-300 group-hover:scale-x-[1.0075] group-hover:bg-dark/40">
                                         <h2
                                             class="text-2xl font-bold text-center w-36 md:w-44 md:text-3xl xl:w-56 xl:text-4xl text-tertiary">
                                             MEN
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div
-                                class="absolute overflow-hidden group origin-bottom-right bottom-0 -right-px w-[66.6%] text-dark top-0 h-full bg-quaternary trapezoid-right flex flex-col-reverse justify-between items-end scale-x-100 transition-all duration-300 hover:scale-x-[1.0075] hover:z-10 hover:bg-dark/5">
+                                class="absolute overflow-hidden group origin-bottom-right bottom-0 -right-px w-[66.6%] text-dark top-0 h-full bg-tertiary trapezoid-right flex flex-col-reverse justify-between items-end scale-x-100 transition-all duration-300 hover:scale-x-[1.0075] hover:z-10 hover:bg-dark/5">
                                 <div class="relative w-full h-full">
                                     {{-- Background Image --}}
                                     <div style="background-image: url(/img/products/product.35-removebg-preview.png)"
@@ -47,7 +47,7 @@
                                     </div>
                                     {{-- Background Image --}}
                                     <div
-                                        class="absolute flex flex-col gap-4 py-32 lg:py-24 items-end justify-start w-full h-full bg-dark/20 scale-x-100 transition-all duration-300 group-hover:scale-x-[1.0075] group-hover:bg-dark/60">
+                                        class="absolute flex flex-col gap-4 py-32 lg:py-24 items-end justify-start w-full h-full bg-dark/0 scale-x-100 transition-all duration-300 group-hover:scale-x-[1.0075] group-hover:bg-dark/40">
                                         <h2
                                             class="text-2xl font-bold text-center w-36 md:w-44 md:text-3xl xl:w-56 xl:text-4xl text-tertiary">
                                             WOMEN

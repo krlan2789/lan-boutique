@@ -1,7 +1,7 @@
 <div
     {{ isset($attributes) ? $attributes->merge(['class' => 'relative group bg-tertiary']) : 'class="relative group bg-tertiary"' }}>
     @if (isset($imageUrl) && is_array($imageUrl) && count($imageUrl) > 0)
-        <div class="relative w-full overflow-hidden aspect-h-1 aspect-w-1 lg:aspect-none sm:h-80">
+        <div class="relative w-full overflow-hidden aspect-h-1 aspect-w-1 lg:aspect-none h-[50vh]">
             <div x-data="{ imageIndex: 0 }"
                 class="absolute top-0 bottom-0 left-0 right-0 items-center justify-center overflow-hidden bg-tertiary">
 
@@ -16,7 +16,7 @@
 
                 @if (count($imageUrl) > 0)
                     <button @click="imageIndex = (imageIndex <= 0 ? {{ count($imageUrl) - 1 }} : imageIndex - 1)"
-                        class="absolute z-10 hidden group-hover:block left-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
+                        class="absolute z-10 md:hidden group-hover:block left-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -25,7 +25,7 @@
                     </button>
 
                     <button @click="imageIndex = (imageIndex < {{ count($imageUrl) - 1 }} ? imageIndex + 1 : 0)"
-                        class="absolute z-10 hidden group-hover:block right-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
+                        class="absolute z-10 md:hidden group-hover:block right-0 px-1 py-2 text-white top-[45%] bg-primary hover:bg-primary/90">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
