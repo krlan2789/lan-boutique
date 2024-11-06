@@ -290,7 +290,7 @@
                     </div> --}}
                     <!-- Reviews -->
 
-                    <form action="/cart" method="POST" class="mt-0">
+                    <form action="/" method="GET" class="mt-0">
                         @csrf
 
                         <input hidden type="text" name="pv_slug" value="{{ $data->product->slug }}" />

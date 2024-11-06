@@ -17,14 +17,14 @@
             </div>
         </div>
 
-        <button @click="prev" class="absolute px-2 py-4 text-white left-1 top-1/3 bg-primary hover:bg-primary/90">
+        <button @click="prev" class="absolute px-2 py-4 text-white left-1 top-[40%] bg-primary hover:bg-primary/90">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                     clip-rule="evenodd" />
             </svg>
         </button>
-        <button @click="next" class="absolute px-2 py-4 text-white right-1 top-1/3 bg-primary hover:bg-primary/90">
+        <button @click="next" class="absolute px-2 py-4 text-white right-1 top-[40%] bg-primary hover:bg-primary/90">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
