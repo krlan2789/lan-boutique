@@ -8,14 +8,14 @@
                 </span>
             @else
                 <a href="{{ $paginator->previousPageUrl() }}"
-                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/70 bg-tertiary border-quaternary hover:text-dark/50 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/70 dark:bg-dark/80 dark:border-dark/60 dark:text-quaternary dark:focus:border-primary dark:active:bg-dark/70 dark:active:text-quaternary">
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/70 bg-tertiary border-quaternary hover:text-primary focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/70 dark:bg-dark/80 dark:border-dark/60 dark:text-quaternary dark:focus:border-primary dark:active:bg-dark/70 dark:active:text-quaternary">
                     {!! __('pagination.previous') !!}
                 </a>
             @endif
 
             @if ($paginator->hasMorePages())
                 <a href="{{ $paginator->nextPageUrl() }}"
-                    class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/70 bg-tertiary border-quaternary hover:text-dark/50 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/70 dark:bg-dark/80 dark:border-dark/60 dark:text-quaternary dark:focus:border-primary dark:active:bg-dark/70 dark:active:text-quaternary">
+                    class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/70 bg-tertiary border-quaternary hover:text-primary focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/70 dark:bg-dark/80 dark:border-dark/60 dark:text-quaternary dark:focus:border-primary dark:active:bg-dark/70 dark:active:text-quaternary">
                     {!! __('pagination.next') !!}
                 </a>
             @else
@@ -61,7 +61,7 @@
                         </span>
                     @else
                         <a href="{{ $paginator->previousPageUrl() }}" rel="prev"
-                            class="relative inline-flex items-center px-2 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/50 bg-tertiary border-quaternary md hover:text-dark/40 focus:z-10 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/50 dark:bg-dark/80 dark:border-dark/60 dark:active:bg-dark/70 dark:focus:border-primary"
+                            class="relative inline-flex items-center px-2 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/50 bg-tertiary border-quaternary md hover:text-primary/80 focus:z-10 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/50 dark:bg-dark/80 dark:border-dark/60 dark:active:bg-dark/70 dark:focus:border-primary"
                             aria-label="{{ __('pagination.previous') }}">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -91,7 +91,7 @@
                                     </span>
                                 @else
                                     <a href="{{ $url }}"
-                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/70 bg-tertiary border-quaternary hover:text-dark/50 focus:z-10 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/70 dark:bg-dark/80 dark:border-dark/60 dark:text-dark/40 dark:hover:text-quaternary dark:active:bg-dark/70 dark:focus:border-primary"
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/70 bg-tertiary border-quaternary hover:text-primary focus:z-10 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/70 dark:bg-dark/80 dark:border-dark/60 dark:text-dark/40 dark:hover:text-quaternary dark:active:bg-dark/70 dark:focus:border-primary"
                                         aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
                                         {{ $page }}
                                     </a>
@@ -103,7 +103,7 @@
                     {{-- Next Page Link --}}
                     @if ($paginator->hasMorePages())
                         <a href="{{ $paginator->nextPageUrl() }}" rel="next"
-                            class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/50 bg-tertiary border-quaternary md hover:text-dark/40 focus:z-10 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/50 dark:bg-dark/80 dark:border-dark/60 dark:active:bg-dark/70 dark:focus:border-primary"
+                            class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border text-dark/50 bg-tertiary border-quaternary md hover:text-primary/80 focus:z-10 focus:outline-none focus:ring ring-quaternary focus:border-quaternary active:bg-tertiary active:text-dark/50 dark:bg-dark/80 dark:border-dark/60 dark:active:bg-dark/70 dark:focus:border-primary"
                             aria-label="{{ __('pagination.next') }}">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
