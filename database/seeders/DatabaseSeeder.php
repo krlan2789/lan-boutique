@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call([EmployeeSeeder::class, RoleSeeder::class, ProductSeeder::class]);
         $this->call([AdminSeeder::class, UserSeeder::class, ProductVariantSeeder::class]);
         $this->call([ProductDetailSeeder::class, PromoSeeder::class]);
+        $this->call([RelatedMarketplaceSeeder::class]);
     }
 }

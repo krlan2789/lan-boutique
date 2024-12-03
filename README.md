@@ -164,7 +164,18 @@
 |     | created_at             | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at             | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.14. Table materials
+### 1.2.14. Table related_marketplace
+
+|     | Name                  | Type   |                                   |
+| --- | --------------------- | ------ | --------------------------------- |
+| PK  | **id**                | int    | Auto-increament                   |
+|     | url                   | string |                                   |
+|     | name                  | string | Length(255), nullable             |
+| FK  | **product_detail_id** | int    |                                   |
+|     | created_at            | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+|     | updated_at            | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
+
+### 1.2.15. Table materials
 
 |     | Name       | Type     |                                   |
 | --- | ---------- | -------- | --------------------------------- |
@@ -175,7 +186,7 @@
 |     | created_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string   | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.15. Table product_materials
+### 1.2.16. Table product_materials
 
 |     | Name                  | Type   |                                   |
 | --- | --------------------- | ------ | --------------------------------- |
@@ -185,7 +196,7 @@
 |     | created_at            | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at            | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.16. Table promo
+### 1.2.17. Table promo
 
 |     | Name                   | Type   |                                   |
 | --- | ---------------------- | ------ | --------------------------------- |
@@ -205,7 +216,7 @@
 |     | created_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.19. Table orders
+### 1.2.18. Table orders
 
 |     | Name          | Type   |                                           |
 | --- | ------------- | ------ | ----------------------------------------- |
@@ -219,7 +230,7 @@
 |     | created_at    | string | Length(20), 'yyyy-MM-dd HH:mm:ss'         |
 |     | updated_at    | string | Length(20), 'yyyy-MM-dd HH:mm:ss'         |
 
-### 1.2.20. Table order_logs
+### 1.2.19. Table order_logs
 
 |     | Name           | Type   |                                         |
 | --- | -------------- | ------ | --------------------------------------- |
@@ -231,7 +242,7 @@
 |     | created_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss'       |
 |     | updated_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss'       |
 
-### 1.2.21. Table order_payments
+### 1.2.20. Table order_payments
 
 |     | Name         | Type   |                                   |
 | --- | ------------ | ------ | --------------------------------- |
@@ -241,7 +252,7 @@
 |     | created_at   | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at   | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.22. Table payment_services
+### 1.2.21. Table payment_services
 
 |     | Name         | Type   |                                   |
 | --- | ------------ | ------ | --------------------------------- |
@@ -252,7 +263,7 @@
 |     | created_at   | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at   | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.23. Table payment_types
+### 1.2.22. Table payment_types
 
 |     | Name                   | Type   |                                   |
 | --- | ---------------------- | ------ | --------------------------------- |
@@ -264,7 +275,7 @@
 |     | created_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.24. Table payment_logs
+### 1.2.23. Table payment_logs
 
 |     | Name                 | Type   |                                   |
 | --- | -------------------- | ------ | --------------------------------- |
@@ -278,7 +289,7 @@
 |     | created_at           | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at           | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.25. Table schedule_shift_types
+### 1.2.24. Table schedule_shift_types
 
 |     | Name       | Type   |                                   |
 | --- | ---------- | ------ | --------------------------------- |
@@ -290,7 +301,7 @@
 |     | created_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.26. Table employee_schedules
+### 1.2.25. Table employee_schedules
 
 |     | Name                   | Type   |                                   |
 | --- | ---------------------- | ------ | --------------------------------- |
@@ -303,7 +314,7 @@
 |     | created_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at             | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 
-### 1.2.27. Table attendance_logs
+### 1.2.26. Table attendance_logs
 
 |     | Name                     | Type   |                                   |
 | --- | ------------------------ | ------ | --------------------------------- |
