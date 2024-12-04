@@ -180,16 +180,18 @@
                 {{-- Product Detail --}}
                 <div class="pb-4 lg:pb-8 lg:col-span-2 md:mt-8 lg:row-span-2 lg:border-r lg:border-dark/15 lg:pr-8">
                     {{-- Tabs --}}
-                    @if ($detail && ($detail->highlights || $detail->description))
+                    @if (
+                        $detail &&
+                            ($detail->highlights ||
+                                $detail->description ||
+                                ($detail->marketplaces && collect($detail->marketplaces)->count() > 0)))
                         <div class="flex flex-row w-full h-14 bg-dark/5">
                             {{-- Highlights --}}
                             @if ($detail && $detail->highlights)
                                 <button @click="selectedTab = 0" class="w-auto px-4 text-lg font-medium"
                                     :class="{
                                         'text-dark/80': selectedTab != 0,
-                                        'border-b-primary': selectedTab == 0,
-                                        'text-primary': selectedTab == 0,
-                                        'border-b-2': selectedTab == 0,
+                                        'border-b-primary text-primary border-b-2': selectedTab == 0,
                                     }">
                                     Highlights
                                 </button>
@@ -202,14 +204,25 @@
                                     class="w-auto px-4 text-lg font-medium border-b-2 text-primary border-b-primary"
                                     :class="{
                                         'text-dark/80': selectedTab != 1,
-                                        'border-b-primary': selectedTab == 1,
-                                        'text-primary': selectedTab == 1,
-                                        'border-b-2': selectedTab == 1,
+                                        'border-b-primary text-primary border-b-2': selectedTab == 1,
                                     }">
                                     Description
                                 </button>
                             @endif
                             {{-- Description --}}
+
+                            {{-- Related Marketplaces --}}
+                            @if ($detail && $detail->marketplaces && collect($detail->marketplaces)->count() > 0)
+                                <button @click="selectedTab = 2"
+                                    class="w-auto px-4 text-lg font-medium border-b-2 text-primary border-b-primary"
+                                    :class="{
+                                        'text-dark/80': selectedTab != 2,
+                                        'border-b-primary text-primary border-b-2': selectedTab == 2,
+                                    }">
+                                    Shopping in Marketplace
+                                </button>
+                            @endif
+                            {{-- Related Marketplaces --}}
                         </div>
                     @endif
                     {{-- Tabs --}}
@@ -240,6 +253,29 @@
                         </div>
                     @endif
                     {{-- Description Content --}}
+
+                    {{-- Related Marketplace --}}
+                    @if ($detail && $detail->description && collect($detail->marketplaces)->count() > 0)
+                        <div x-show="selectedTab == 2" x-transition:enter="transition transform duration-300"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="mt-4">
+                            <div class="flex flex-col gap-2 my-2">
+                                @foreach ($detail->marketplaces as $market)
+                                    @if (Str::length($market->url) > 0)
+                                        <a href="{{ $market->url }}" target="_blank"
+                                            class="flex flex-row items-center justify-between gap-2 min-h-10">
+                                            {{ $getTitle($market->url) ?? $data->name }}
+                                            <span class="flex flex-row gap-1">
+                                                <img src="{{ $getFavicon($market->url) }}" class="object-contain"
+                                                    alt="{{ $market->name }}">
+                                                {{ $market->name }}
+                                            </span>
+                                        </a>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                    {{-- Related Marketplace --}}
                 </div>
                 {{-- Product Detail --}}
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DOMDocument;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
@@ -11,8 +12,6 @@ class ProductVariantController extends Controller
     public function index(ProductVariant $productVariant)
     {
         $others = $productVariant->others($productVariant->id)->limit(8)->get()->flatten();
-
-        // return response()->json($others);
 
         $appliedPromo = [];
         $price = $productVariant->price;
@@ -27,14 +26,38 @@ class ProductVariantController extends Controller
 
             $appliedPromo['nominal'] = $appliedPromo['isPercent'] ? $promo->discount : $value;
         }
+        $detail = $productVariant->detail ?? $productVariant->product->detail;
+
+        $getFavicon = function($url): string {
+            return 'https://www.google.com/s2/favicons?domain=' . explode('/', $url)[2];
+        };
+        $getTitle = function($url): string|null {
+            try {
+                $html = file_get_contents($url);
+                if ($html === FALSE) return null;
+                else
+                {
+                    // Use DOMDocument to parse the HTML
+                    $doc = new DOMDocument();
+                    @$doc->loadHTML($html);
+                    // Extract the title
+                    $title = $doc->getElementsByTagName('title')->item(0)->nodeValue;
+                    return $title;
+                }
+            } catch (\Throwable $th) {
+                return null;
+            }
+        };
 
         return view('components.product.overview', [
             'data' => $productVariant,
-            'detail' => $productVariant->detail ?? $productVariant->product->detail,
+            'detail' => $detail,
             "url" => "/p/" . $productVariant->product->slug,
             'price' => $price,
             'promo' => $appliedPromo,
             'moreItems' => ProductVariant::formated($others),
+            'getFavicon' => $getFavicon,
+            'getTitle' => $getTitle,
         ]);
     }
 

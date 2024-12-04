@@ -50,7 +50,8 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
     }
 
-    public function variants(): HasMany {
+    public function variants(): HasMany
+    {
         return $this->hasMany(ProductVariant::class);
     }
 

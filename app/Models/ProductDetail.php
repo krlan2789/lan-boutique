@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ProductDetail extends Model
@@ -52,5 +53,10 @@ class ProductDetail extends Model
     public function detailable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function marketplaces(): HasMany
+    {
+        return $this->hasMany(RelatedMarketplace::class);
     }
 }
