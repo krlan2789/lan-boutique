@@ -28,10 +28,10 @@ class ProductVariantController extends Controller
         }
         $detail = $productVariant->detail ?? $productVariant->product->detail;
 
-        $getFavicon = function($url): string {
+        $getFavicon = function($url) {
             return 'https://www.google.com/s2/favicons?domain=' . explode('/', $url)[2];
         };
-        $getTitle = function($url): string|null {
+        $getTitle = function($url) {
             try {
                 $html = file_get_contents($url);
                 if ($html === FALSE) return null;

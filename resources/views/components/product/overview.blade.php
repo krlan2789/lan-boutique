@@ -185,10 +185,10 @@
                             ($detail->highlights ||
                                 $detail->description ||
                                 ($detail->marketplaces && collect($detail->marketplaces)->count() > 0)))
-                        <div class="flex flex-row w-full h-14 bg-dark/5">
+                        <div class="flex flex-row w-full overflow-x-auto h-14 bg-dark/5">
                             {{-- Highlights --}}
                             @if ($detail && $detail->highlights)
-                                <button @click="selectedTab = 0" class="w-auto px-4 text-lg font-medium"
+                                <button @click="selectedTab = 0" class="px-4 text-sm w-min lg:font-medium lg:text-lg"
                                     :class="{
                                         'text-dark/80': selectedTab != 0,
                                         'border-b-primary text-primary border-b-2': selectedTab == 0,
@@ -200,8 +200,7 @@
 
                             {{-- Description --}}
                             @if ($detail && $detail->description)
-                                <button @click="selectedTab = 1"
-                                    class="w-auto px-4 text-lg font-medium border-b-2 text-primary border-b-primary"
+                                <button @click="selectedTab = 1" class="px-4 text-sm w-min lg:font-medium lg:text-lg"
                                     :class="{
                                         'text-dark/80': selectedTab != 1,
                                         'border-b-primary text-primary border-b-2': selectedTab == 1,
@@ -213,8 +212,7 @@
 
                             {{-- Related Marketplaces --}}
                             @if ($detail && $detail->marketplaces && collect($detail->marketplaces)->count() > 0)
-                                <button @click="selectedTab = 2"
-                                    class="w-auto px-4 text-lg font-medium border-b-2 text-primary border-b-primary"
+                                <button @click="selectedTab = 2" class="px-4 text-sm w-min lg:font-medium lg:text-lg"
                                     :class="{
                                         'text-dark/80': selectedTab != 2,
                                         'border-b-primary text-primary border-b-2': selectedTab == 2,
