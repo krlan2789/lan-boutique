@@ -14,6 +14,6 @@ class ProductDetailSeeder extends Seeder
     public function run(): void
     {
         $count = ProductVariant::all()->count();
-        ProductDetail::factory(rand($count / 2, $count))->create();
+        ProductDetail::factory($count)->create();
     }
 }

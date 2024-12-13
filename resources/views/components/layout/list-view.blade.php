@@ -3,7 +3,8 @@
         <div class="container flex flex-col min-h-screen pt-0 pb-12 mx-auto mt-0 md:pb-16">
             @switch($viewType)
                 @case('filter')
-                    <x-layout.list-filter class="mt-[88px] px-6" :$title :$results></x-layout.list-filter>
+                    <x-layout.list-filter class="mt-[88px] px-6" :$title :$results :$filters></x-layout.list-filter>
+                    {{-- {{ $filters['tags'] }} --}}
                 @break
 
                 @case('new-arrival')

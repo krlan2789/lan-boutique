@@ -2,40 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 
 class CategoryController extends Controller
 {
-    public function index(Category $category)
+    public function variants(Request $request, Category $category)
     {
-        $products = $category->products()->with(['variants', 'detail', 'promo'])->get();
-        $items = collect(Product::formated($products));
-
-        return view('components.layout.list-view', [
-            'title' => $category->name,
-            'viewType' => 'filter',
-            'items' => $items,
-        ]);
-    }
-
-    public function variants(Category $category)
-    {
-        $productVariants = ProductVariant::with(['product', 'product.detail'])
-            ->filter(['category' => $category])
+        $filters = array_merge(['category' => $category], request(['tags', 'colors', 'size']));
+        $productVariants = ProductVariant::with(['product'])
+            ->filter($filters)
             ->paginate(20)
             ->withQueryString()
-            ;
+        ;
+
+        // return [$filters, $productVariants->items()];
 
         $items = ProductVariant::formated($productVariants->items());
 
-        $results = ['items' => $items, 'variants' => $productVariants];
+        $all = ProductDetail::all();
+        $tags = $all->pluck('tags')->flatten()->unique()->sort()->values();
+        $colors = $all->pluck('colors')->flatten()->unique()->sort()->values();
+        $size = $all->pluck('size')->flatten()->unique()->values();
+
+        $results = [
+            'items' => $items,
+            'variants' => $productVariants,
+        ];
+        $filters = [
+            'tags' => $tags,
+            'colors' => $colors,
+            'size' => $size,
+        ];
         return view('components.layout.list-view', [
             'title' => $category->name,
             'viewType' => 'filter',
             'results' => $results,
+            'filters' => $filters,
         ]);
     }
 }

@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $category = Category::all();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 32; $i++) {
             Product::factory(1)->hasAttached($category->random(rand(1, 3)))->create();
         }
     }

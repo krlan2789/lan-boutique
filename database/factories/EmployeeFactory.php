@@ -19,7 +19,7 @@ class EmployeeFactory extends Factory
         return [
             'name' => fake()->name(),
             'photo' => fake()->url(),
-            'phone_number' => fake()->unique()->phoneNumber(),
+            'phone_number' => str_replace(' ', '', fake()->unique()->phoneNumber()),
             'start_date' => date("Y-m-d"),
         ];
     }

@@ -142,6 +142,7 @@
 |     | name           | string | Length(255)                       |
 |     | slug           | string | Length(255), unique               |
 |     | price          | long   |                                   |
+|     | status         | uint16 | default(0)                        |
 | FK  | **product_id** | int    |                                   |
 |     | created_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |
 |     | updated_at     | string | Length(20), 'yyyy-MM-dd HH:mm:ss' |

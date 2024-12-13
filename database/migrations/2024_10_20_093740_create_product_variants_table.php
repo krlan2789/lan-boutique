@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('slug', 255)->unique();
             $table->unsignedBigInteger('price');
+            $table->unsignedSmallInteger('status')->default(0);
             $table->foreignId('product_id')->constrained(
                 table: "products",
                 indexName: "product_variants_product_id",

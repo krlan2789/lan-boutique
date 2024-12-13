@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -67,44 +66,5 @@ class Product extends Model
         ], function (Builder $query) {
             $query->where('applies_to', '<=', now())->where('expired_at', '>=', now());
         });
-    }
-
-    public static function formated($raw)
-    {
-        $items = collect([]);
-        foreach ($raw as $product) {
-            foreach ($product->variants as $variant) {
-                $detail = $variant->detail ?? $product->detail;
-                $promo = $variant->promo ?? ($product->promo ?? null);
-                if ($detail) {
-                    $promoPrice = 0;
-                    if ($promo) {
-                        $value = $promo->discount > 0 ? ($variant->price * (floatval($promo->discount) / 100.0)) : $promo->nominal;
-                        // if ($promo->discount > 0 && $value > $promo->nominal_max) $value = $promo->nominal_max;
-                        if ($promo->discount > 0 && $value > $variant->price) $value = $variant->price;
-
-                        $promoPrice = $variant->price - $value;
-                    }
-
-                    $images = [];
-                    foreach ($detail->images as $value) {
-                        $images[] = Str::replace('.jpg', '_10(0.1).jpg', $value);
-                    }
-
-                    $items->add([
-                        "name" => $product->name,
-                        "url" => "/pv/$variant->slug",
-                        "variantId" => $variant->id,
-                        "variantName" => $variant->name,
-                        "price" => $variant->price,
-                        "promoPrice" => $promoPrice,
-                        "colors" => $detail->colors ?? [],
-                        "imageUrl" => $images ?? [],
-                        // "imageUrl" => Str::replace('.jpg', '_10(0.1).jpg', $detail->images[0]) ?? '',
-                    ]);
-                }
-            }
-        }
-        return $items;
     }
 }

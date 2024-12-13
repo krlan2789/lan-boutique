@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductDetail extends Model
 {
@@ -26,6 +27,7 @@ class ProductDetail extends Model
         'highlights',
         'colors',
         'size',
+        // 'product_variant_id',
         'detailable',
     ];
 
@@ -53,6 +55,11 @@ class ProductDetail extends Model
     public function detailable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function variant(): HasOne
+    {
+        return $this->hasOne(ProductVariant::class);
     }
 
     public function marketplaces(): HasMany

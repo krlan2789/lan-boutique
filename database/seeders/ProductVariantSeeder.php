@@ -15,7 +15,7 @@ class ProductVariantSeeder extends Seeder
     {
         $products = Product::all();
         foreach ($products as $product) {
-            ProductVariant::factory(rand(1, 6))->recycle([collect([$product])])->create();
+            ProductVariant::factory(rand(1, 8))->recycle([collect([$product])])->create();
         }
     }
 }

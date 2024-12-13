@@ -212,7 +212,8 @@
 
                             {{-- Related Marketplaces --}}
                             @if ($detail && $detail->marketplaces && collect($detail->marketplaces)->count() > 0)
-                                <button @click="selectedTab = 2" class="px-4 text-sm w-min lg:font-medium lg:text-lg"
+                                <button @click="selectedTab = 2"
+                                    class="px-4 text-sm max-[360px]::w-min lg:font-medium lg:text-lg"
                                     :class="{
                                         'text-dark/80': selectedTab != 2,
                                         'border-b-primary text-primary border-b-2': selectedTab == 2,

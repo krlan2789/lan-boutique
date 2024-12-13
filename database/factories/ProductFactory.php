@@ -39,7 +39,7 @@ class ProductFactory extends Factory
 
         return [
             'name' => $name,
-            'slug' => Str::slug($name),
+            'slug' => Str::replace(' ', '-', Str::lower($name)),
             // 'colors' => $colors,
             // 'size' => $size,
             // 'description' => fake()->sentence(rand(20, 40), false),

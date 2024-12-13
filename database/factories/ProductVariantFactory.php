@@ -21,10 +21,10 @@ class ProductVariantFactory extends Factory
         $name = fake()->unique()->streetName();
         return [
             'name' => $name,
-            'slug' => Str::slug($name),
+            'slug' => Str::replace(' ', '-', Str::lower($name)),
             'price' => fake()->numberBetween(10, 200) * 1_000,
             'product_id' => Product::factory(),
-            // 'description' => $desc,
+            'status' => 0,
         ];
     }
 }

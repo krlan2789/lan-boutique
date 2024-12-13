@@ -15,6 +15,7 @@ class ListFilter extends Component
     public function __construct(
         public string $title,
         public array|Collection|null $results,
+        public array|Collection|null $filters,
     )
     {
         //

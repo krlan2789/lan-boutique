@@ -1,33 +1,49 @@
-{{-- {{ dd($results) }} --}}
+<script scoped>
+    function getData() {
+        return {
+            isMobileFilterOpen: false,
+            isFilterTagsOpen: {{ request()->query('tags', '') != '' ? 'true' : 'false' }},
+            isFilterSizeOpen: {{ request()->query('size', '') != '' ? 'true' : 'false' }},
+            isFilterColorsOpen: {{ request()->query('colors', '') != '' ? 'true' : 'false' }},
+            isMobileFilterTagsOpen: {{ request()->query('tags', '') != '' ? 'true' : 'false' }},
+            isMobileFilterSizeOpen: {{ request()->query('size', '') != '' ? 'true' : 'false' }},
+            isMobileFilterColorsOpen: {{ request()->query('colors', '') != '' ? 'true' : 'false' }},
+            toWithParam(newParams, url = null) {
+                let uri = new URL(url ?? window.location.href);
+                Object.keys(newParams).forEach(key => {
+                    let current = uri.searchParams.get(key) ? uri.searchParams.get(key).split(',') : [];
+                    let newValue = newParams[key];
+
+                    if (current.includes(newValue)) {
+                        current = current.filter(value => value !== newValue);
+                    } else {
+                        current.push(newValue);
+                    }
+                    if (current.length > 0) {
+                        uri.searchParams.set(key, current.join(','));
+                    } else {
+                        uri.searchParams.delete(key);
+                    }
+                });
+                let newQueryString = '';
+                uri.searchParams.forEach((value, key) => {
+                    newQueryString += `${key}=${value}&`;
+                });
+                newQueryString = newQueryString.slice(0, -1); // Remove the trailing '&'
+                uri.search = newQueryString;
+                window.location.href = uri.toString();
+            },
+        };
+    }
+</script>
+
+{{-- {{ dd($filters) }} --}}
 <div {{ isset($attributes) ? $attributes->merge(['class' => 'bg-tertiary']) : 'class="bg-tertiary"' }}
-    x-data="{
-        isMobileFilterOpen: false,
-        isFilterTagsOpen: true,
-        isFilterSizeOpen: false,
-        isFilterColorsOpen: false,
-        isMobileFilterTagsOpen: true,
-        isMobileFilterSizeOpen: false,
-        isMobileFilterColorsOpen: false,
-    }">
+    x-data="getData()">
     <div>
 
-        {{--
-            Mobile filter dialog
-            Off-canvas filters for mobile, show/hide based on off-canvas filters state.
-        --}}
+        {{-- Mobile filter dialog. Off-canvas filters for mobile, show/hide based on off-canvas filters state. --}}
         <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
-
-            {{--
-                Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-
-                Entering: "transition-opacity ease-linear duration-300"
-                    From: "opacity-0"
-                    To: "opacity-100"
-                Leaving: "transition-opacity ease-linear duration-300"
-                    From: "opacity-100"
-                    To: "opacity-0"
-            --}}
-
             <div x-show="isMobileFilterOpen" class="fixed inset-0 bg-opacity-25 bg-dark" aria-hidden="true"></div>
 
             <div class="fixed inset-0 z-40 flex" x-show="isMobileFilterOpen"
@@ -36,17 +52,7 @@
                 x-transition:leave="transition ease-in-out duration-300 transform"
                 x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
 
-                {{--
-                    Off-canvas menu, show/hide based on off-canvas menu state.
-
-                    Entering: "transition ease-in-out duration-300 transform"
-                        From: "translate-x-full"
-                        To: "translate-x-0"
-                    Leaving: "transition ease-in-out duration-300 transform"
-                        From: "translate-x-0"
-                        To: "translate-x-full"
-                --}}
-
+                {{-- Mobile screen Filter --}}
                 <div @click.outside="isMobileFilterOpen = false"
                     class="relative flex flex-col w-full h-full max-w-xs py-4 pb-12 ml-auto overflow-y-auto shadow-xl bg-tertiary">
                     <div class="flex items-center justify-between px-4">
@@ -64,264 +70,185 @@
                     <!-- Filters -->
                     <form class="mt-4 border-t border-quaternary">
                         {{-- Filter : Tags --}}
-                        <div class="px-4 py-6 border-t border-quaternary">
-                            <h3 class="flow-root -mx-2 -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isMobileFilterTagsOpen = !isMobileFilterTagsOpen"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
-                                    aria-controls="filter-section-mobile-1" aria-expanded="false">
-                                    <span class="font-medium text-dark">Category</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isMobileFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
+                        @if (isset($filters) && isset($filters['tags']) && count($filters['tags']) > 0)
+                            <div class="px-4 py-6 border-t border-quaternary">
+                                <h3 class="flow-root -mx-2 -my-3">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" @click="isMobileFilterTagsOpen = !isMobileFilterTagsOpen"
+                                        class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
+                                        aria-controls="filter-section-mobile-1" aria-expanded="false">
+                                        <span class="font-medium text-dark">Category</span>
+                                        <span class="flex items-center ml-6">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg x-show="!isMobileFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path
+                                                    d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                            </svg>
+                                            <!-- Expand icon, show/hide based on section open state. -->
 
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isMobileFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg x-show="isMobileFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                        </span>
+                                    </button>
+                                    <!-- Expand/collapse section button -->
+                                </h3>
 
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isMobileFilterTagsOpen"
-                                x-transition:enter="transition origin-top ease-out duration-300 transform"
-                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
-                                x-transition:leave="transition origin-top ease-in duration-75 transform"
-                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
-                                class="pt-6" id="filter-section-mobile-1">
-                                <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-0" name="category[]" value="new-arrivals"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-category-0"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">New Arrivals</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-1" name="category[]" value="sale"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-category-1"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Sale</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-2" name="category[]" value="travel"
-                                            type="checkbox" checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-category-2"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Travel</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-3" name="category[]" value="organization"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-category-3"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Organization</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-4" name="category[]" value="accessories"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-category-4"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Accessories</label>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div x-show="isMobileFilterTagsOpen"
+                                    x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                    x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                    x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                    x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                    class="pt-6" id="filter-section-mobile-1">
+                                    <div class="space-y-6">
+                                        @foreach ($filters['tags'] as $index => $value)
+                                            <div class="flex items-center">
+                                                <input id="filter-mobile-tags-{{ $index }}" name="tags[]"
+                                                    @click='toWithParam(@json(['tags' => $value]))'
+                                                    value="{{ $value }}" type="checkbox"
+                                                    {{ in_array($value, explode(',', '' . request()->query('tags', ''))) ? 'checked' : '' }}
+                                                    class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                                <label for="filter-mobile-tags-{{ $index }}"
+                                                    class="flex-1 min-w-0 ml-3 text-dark/50">{{ ucfirst($value) }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <!-- Filter section, show/hide based on section state. -->
                             </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        @endif
                         {{-- Filter : Tags --}}
 
                         {{-- Filter : Size --}}
-                        <div class="px-4 py-6 border-t border-quaternary">
-                            <h3 class="flow-root -mx-2 -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isMobileFilterSizeOpen = !isMobileFilterSizeOpen"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
-                                    aria-controls="filter-section-mobile-2" aria-expanded="false">
-                                    <span class="font-medium text-dark">Size</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isMobileFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
+                        @if (isset($filters) && isset($filters['size']) && count($filters['size']) > 0)
+                            <div class="px-4 py-6 border-t border-quaternary">
+                                <h3 class="flow-root -mx-2 -my-3">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" @click="isMobileFilterSizeOpen = !isMobileFilterSizeOpen"
+                                        class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
+                                        aria-controls="filter-section-mobile-2" aria-expanded="false">
+                                        <span class="font-medium text-dark">Size</span>
+                                        <span class="flex items-center ml-6">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg x-show="!isMobileFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path
+                                                    d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                            </svg>
+                                            <!-- Expand icon, show/hide based on section open state. -->
 
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isMobileFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg x-show="isMobileFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                        </span>
+                                    </button>
+                                    <!-- Expand/collapse section button -->
+                                </h3>
 
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isMobileFilterSizeOpen"
-                                x-transition:enter="transition origin-top ease-out duration-300 transform"
-                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
-                                x-transition:leave="transition origin-top ease-in duration-75 transform"
-                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
-                                class="pt-6" id="filter-section-mobile-2">
-                                <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-0" name="size[]" value="2l"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-size-0"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">2L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-1" name="size[]" value="6l"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-size-1"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">6L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-2" name="size[]" value="12l"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-size-2"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">12L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-3" name="size[]" value="18l"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-size-3"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">18L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-4" name="size[]" value="20l"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-size-4"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">20L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-5" name="size[]" value="40l"
-                                            type="checkbox" checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-size-5"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">40L</label>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div x-show="isMobileFilterSizeOpen"
+                                    x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                    x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                    x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                    x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                    class="pt-6" id="filter-section-mobile-2">
+                                    <div class="space-y-6">
+                                        @foreach ($filters['size'] as $index => $value)
+                                            <div class="flex items-center">
+                                                <input id="filter-mobile-size-{{ $index }}" name="size[]"
+                                                    @click='toWithParam(@json(['size' => $value]))'
+                                                    value="{{ $value }}" type="checkbox"
+                                                    {{ in_array($value, explode(',', '' . request()->query('size', ''))) ? 'checked' : '' }}
+                                                    class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                                <label for="filter-mobile-size-{{ $index }}"
+                                                    class="flex-1 min-w-0 ml-3 text-dark/50">{{ Str::upper($value) }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <!-- Filter section, show/hide based on section state. -->
                             </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        @endif
                         {{-- Filter : Size --}}
 
                         {{-- Filter : Colors --}}
-                        <div class="px-4 py-6 border-t border-quaternary">
-                            <h3 class="flow-root -mx-2 -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isMobileFilterColorsOpen = !isMobileFilterColorsOpen"
-                                    class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
-                                    aria-controls="filter-section-mobile-0" aria-expanded="false">
-                                    <span class="font-medium text-dark">Color</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isMobileFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
+                        @if (isset($filters) && isset($filters['colors']) && count($filters['colors']) > 0)
+                            <div class="px-4 py-6 border-t border-quaternary">
+                                <h3 class="flow-root -mx-2 -my-3">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button"
+                                        @click="isMobileFilterColorsOpen = !isMobileFilterColorsOpen"
+                                        class="flex items-center justify-between w-full px-2 py-3 text-dark/40 bg-tertiary hover:text-dark/50"
+                                        aria-controls="filter-section-mobile-0" aria-expanded="false">
+                                        <span class="font-medium text-dark">Color</span>
+                                        <span class="flex items-center ml-6">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg x-show="!isMobileFilterColorsOpen" class="w-5 h-5"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                                                data-slot="icon">
+                                                <path
+                                                    d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                            </svg>
+                                            <!-- Expand icon, show/hide based on section open state. -->
 
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isMobileFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg x-show="isMobileFilterColorsOpen" class="w-5 h-5"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                                                data-slot="icon">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                        </span>
+                                    </button>
+                                    <!-- Expand/collapse section button -->
+                                </h3>
 
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isMobileFilterColorsOpen"
-                                x-transition:enter="transition origin-top ease-out duration-300 transform"
-                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
-                                x-transition:leave="transition origin-top ease-in duration-75 transform"
-                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
-                                class="pt-6" id="filter-section-mobile-0">
-                                <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-0" name="color[]" value="white"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-0"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">White</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-1" name="color[]" value="beige"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-1"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Beige</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-2" name="color[]" value="blue"
-                                            type="checkbox" checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-2"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Blue</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-3" name="color[]" value="brown"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-3"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Brown</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-4" name="color[]" value="green"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-4"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Green</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-5" name="color[]" value="purple"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-mobile-color-5"
-                                            class="flex-1 min-w-0 ml-3 text-dark/50">Purple</label>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div x-show="isMobileFilterColorsOpen"
+                                    x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                    x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                    x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                    x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                    class="pt-6" id="filter-section-mobile-0">
+                                    <div class="space-y-6">
+                                        @foreach ($filters['size'] as $index => $value)
+                                            <div class="flex items-center">
+                                                <input id="filter-mobile-color-{{ $index }}" name="colors[]"
+                                                    @click='toWithParam(@json(['colors' => $value]))'
+                                                    value="{{ $value }}" type="checkbox"
+                                                    {{ in_array($value, explode(',', '' . request()->query('colors', ''))) ? 'checked' : '' }}
+                                                    class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                                <label for="filter-mobile-color-{{ $index }}"
+                                                    class="flex-1 min-w-0 ml-3 text-dark/50">{{ ucfirst($value) }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <!-- Filter section, show/hide based on section state. -->
                             </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        @endif
                         {{-- Filter : Colors --}}
                     </form>
                     <!-- Filters -->
                 </div>
+                {{-- Mobile screen Filter --}}
             </div>
         </div>
-        {{--
-            Mobile filter dialog
-            Off-canvas filters for mobile, show/hide based on off-canvas filters state.
-        --}}
+        {{-- Mobile filter dialog. Off-canvas filters for mobile, show/hide based on off-canvas filters state. --}}
 
         <main class="mx-auto">
             <div class="flex items-baseline justify-between pb-6 border-b border-quaternary">
@@ -335,6 +262,7 @@
                 </div>
 
                 <div class="flex items-center">
+                    {{-- Filter Sort --}}
                     <div class="relative inline-block text-left" x-data="{ isSortOptionsOpen: false }">
                         <div>
                             <button type="button" @click="isSortOptionsOpen = !isSortOptionsOpen"
@@ -350,17 +278,6 @@
                             </button>
                         </div>
 
-                        {{--
-                            Dropdown menu, show/hide based on menu state.
-
-                            Entering: "transition ease-out duration-100"
-                                From: "transform opacity-0 scale-95"
-                                To: "transform opacity-100 scale-100"
-                            Leaving: "transition ease-in duration-75"
-                                From: "transform opacity-100 scale-100"
-                                To: "transform opacity-0 scale-95"
-                        --}}
-
                         <div x-cloak x-show="isSortOptionsOpen" @click.outside="isSortOptionsOpen = false"
                             x-transition:enter="transition ease-out duration-300 transform"
                             x-transition:enter-start="opacity-0 scale-95"
@@ -370,37 +287,39 @@
                             x-transition:leave-end="opacity-0 scale-95"
                             class="absolute right-0 z-10 w-40 mt-2 origin-top-right rounded-md shadow-2xl bg-tertiary ring-1 ring-dark ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+
                             <div class="py-1" role="none">
-
-                                {{--
-                                    Active: "bg-gray-100", Not Active: ""
-
-                                    Selected: "font-medium text-dark", Not Selected: "text-dark/50"
-                                --}}
-
-                                <a href="#" class="block px-4 py-2 text-sm font-medium text-dark"
-                                    role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
-                                    tabindex="-1" id="menu-item-1">Best Rating</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
-                                    tabindex="-1" id="menu-item-2">Newest</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
-                                    tabindex="-1" id="menu-item-3">Price: Low to High</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-dark/50" role="menuitem"
-                                    tabindex="-1" id="menu-item-4">Price: High to Low</a>
+                                <button @click="toWithParam({ sort: 'latest' })"
+                                    class="block px-4 py-2 text-sm
+                                    @if (request()->get('sort') == 'latest' || !request()->has('sort')) font-medium text-dark
+                                    @else text-dark/50 @endif"
+                                    role="menuitem" tabindex="-1" id="menu-item-2">Newest</button>
+                                <button @click="toWithParam({ sort: 'popular' })"
+                                    class="block px-4 py-2 text-sm
+                                    @if (request()->get('sort') == 'popular') font-medium text-dark
+                                    @else text-dark/50 @endif"
+                                    role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</button>
+                                <button @click="toWithParam({ sort: 'rating' })"
+                                    class="block px-4 py-2 text-sm
+                                    @if (request()->get('sort') == 'rating') font-medium text-dark
+                                    @else text-dark/50 @endif"
+                                    role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</button>
+                                <button @click="toWithParam({ sort: 'price-asc' })"
+                                    class="block px-4 py-2 text-sm
+                                    @if (request()->get('sort') == 'price-asc') font-medium text-dark
+                                    @else text-dark/50 @endif"
+                                    role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</button>
+                                <button @click="toWithParam({ sort: 'price-desc' })"
+                                    class="block px-4 py-2 text-sm
+                                    @if (request()->get('sort') == 'price-desc') font-medium text-dark
+                                    @else text-dark/50 @endif"
+                                    role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</button>
                             </div>
                         </div>
                     </div>
+                    {{-- Filter Sort --}}
 
-                    {{-- <button type="button" class="p-2 ml-5 -m-2 text-dark/40 hover:text-dark/50 sm:ml-7">
-                        <span class="sr-only">View grid</span>
-                        <svg class="w-5 h-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"
-                            data-slot="icon">
-                            <path fill-rule="evenodd"
-                                d="M4.25 2A2.25 2.25 0 0 0 2 4.25v2.5A2.25 2.25 0 0 0 4.25 9h2.5A2.25 2.25 0 0 0 9 6.75v-2.5A2.25 2.25 0 0 0 6.75 2h-2.5Zm0 9A2.25 2.25 0 0 0 2 13.25v2.5A2.25 2.25 0 0 0 4.25 18h2.5A2.25 2.25 0 0 0 9 15.75v-2.5A2.25 2.25 0 0 0 6.75 11h-2.5Zm9-9A2.25 2.25 0 0 0 11 4.25v2.5A2.25 2.25 0 0 0 13.25 9h2.5A2.25 2.25 0 0 0 18 6.75v-2.5A2.25 2.25 0 0 0 15.75 2h-2.5Zm0 9A2.25 2.25 0 0 0 11 13.25v2.5A2.25 2.25 0 0 0 13.25 18h2.5A2.25 2.25 0 0 0 18 15.75v-2.5A2.25 2.25 0 0 0 15.75 11h-2.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button> --}}
+                    {{-- Mobile Filter Button --}}
                     <button type="button" @click="isMobileFilterOpen = !isMobileFilterOpen"
                         class="ml-4 text-dark/70 hover:text-dark/60 size-6 sm:ml-6 lg:hidden">
                         <span class="sr-only">Filters</span>
@@ -411,6 +330,7 @@
                             </path>
                         </svg>
                     </button>
+                    {{-- Mobile Filter Button --}}
                 </div>
             </div>
 
@@ -418,237 +338,180 @@
                 <h2 id="products-heading" class="sr-only">Products</h2>
 
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
-                    <!-- Filters -->
+                    <!-- Wide screen Filters -->
                     <form class="hidden lg:block">
                         {{-- Filter : Tags --}}
-                        <div class="py-6 border-b border-quaternary">
-                            <h3 class="flow-root -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isFilterTagsOpen = !isFilterTagsOpen"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
-                                    aria-controls="filter-section-1" aria-expanded="false">
-                                    <span class="font-medium text-dark">Category</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
+                        @if (isset($filters) && isset($filters['tags']) && count($filters['tags']) > 0)
+                            <div class="py-6 border-b border-quaternary">
+                                <h3 class="flow-root -my-3">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" @click="isFilterTagsOpen = !isFilterTagsOpen"
+                                        class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
+                                        aria-controls="filter-section-1" aria-expanded="false">
+                                        <span class="font-medium text-dark">Category</span>
+                                        <span class="flex items-center ml-6">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg x-show="!isFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path
+                                                    d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                            </svg>
+                                            <!-- Expand icon, show/hide based on section open state. -->
 
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg x-show="isFilterTagsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                        </span>
+                                    </button>
+                                    <!-- Expand/collapse section button -->
+                                </h3>
 
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isFilterTagsOpen"
-                                x-transition:enter="transition origin-top ease-out duration-300 transform"
-                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
-                                x-transition:leave="transition origin-top ease-in duration-75 transform"
-                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
-                                class="pt-6" id="filter-section-1">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <input id="filter-category-0" name="category[]" value="new-arrivals"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-category-0" class="ml-3 text-sm text-gray-600">New
-                                            Arrivals</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-category-1" name="category[]" value="sale"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-category-1" class="ml-3 text-sm text-gray-600">Sale</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-category-2" name="category[]" value="travel"
-                                            type="checkbox" checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-category-2"
-                                            class="ml-3 text-sm text-gray-600">Travel</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-category-3" name="category[]" value="organization"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-category-3"
-                                            class="ml-3 text-sm text-gray-600">Organization</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-category-4" name="category[]" value="accessories"
-                                            type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-category-4"
-                                            class="ml-3 text-sm text-gray-600">Accessories</label>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div x-show="isFilterTagsOpen"
+                                    x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                    x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                    x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                    x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                    class="pt-6" id="filter-section-1">
+                                    <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+                                        @foreach ($filters['tags'] as $index => $value)
+                                            <div class="flex items-center">
+                                                <input id="filter-tags-{{ $index }}" name="tags[]"
+                                                    @click='toWithParam(@json(['tags' => $value]))'
+                                                    value="{{ $value }}" type="checkbox"
+                                                    {{ in_array($value, explode(',', '' . request()->query('tags', ''))) ? 'checked' : '' }}
+                                                    class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                                <label for="filter-tags-{{ $index }}"
+                                                    class="ml-3 text-sm text-gray-600">{{ ucfirst($value) }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <!-- Filter section, show/hide based on section state. -->
                             </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        @endif
                         {{-- Filter : Tags --}}
 
                         {{-- Filter : Size --}}
-                        <div class="py-6 border-b border-quaternary">
-                            <h3 class="flow-root -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isFilterSizeOpen = !isFilterSizeOpen"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
-                                    aria-controls="filter-section-2" aria-expanded="false">
-                                    <span class="font-medium text-dark">Size</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
+                        @if (isset($filters) && isset($filters['size']) && count($filters['size']) > 0)
+                            <div class="py-6 border-b border-quaternary">
+                                <h3 class="flow-root -my-3">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" @click="isFilterSizeOpen = !isFilterSizeOpen"
+                                        class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
+                                        aria-controls="filter-section-2" aria-expanded="false">
+                                        <span class="font-medium text-dark">Size</span>
+                                        <span class="flex items-center ml-6">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg x-show="!isFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path
+                                                    d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                            </svg>
+                                            <!-- Expand icon, show/hide based on section open state. -->
 
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg x-show="isFilterSizeOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                        </span>
+                                    </button>
+                                    <!-- Expand/collapse section button -->
+                                </h3>
 
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-cloak x-show="isFilterSizeOpen"
-                                x-transition:enter="transition origin-top ease-out duration-300 transform"
-                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
-                                x-transition:leave="transition origin-top ease-in duration-75 transform"
-                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
-                                class="pt-6" id="filter-section-2">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <input id="filter-size-0" name="size[]" value="2l" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-size-0" class="ml-3 text-sm text-gray-600">2L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-1" name="size[]" value="6l" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-size-1" class="ml-3 text-sm text-gray-600">6L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-2" name="size[]" value="12l" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-size-2" class="ml-3 text-sm text-gray-600">12L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-3" name="size[]" value="18l" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-size-3" class="ml-3 text-sm text-gray-600">18L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-4" name="size[]" value="20l" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-size-4" class="ml-3 text-sm text-gray-600">20L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-5" name="size[]" value="40l" type="checkbox"
-                                            checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-size-5" class="ml-3 text-sm text-gray-600">40L</label>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div x-cloak x-show="isFilterSizeOpen"
+                                    x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                    x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                    x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                    x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                    class="pt-6" id="filter-section-2">
+                                    <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+                                        @foreach ($filters['size'] as $index => $value)
+                                            <div class="flex items-center">
+                                                <input id="filter-size-{{ $index }}" name="size[]"
+                                                    @click='toWithParam(@json(['size' => $value]))'
+                                                    value="{{ $value }}" type="checkbox"
+                                                    {{ in_array($value, explode(',', '' . request()->query('size', ''))) ? 'checked' : '' }}
+                                                    class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                                <label for="filter-size-{{ $index }}"
+                                                    class="ml-3 text-sm text-gray-600">{{ Str::upper($value) }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <!-- Filter section, show/hide based on section state. -->
                             </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        @endif
                         {{-- Filter : Size --}}
 
                         {{-- Filter : Colors --}}
-                        <div class="py-6 border-b border-quaternary">
-                            <h3 class="flow-root -my-3">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isFilterColorsOpen = !isFilterColorsOpen"
-                                    class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
-                                    aria-controls="filter-section-0" aria-expanded="false">
-                                    <span class="font-medium text-dark">Color</span>
-                                    <span class="flex items-center ml-6">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                        </svg>
-                                        <!-- Expand icon, show/hide based on section open state. -->
+                        @if (isset($filters) && isset($filters['colors']) && count($filters['colors']) > 0)
+                            <div class="py-6 border-b border-quaternary">
+                                <h3 class="flow-root -my-3">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" @click="isFilterColorsOpen = !isFilterColorsOpen"
+                                        class="flex items-center justify-between w-full py-3 text-sm text-dark/40 bg-tertiary hover:text-dark/50"
+                                        aria-controls="filter-section-0" aria-expanded="false">
+                                        <span class="font-medium text-dark">Color</span>
+                                        <span class="flex items-center ml-6">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg x-show="!isFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path
+                                                    d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                            </svg>
+                                            <!-- Expand icon, show/hide based on section open state. -->
 
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                    </span>
-                                </button>
-                                <!-- Expand/collapse section button -->
-                            </h3>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg x-show="isFilterColorsOpen" class="w-5 h-5" viewBox="0 0 20 20"
+                                                fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                        </span>
+                                    </button>
+                                    <!-- Expand/collapse section button -->
+                                </h3>
 
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-cloak x-show="isFilterColorsOpen"
-                                x-transition:enter="transition origin-top ease-out duration-300 transform"
-                                x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
-                                x-transition:leave="transition origin-top ease-in duration-75 transform"
-                                x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
-                                class="pt-6" id="filter-section-0">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <input id="filter-color-0" name="color[]" value="white" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-0" class="ml-3 text-sm text-gray-600">White</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-1" name="color[]" value="beige" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Beige</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-2" name="color[]" value="blue" type="checkbox"
-                                            checked
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-2" class="ml-3 text-sm text-gray-600">Blue</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-3" name="color[]" value="brown" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-3" class="ml-3 text-sm text-gray-600">Brown</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-4" name="color[]" value="green" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-4" class="ml-3 text-sm text-gray-600">Green</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-color-5" name="color[]" value="purple" type="checkbox"
-                                            class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
-                                        <label for="filter-color-5" class="ml-3 text-sm text-gray-600">Purple</label>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div x-cloak x-show="isFilterColorsOpen"
+                                    x-transition:enter="transition origin-top ease-out duration-300 transform"
+                                    x-transition:enter-start="scale-y-95" x-transition:enter-end="scale-y-100"
+                                    x-transition:leave="transition origin-top ease-in duration-75 transform"
+                                    x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
+                                    class="pt-6" id="filter-section-0">
+                                    <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+                                        @foreach ($filters['colors'] as $index => $value)
+                                            <div class="flex items-center">
+                                                <input id="filter-color-{{ $index }}" name="colors[]"
+                                                    @click='toWithParam(@json(['colors' => $value]))'
+                                                    value="{{ $value }}" type="checkbox"
+                                                    {{ in_array($value, explode(',', '' . request()->query('colors', ''))) ? 'checked' : '' }}
+                                                    class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
+                                                <label for="filter-color-{{ $index }}"
+                                                    class="ml-3 text-sm text-gray-600">{{ ucfirst($value) }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <!-- Filter section, show/hide based on section state. -->
                             </div>
-                            <!-- Filter section, show/hide based on section state. -->
-                        </div>
+                        @endif
                         {{-- Filter : Colors --}}
                     </form>
-                    <!-- Filters -->
+                    <!-- Wide screen Filters -->
 
                     {{-- Product grid --}}
                     <div class="col-span-5 lg:col-span-4">
@@ -673,12 +536,14 @@
                     </div>
                     {{-- Product grid --}}
 
+                    {{-- Pagination --}}
                     @if (isset($results) && $results['variants'])
                         <div class="hidden lg:block"></div>
                         <div class="justify-end col-span-5 lg:col-span-4">
                             {{ $results['variants']->links() }}
                         </div>
                     @endif
+                    {{-- Pagination --}}
                 </div>
             </section>
         </main>
