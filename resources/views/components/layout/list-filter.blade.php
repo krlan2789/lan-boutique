@@ -2,10 +2,10 @@
     function getData() {
         return {
             isMobileFilterOpen: false,
-            isFilterTagsOpen: {{ request()->query('tags', '') != '' ? 'true' : 'false' }},
+            isFilterTagsOpen: true, //{{ request()->query('tags', '') != '' ? 'true' : 'false' }},
             isFilterSizeOpen: {{ request()->query('size', '') != '' ? 'true' : 'false' }},
             isFilterColorsOpen: {{ request()->query('colors', '') != '' ? 'true' : 'false' }},
-            isMobileFilterTagsOpen: {{ request()->query('tags', '') != '' ? 'true' : 'false' }},
+            isMobileFilterTagsOpen: true, //{{ request()->query('tags', '') != '' ? 'true' : 'false' }},
             isMobileFilterSizeOpen: {{ request()->query('size', '') != '' ? 'true' : 'false' }},
             isMobileFilterColorsOpen: {{ request()->query('colors', '') != '' ? 'true' : 'false' }},
             toWithParam(newParams, reset = false, url = null) {
@@ -381,7 +381,7 @@
                                     x-transition:leave="transition origin-top ease-in duration-75 transform"
                                     x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
                                     class="pt-6" id="filter-section-1">
-                                    <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+                                    <div class="space-y-4 max-h-[40vh] overflow-y-auto">
                                         @foreach ($filters['tags'] as $index => $value)
                                             <div class="flex items-center">
                                                 <input id="filter-tags-{{ $index }}" name="tags[]"
@@ -438,7 +438,7 @@
                                     x-transition:leave="transition origin-top ease-in duration-75 transform"
                                     x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
                                     class="pt-6" id="filter-section-2">
-                                    <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+                                    <div class="space-y-4 max-h-[40vh] overflow-y-auto">
                                         @foreach ($filters['size'] as $index => $value)
                                             <div class="flex items-center">
                                                 <input id="filter-size-{{ $index }}" name="size[]"
@@ -495,7 +495,7 @@
                                     x-transition:leave="transition origin-top ease-in duration-75 transform"
                                     x-transition:leave-start="scale-y-100" x-transition:leave-end="scale-y-95"
                                     class="pt-6" id="filter-section-0">
-                                    <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+                                    <div class="space-y-4 max-h-[40vh] overflow-y-auto">
                                         @foreach ($filters['colors'] as $index => $value)
                                             <div class="flex items-center">
                                                 <input id="filter-color-{{ $index }}" name="colors[]"

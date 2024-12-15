@@ -1,7 +1,7 @@
 <div
     {{ isset($attributes) ? $attributes->merge(['class' => 'relative group bg-transparent']) : 'class="relative bg-transparent group"' }}>
     @if (isset($imageUrl) && is_array($imageUrl) && count($imageUrl) > 0)
-        <div class="w-full h-auto overflow-hidden aspect-h-1 aspect-w-1 lg:aspect-none">
+        <div class="w-full h-auto overflow-hidden aspect-h-1 aspect-w-1 max-h-80 lg:aspect-none">
             <div x-data="{ imageIndex: 0 }"
                 class="relative items-center justify-center w-full h-auto overflow-hidden bg-tertiary">
 
