@@ -73,7 +73,36 @@ class ProductVariant extends Model
             ->byDetail('tags', $filters['tags'] ?? null)
             ->byDetail('colors', $filters['colors'] ?? null)
             ->byDetail('size', $filters['size'] ?? null)
+            ->sortBy($filters['sort'] ?? null);
         ;
+    }
+
+    public function scopeSortBy(Builder $query, string|null $value)
+    {
+        $isAsc = true;
+        switch ($value) {
+            case 'popular':
+                $value = false;
+                break;
+            case 'rating':
+                $value = false;
+                break;
+            case 'price-asc':
+                $value = 'price';
+                break;
+            case 'price-desc':
+                $value = 'price';
+                $isAsc = false;
+                break;
+            case 'latest':
+                $value = 'created_at';
+            default:
+                $value = 'id';
+                break;
+        }
+
+        $query->when($value ?? false, fn($query) => $query->orderBy($value, $isAsc ? 'asc' : 'desc'));
+        return $query;
     }
 
     public function scopeByCategory(Builder $query, Category|null $category)

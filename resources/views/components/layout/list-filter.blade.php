@@ -8,17 +8,20 @@
             isMobileFilterTagsOpen: {{ request()->query('tags', '') != '' ? 'true' : 'false' }},
             isMobileFilterSizeOpen: {{ request()->query('size', '') != '' ? 'true' : 'false' }},
             isMobileFilterColorsOpen: {{ request()->query('colors', '') != '' ? 'true' : 'false' }},
-            toWithParam(newParams, url = null) {
+            toWithParam(newParams, reset = false, url = null) {
                 let uri = new URL(url ?? window.location.href);
                 Object.keys(newParams).forEach(key => {
                     let current = uri.searchParams.get(key) ? uri.searchParams.get(key).split(',') : [];
                     let newValue = newParams[key];
 
-                    if (current.includes(newValue)) {
+                    if (reset) {
+                        current = [newValue];
+                    } else if (current.includes(newValue)) {
                         current = current.filter(value => value !== newValue);
                     } else {
                         current.push(newValue);
                     }
+
                     if (current.length > 0) {
                         uri.searchParams.set(key, current.join(','));
                     } else {
@@ -289,27 +292,27 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
 
                             <div class="py-1" role="none">
-                                <button @click="toWithParam({ sort: 'latest' })"
+                                <button @click="toWithParam({ sort: 'latest' }, true)"
                                     class="block px-4 py-2 text-sm
                                     @if (request()->get('sort') == 'latest' || !request()->has('sort')) font-medium text-dark
                                     @else text-dark/50 @endif"
                                     role="menuitem" tabindex="-1" id="menu-item-2">Newest</button>
-                                <button @click="toWithParam({ sort: 'popular' })"
+                                <button @click="toWithParam({ sort: 'popular' }, true)"
                                     class="block px-4 py-2 text-sm
                                     @if (request()->get('sort') == 'popular') font-medium text-dark
                                     @else text-dark/50 @endif"
                                     role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</button>
-                                <button @click="toWithParam({ sort: 'rating' })"
+                                <button @click="toWithParam({ sort: 'rating' }, true)"
                                     class="block px-4 py-2 text-sm
                                     @if (request()->get('sort') == 'rating') font-medium text-dark
                                     @else text-dark/50 @endif"
                                     role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</button>
-                                <button @click="toWithParam({ sort: 'price-asc' })"
+                                <button @click="toWithParam({ sort: 'price-asc' }, true)"
                                     class="block px-4 py-2 text-sm
                                     @if (request()->get('sort') == 'price-asc') font-medium text-dark
                                     @else text-dark/50 @endif"
                                     role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</button>
-                                <button @click="toWithParam({ sort: 'price-desc' })"
+                                <button @click="toWithParam({ sort: 'price-desc' }, true)"
                                     class="block px-4 py-2 text-sm
                                     @if (request()->get('sort') == 'price-desc') font-medium text-dark
                                     @else text-dark/50 @endif"

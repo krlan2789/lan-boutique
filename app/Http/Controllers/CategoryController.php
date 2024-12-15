@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function variants(Request $request, Category $category)
     {
-        $filters = array_merge(['category' => $category], request(['tags', 'colors', 'size']));
+        $filters = array_merge(['category' => $category], request(['tags', 'colors', 'size', 'sort']));
         $productVariants = ProductVariant::with(['product'])
             ->filter($filters)
             ->paginate(20)
