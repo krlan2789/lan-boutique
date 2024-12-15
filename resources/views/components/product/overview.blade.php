@@ -10,10 +10,23 @@
         else current += 1;
         return current;
     }
+
+    function isFavorite(key) {
+        return localStorage.getItem(key) ? true : false;
+    }
+
+    function toggleFavorite(key) {
+        let status = isFavorite(key);
+        if (status) localStorage.removeItem(key);
+        else localStorage.setItem(key, status);
+        console.log(key + ": " + status);
+        return status;
+    }
 </script>
 
 <x-layout.layout :title="$data->name">
     <div class="bg-tertiary" x-data="{
+        favorite: isFavorite({{ "'" . $data->slug . "'" }}),
         @if ($detail && ($detail->highlights || $detail->description)) selectedTab: @if ($detail->highlights) 0 @else 1 @endif @endif,
         @if ($detail && $detail->colors != null && gettype($detail->colors) == 'array' && collect($detail->colors)->count() > 0) selectedColor: '', @endif
         @if ($detail && $detail->size != null && gettype($detail->size) == 'array' && collect($detail->size)->count() > 0) selectedSize: '', @endif
@@ -346,7 +359,7 @@
                                                 class="relative -m-0.5 flex cursor-pointer rounded-full items-center justify-center p-0.5 ring-dark/25 focus:outline-none">
                                                 <input type="radio" name="color-choice"
                                                     value="{{ $color }}"
-                                                    x-model="{{ 'selectedColor' }} = '{{ $color }}'"
+                                                    @click="selectedColor = '{{ $color }}'"
                                                     class="sr-only peer" {{ $index == 0 ? 'checked' : '' }}>
                                                 <span
                                                     class="m-0.5 border rounded-full size-7 peer border-dark border-opacity-10 peer-checked:m-0 peer-checked:ring peer-checked:size-8 peer-checked:ring-primary peer-checked:ring-offset-1"
@@ -371,12 +384,12 @@
 
                                 <fieldset aria-label="Choose a size" class="mt-4">
                                     <div class="grid grid-cols-4 gap-3 sm:grid-cols-8 lg:grid-cols-6">
-                                        @foreach ($detail->size as $s)
+                                        @foreach ($detail->size as $index => $s)
                                             <label
                                                 class="relative flex items-center justify-center px-4 py-3 text-sm font-medium uppercase border shadow-sm cursor-pointer text-primary bg-tertiary group hover:bg-quaternary focus:outline-none sm:flex-1 sm:py-4">
                                                 <input type="radio" name="size-choice" value="{{ $s }}"
-                                                    x-model="{{ 'selectedSize' }} = '{{ $s }}'"
-                                                    class="sr-only peer">
+                                                    @click="selectedSize = '{{ $s }}'"
+                                                    class="sr-only peer" {{ $index == 0 ? 'checked' : '' }}>
                                                 <span>{{ $s }}</span>
                                                 <span
                                                     class="absolute pointer-events-none peer -inset-px peer-checked:ring peer-checked:ring-primary peer-checked:ring-offset-1"></span>
@@ -395,24 +408,21 @@
                                     typeof selectedSize === 'string' && selectedSize == '')"
                                 class="flex items-center justify-center w-full px-8 py-2 text-base font-medium border border-transparent cursor-pointer text-tertiary bg-success hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/80 focus:ring-offset-2">Enquire
                                 Now</button>
-                            <button type="button" @click=""
+                            <button type="button" @click="favorite = toggleFavorite({{ "'" . $data->slug . "'" }})"
                                 class="flex items-center justify-center h-full p-2 bg-transparent border-2 cursor-pointer aspect-square text-danger border-danger hover:text-danger/50 hover:border-danger/50">
-                                @isset($favorite)
-                                    <svg class="aspect-square" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor" viewBox="0 0 24 24">
-                                        <title>Remove from wishlist</title>
-                                        <path
-                                            d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
-                                    </svg>
-                                @else
-                                    <svg class="aspect-square" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 24 24">
-                                        <title>Add to wishlist</title>
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="1.4"
-                                            d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
-                                    </svg>
-                                @endisset
+                                <svg x-show="favorite" class="aspect-square" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <title>Remove from wishlist</title>
+                                    <path
+                                        d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                                </svg>
+                                <svg x-show="!favorite" class="aspect-square" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <title>Add to wishlist</title>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.4"
+                                        d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+                                </svg>
                             </button>
                         </div>
                     </form>

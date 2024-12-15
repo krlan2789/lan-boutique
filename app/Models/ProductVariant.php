@@ -169,7 +169,7 @@ class ProductVariant extends Model
     {
         $items = collect([]);
         foreach ($raw as $variant) {
-            $detail = $variant->detail;// ?? $variant->product->detail;
+            $detail = $variant->detail ?? $variant->product->detail;
             $promo = $variant->promo ?? ($product->promo ?? null);
             $promoPrice = 0;
             if ($promo) {

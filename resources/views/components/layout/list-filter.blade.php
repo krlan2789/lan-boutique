@@ -114,7 +114,7 @@
                                         @foreach ($filters['tags'] as $index => $value)
                                             <div class="flex items-center">
                                                 <input id="filter-mobile-tags-{{ $index }}" name="tags[]"
-                                                    @click='toWithParam(@json(['tags' => $value]))'
+                                                    @click="toWithParam(@json(['tags' => $value]))"
                                                     value="{{ $value }}" type="checkbox"
                                                     {{ in_array($value, explode(',', '' . request()->query('tags', ''))) ? 'checked' : '' }}
                                                     class="w-4 h-4 rounded text-secondary border-quaternary focus:ring-secondary">
