@@ -50,7 +50,10 @@
                 class="w-full h-16 px-16 py-3 md:pl-16 md:pr-4 input-main" />
         </div>
 
-        <div id="search-results" class="overflow-y-auto py-16" x-html="pvsResults"></div>
+        <div x-show="pvsResults" id="search-results" class="overflow-y-auto py-16" x-html="pvsResults"></div>
+        <div x-show="pvsResults == null" class="flex items-center justify-center flex-1 px-6 text-xl text-dark">
+            No products found
+        </div>
 
         <button class="fixed z-50 top-2 right-2 md:top-6 md:right-6 size-12 text-primary md:text-tertiary"
             @click="isLiveSearchShow = false">

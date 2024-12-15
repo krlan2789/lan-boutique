@@ -119,12 +119,16 @@ class ProductVariantController extends Controller
         $filters = request(['keyword', 'limit'], []);
         $variants = ProductVariant::with(['product', 'product.detail'])
             ->searchByKeyword($filters['keyword'])
-            ->paginate(10)
+            ->paginate(12)
             ->items()
         ;
-        return view('components.layout.api.search-view', [
-            'items' => ProductVariant::formated($variants),
-        ])->render();
+        if (count($variants) > 0) {
+            return view('components.layout.api.search-view', [
+                'items' => ProductVariant::formated($variants),
+            ])->render();
+        } else {
+            return null;
+        }
         // return response()->json([
         //     'data' => ProductVariant::formated($variants),
         // ], 200);
