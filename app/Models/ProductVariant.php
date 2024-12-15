@@ -70,11 +70,35 @@ class ProductVariant extends Model
         return $query
             ->where('status', '>', 0)
             ->byCategory($filters['category'] ?? null)
+            ->searchByKeyword($filters['keyword'] ?? null)
             ->byDetail('tags', $filters['tags'] ?? null)
             ->byDetail('colors', $filters['colors'] ?? null)
             ->byDetail('size', $filters['size'] ?? null)
             ->sortBy($filters['sort'] ?? null);
         ;
+    }
+
+    public function scopeSearchByKeyword(Builder $query, string|null $keyword)
+    {
+        $keyword = Str::lower($keyword);
+        $query->when(
+            $keyword ?? false,
+            fn($query) => $query
+                ->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('price', 'LIKE', "%$keyword%")
+                ->orWhereHas(
+                    'detail',
+                    fn($query) => $query
+                        ->orWhere('summary', 'LIKE', "%$keyword%")
+                        ->orWhere('description', 'LIKE', "%$keyword%")
+                )
+                ->orWhereHas(
+                    'product',
+                    fn($query) => $query
+                        ->orWhere('name', 'LIKE', "%$keyword%")
+                )
+        );
+        return $query;
     }
 
     public function scopeSortBy(Builder $query, string|null $value)

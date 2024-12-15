@@ -4,25 +4,24 @@
     }
 
     async function liveSearch(query) {
-        // jika tidak ada query langsung return array kosong
-        if (!query) {
-            return []
+        if (query) {
+            try {
+                let params = new URLSearchParams({
+                    keyword: query,
+                    // limit: 10,
+                });
+
+                let response = await fetch(`/pv/search?${params.toString()}`);
+                let json = await response.text();
+                console.log(json);
+                return json;
+            } catch (error) {
+                console.log(error.message);
+                return null;
+            }
         }
 
-        // menyusun query params
-        // contoh hasil: query=xxx&api_key=xxx&language=xxx&page=xxx
-        let params = new URLSearchParams({
-            query: query,
-            page: 1,
-            limit: 10,
-        })
-
-        // network request ke api server tmdb
-        let response = await fetch(`/pv/search?${params.toString()}`)
-        let json = await response.json()
-
-        // return hasil pencarian
-        return json.results
+        return null;
     }
 </script>
 
@@ -31,8 +30,9 @@
     x-transition:leave="transition origin-top ease-in duration-150 transform"
     x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"
     class="fixed top-0 bottom-0 left-0 right-0 z-50 bg-dark/80">
-    <div class="container flex flex-col items-center justify-start min-h-screen mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary"
-        x-data="{ pvsResults: [], keywords: '' }" x-effect="pvsResults = await liveSearch(keywords)">
+    <div x-data="{ pvsResults: [], keywords: '' }"
+        class="container flex flex-col items-center justify-start h-full md:h-4/5 mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary"
+        x-effect="pvsResults = await liveSearch(keywords)">
         <div class="relative w-full">
             <span
                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none top-2 size-12 text-primary">
@@ -49,23 +49,8 @@
             <input type="search" name="search" id="search" placeholder="Search" x-model="keywords"
                 class="w-full h-16 px-16 py-3 md:pl-16 md:pr-4 input-main" />
         </div>
-        <main class="grid flex-1 w-full custom-scrollable-y">
-            <div x-show="pvsResults.length == 0" class="flex flex-1 mx-auto mt-16 text-xl text-dark">
-                No products found
-            </div>
-            <template x-show="pvsResults.length > 0" x-for="(item, index) in pvsResults" :key="index">
-                @component('components.layout.card-item', [
-                    'title' => 'item.title',
-                    'subtitle' => 'item.subtitle',
-                    'url' => 'item.url',
-                    'price' => 'item.price',
-                    'imageUrl' => 'item.imageUrl',
-                    'shortDesc' => 'item.shortDesc',
-                    'colors' => 'ensureArray(item.colors)',
-                ])
-                @endcomponent
-            </template>
-        </main>
+
+        <div id="search-results" class="overflow-y-auto py-16" x-html="pvsResults"></div>
 
         <button class="fixed z-50 top-2 right-2 md:top-6 md:right-6 size-12 text-primary md:text-tertiary"
             @click="isLiveSearchShow = false">

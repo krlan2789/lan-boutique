@@ -28,6 +28,7 @@ Route::get('/c/{category:slug}', [CategoryController::class, 'variants']);
 Route::get('/new-arrival', [ProductVariantController::class, 'latest']);
 Route::get('/new-arrival/all', [ProductVariantController::class, 'latestAll']);
 Route::get('/new-arrival/{category:slug}', [ProductVariantController::class, 'latestCategory']);
+Route::get('/pv/search', [ProductVariantController::class, 'search']);
 Route::get('/pv/{productVariant:slug}', [ProductVariantController::class, 'index']);
 
 Route::get('/cart', function () {

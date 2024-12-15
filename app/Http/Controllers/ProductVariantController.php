@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use DOMDocument;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 
 class ProductVariantController extends Controller
@@ -21,22 +20,23 @@ class ProductVariantController extends Controller
 
             $value = $appliedPromo['isPercent'] ? ($productVariant->price * (floatval($promo->discount) / 100.0)) : $promo->nominal;
             // if ($appliedPromo['isPercent'] && $value > $promo->nominal_max) $value = $promo->nominal_max;
-            if ($appliedPromo['isPercent'] && $value > $price) $value = $price;
+            if ($appliedPromo['isPercent'] && $value > $price)
+                $value = $price;
             $price -= $value;
 
             $appliedPromo['nominal'] = $appliedPromo['isPercent'] ? $promo->discount : $value;
         }
         $detail = $productVariant->detail ?? $productVariant->product->detail;
 
-        $getFavicon = function($url) {
+        $getFavicon = function ($url) {
             return 'https://www.google.com/s2/favicons?domain=' . explode('/', $url)[2];
         };
-        $getTitle = function($url) {
+        $getTitle = function ($url) {
             try {
                 $html = file_get_contents($url);
-                if ($html === FALSE) return null;
-                else
-                {
+                if ($html === FALSE)
+                    return null;
+                else {
                     // Use DOMDocument to parse the HTML
                     $doc = new DOMDocument();
                     @$doc->loadHTML($html);
@@ -86,7 +86,7 @@ class ProductVariantController extends Controller
             ->latest('created_at')
             ->limit(24)
             ->get()
-            ;
+        ;
 
         $variants = ProductVariant::formated($variants);
 
@@ -103,7 +103,7 @@ class ProductVariantController extends Controller
             ->latest('created_at')
             ->limit(24)
             ->get()
-            ;
+        ;
 
         $variants = ProductVariant::formated($variants);
 
@@ -112,5 +112,21 @@ class ProductVariantController extends Controller
             'viewType' => 'new-arrival-category',
             'results' => ['items' => $variants],
         ]);
+    }
+
+    public function search()
+    {
+        $filters = request(['keyword', 'limit'], []);
+        $variants = ProductVariant::with(['product', 'product.detail'])
+            ->searchByKeyword($filters['keyword'])
+            ->paginate(10)
+            ->items()
+        ;
+        return view('components.layout.api.search-view', [
+            'items' => ProductVariant::formated($variants),
+        ])->render();
+        // return response()->json([
+        //     'data' => ProductVariant::formated($variants),
+        // ], 200);
     }
 }
