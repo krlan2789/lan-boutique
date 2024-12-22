@@ -1,27 +1,49 @@
 <script>
-    function ensureArray(data) {
-        return Array.isArray(data) ? data : [data];
-    }
-
-    async function liveSearch(query) {
-        if (query) {
-            try {
-                let params = new URLSearchParams({
-                    keyword: query,
-                    // limit: 10,
-                });
-
-                let response = await fetch(`/pv/search?${params.toString()}`);
-                let json = await response.text();
-                console.log(json);
-                return json;
-            } catch (error) {
-                console.log(error.message);
+    function getLiveSearchData() {
+        return {
+            timeoutId: null,
+            pvsResults: [],
+            keywords: '',
+            async liveSearch(query) {
+                if (query) {
+                    try {
+                        // await delay(500);
+                        let params = new URLSearchParams({
+                            keyword: query,
+                            // limit: 12,
+                        });
+                        let response = await fetch(`/pv/search?${params.toString()}`);
+                        let html = await response.text();
+                        console.log(`Search product ${query} done!`);
+                        console.log(html);
+                        return html.length > 8 ? html : null;
+                    } catch (error) {
+                        console.log(error);
+                        return null;
+                    }
+                }
                 return null;
-            }
-        }
+            },
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            },
+            async debouncedFunction(query, delayMs) {
+                if (this.timeoutId) {
+                    clearTimeout(this.timeoutId);
+                }
 
-        return null;
+                return new Promise((resolve, reject) => {
+                    this.timeoutId = setTimeout(async () => {
+                        try {
+                            const result = await this.liveSearch(query);
+                            resolve(result);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    }, delayMs);
+                });
+            },
+        };
     }
 </script>
 
@@ -30,9 +52,9 @@
     x-transition:leave="transition origin-top ease-in duration-150 transform"
     x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-95"
     class="fixed top-0 bottom-0 left-0 right-0 z-50 bg-dark/80">
-    <div x-data="{ pvsResults: [], keywords: '' }"
-        class="container flex flex-col items-center justify-start h-full md:h-4/5 mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary"
-        x-effect="pvsResults = await liveSearch(keywords)">
+    <div x-data="getLiveSearchData()"
+        class="container flex flex-col items-center justify-start h-full md:h-4/5 mx-auto my-0 max-lg:max-w-screen-lg md:my-16 bg-tertiary">
+        {{-- x-effect="pvsResults = await debouncedFunction(keywords, 500)" --}}
         <div class="relative w-full">
             <span
                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none top-2 size-12 text-primary">
@@ -47,6 +69,7 @@
                 </svg>
             </span>
             <input type="search" name="search" id="search" placeholder="Search" x-model="keywords"
+                @input="pvsResults = await debouncedFunction(keywords, 500)"
                 class="w-full h-16 px-16 py-3 md:pl-16 md:pr-4 input-main" />
         </div>
 

@@ -85,17 +85,17 @@ class ProductVariant extends Model
             $keyword ?? false,
             fn($query) => $query
                 ->where('name', 'LIKE', "%$keyword%")
-                ->orWhere('price', 'LIKE', "%$keyword%")
+                // ->orWhere('price', 'LIKE', "%$keyword%")
                 ->orWhereHas(
                     'detail',
                     fn($query) => $query
-                        ->orWhere('summary', 'LIKE', "%$keyword%")
+                        ->where('summary', 'LIKE', "%$keyword%")
                         ->orWhere('description', 'LIKE', "%$keyword%")
                 )
                 ->orWhereHas(
                     'product',
                     fn($query) => $query
-                        ->orWhere('name', 'LIKE', "%$keyword%")
+                        ->where('name', 'LIKE', "%$keyword%")
                 )
         );
         return $query;

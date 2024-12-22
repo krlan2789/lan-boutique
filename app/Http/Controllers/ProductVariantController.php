@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DOMDocument;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\ProductVariant;
 
 class ProductVariantController extends Controller
@@ -119,18 +120,25 @@ class ProductVariantController extends Controller
         $filters = request(['keyword', 'limit'], []);
         $variants = ProductVariant::with(['product', 'product.detail'])
             ->searchByKeyword($filters['keyword'])
-            ->paginate(12)
-            ->items()
+            // ->paginate(12)
         ;
-        if (count($variants) > 0) {
+        $items = $variants
+            ->paginate(12)
+            ->items();
+        $formated = ProductVariant::formated($items);
+
+        if (count($formated) > 0) {
             return view('components.layout.api.search-view', [
-                'items' => ProductVariant::formated($variants),
+                'items' => $formated,
             ])->render();
         } else {
-            return null;
+            return response()->json(null, 200);
         }
         // return response()->json([
-        //     'data' => ProductVariant::formated($variants),
+        //     'data' => $formated,
+        //     'query' => Str::replace('"', "'", vsprintf(str_replace('?', '%s', $variants->toSql()), array_map(function ($binding) {
+        //         return is_numeric($binding) ? $binding : "'{$binding}'";
+        //     }, $variants->getBindings()))),
         // ], 200);
     }
 }
