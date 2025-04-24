@@ -46,13 +46,22 @@ jobs:
       - name: Configure Nginx for Laravel
         run: |
           echo "server {
-            listen 80;
-            server_name _;
+            listen 8080;
+            listen [::]:8080;
+            server_name lanvender.azurewebsites.net www.lanvender.azurewebsites.net example.com www.example.com;
             root /home/site/wwwroot/public;
             index index.php index.html index.htm;
+            port_in_redirect off;
 
             location / {
                 try_files \$uri \$uri/ /index.php?\$query_string;
+            }
+
+            # Disable .git directory
+            location ~ /\.git {
+                deny all;
+                access_log off;
+                log_not_found off;
             }
 
             location ~ \.php\$ {
