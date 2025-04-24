@@ -1,6 +1,7 @@
 name: Deploy Laravel to Azure Web App
 
 env:
+  APP_NAME: lanvender
   DATABASE_PATH: database/
 
 on:
@@ -18,9 +19,6 @@ jobs:
 
       - name: Generate environment file
         run: echo "${{ secrets.ENV_FILE }}" > .env
-
-      - name: Generate .htacces at project root
-        run: echo "${{ vars.AZURE_WEBAPP_ROOT_HTACCESS }}" > .htaccess
 
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
@@ -44,6 +42,34 @@ jobs:
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
+
+      - name: Install Nginx
+        run: sudo apt update && sudo apt install nginx -y
+
+      - name: Configure Nginx for Laravel
+        run: |
+          echo "server {
+            listen 80;
+            server_name _;
+            root /home/site/wwwroot/public;
+            index index.php index.html index.htm;
+
+            location / {
+                try_files \$uri \$uri/ /index.php?\$query_string;
+            }
+
+            location ~ \.php\$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+                fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+                include fastcgi_params;
+            }
+          }" | sudo tee /etc/nginx/sites-available/${{ env.APP_NAME }}
+
+      - name: Enable Nginx Configuration
+        run: |
+          sudo ln -s /etc/nginx/sites-available/${{ env.APP_NAME }} /etc/nginx/sites-enabled/
+          sudo systemctl restart nginx
 
       - name: Run migrations
         run: |
