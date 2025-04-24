@@ -45,10 +45,10 @@ jobs:
           php artisan route:cache
           php artisan view:cache
 
-      - name: Create database file
-        run: |
-          touch ${{ env.DATABASE_PATH }}database.sqlite
-          chmod -R 775 ${{ env.DATABASE_PATH }}
+      # - name: Create database file
+      #   run: |
+      #     touch ${{ env.DATABASE_PATH }}database.sqlite
+      #     chmod -R 775 ${{ env.DATABASE_PATH }}
 
       - name: Run migrations
         run: |
