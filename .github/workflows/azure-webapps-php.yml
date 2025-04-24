@@ -35,9 +35,9 @@ jobs:
       - run: npm ci && npm run build
 
       # Set up Laravel environment
+      # cp .env.example .env
       - name: Set up environment
         run: |
-          cp .env.example .env
           php artisan key:generate
           php artisan config:cache
           php artisan route:cache
