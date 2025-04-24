@@ -1,3 +1,4 @@
+
 name: Deploy Laravel to Azure Web App
 
 on:
@@ -6,16 +7,14 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up PHP
-      - name: Set up PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
@@ -23,30 +22,30 @@ jobs:
           ini-values: post_max_size=256M, upload_max_filesize=256M
           coverage: none
 
-      # Install Composer dependencies
-      - name: Install dependencies
-        run: composer install --optimize-autoloader --no-dev
-
-      # Install Node.js dependencies and build assets
       - name: Install Node.js and build assets
         uses: actions/setup-node@v3
         with:
           node-version: 20
       - run: npm ci && npm run build
 
-      # Set up Laravel environment
-      # cp .env.example .env
-      # php artisan key:generate
-      - name: Set up environment
+      - name: Install dependencies
         run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
+          composer install --no-dev --optimize-autoloader
+          npm install && npm run build
 
-      # Deploy to Azure
-      - name: Deploy to Azure
+      - name: Generate environment file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Run migrations
+        run: php artisan migrate --force
+
+      - name: Zip project for deployment
+        run: zip -r release.zip . -x "*.git*"
+
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          package: release.zip
