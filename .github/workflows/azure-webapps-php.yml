@@ -19,9 +19,6 @@ jobs:
       - name: Generate environment file
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
-      - name: Generate .htacces at project root
-        run: echo "${{ vars.AZURE_WEBAPP_ROOT_HTACCESS }}" > .htaccess
-
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
         with:
@@ -46,8 +43,8 @@ jobs:
 
       - name: Run migrations
         run: |
+          php artisan cache:table
           php artisan migrate:fresh --seed --force
-      # php artisan cache:table
 
       - name: Verify Database Connection
         run: php artisan migrate:status
@@ -67,3 +64,6 @@ jobs:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: release.zip
+
+      - name: Generate .htacces at project root
+        run: echo "${{ env.AZURE_WEBAPP_ROOT_HTACCESS }}" > .htaccess
