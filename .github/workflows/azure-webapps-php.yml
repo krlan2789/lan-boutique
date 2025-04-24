@@ -46,8 +46,8 @@ jobs:
 
       - name: Run migrations
         run: |
-          php artisan cache:table
           php artisan migrate:fresh --seed --force
+      # php artisan cache:table
 
       - name: Verify Database Connection
         run: php artisan migrate:status
