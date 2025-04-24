@@ -2,7 +2,7 @@ name: Deploy Laravel to Azure Web App
 
 env:
   PROJECT_PATH: /home/site/wwwroot/
-  DATABASE_PATH: /home/site/wwwroot/database/database.sqlite
+  DATABASE_PATH: /home/site/wwwroot/storage/
 
 on:
   push:
@@ -47,9 +47,8 @@ jobs:
 
       - name: Create database file
         run: |
-          mkdir -p ${{ env.PROJECT_PATH }}database
-          touch ${{ env.DATABASE_PATH }}
-          chmod 775 ${{ env.DATABASE_PATH }}
+          touch ${{ env.DATABASE_PATH }}database.sqlite
+          chmod -R 775 ${{ env.DATABASE_PATH }}
 
       - name: Run migrations
         run: |
