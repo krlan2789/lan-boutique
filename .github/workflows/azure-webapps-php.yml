@@ -19,9 +19,6 @@ jobs:
       - name: Generate environment file
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
-      - name: Validate .env file
-        run: cat .env
-
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
         with:
@@ -39,24 +36,24 @@ jobs:
       - name: Install Laravel dependencies
         run: |
           composer install --no-dev --optimize-autoloader
-          php ${{ env.PROJECT_PATH }}artisan key:generate
-          php ${{ env.PROJECT_PATH }}artisan config:cache
-          php ${{ env.PROJECT_PATH }}artisan route:cache
-          php ${{ env.PROJECT_PATH }}artisan view:cache
+          php artisan key:generate
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
 
       - name: Run migrations
         run: |
-          php ${{ env.PROJECT_PATH }}artisan cache:table
-          php ${{ env.PROJECT_PATH }}artisan migrate --force
+          php artisan cache:table
+          php artisan migrate --force
 
       - name: Verify Database Connection
-        run: php ${{ env.PROJECT_PATH }}artisan migrate:status
+        run: php artisan migrate:status
 
       - name: Clear Cache
         run: |
-          php ${{ env.PROJECT_PATH }}artisan cache:clear
-          php ${{ env.PROJECT_PATH }}artisan view:clear
-          php ${{ env.PROJECT_PATH }}artisan config:clear
+          php artisan cache:clear
+          php artisan view:clear
+          php artisan config:clear
 
       - name: Zip project for deployment
         run: zip -r release.zip . -x "*.git*"
