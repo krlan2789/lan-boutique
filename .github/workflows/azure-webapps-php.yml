@@ -1,5 +1,8 @@
 name: Deploy Laravel to Azure Web App
 
+env:
+  PROJECT_PATH: /home/site/wwwroot/
+
 on:
   push:
     branches:
@@ -19,6 +22,9 @@ jobs:
       - name: Validate .env file
         run: cat .env
 
+      - name: Database directory permission changes
+        run: chmod -R 775 ${{ env.PROJECT_PATH }}database
+
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
         with:
@@ -36,22 +42,24 @@ jobs:
       - name: Install Laravel dependencies
         run: |
           composer install --no-dev --optimize-autoloader
-          php artisan key:generate
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
+          php ${{ env.PROJECT_PATH }}artisan key:generate
+          php ${{ env.PROJECT_PATH }}artisan config:cache
+          php ${{ env.PROJECT_PATH }}artisan route:cache
+          php ${{ env.PROJECT_PATH }}artisan view:cache
 
       - name: Run migrations
-        run: php artisan migrate --force
+        run: |
+          php ${{ env.PROJECT_PATH }}artisan cache:table
+          php ${{ env.PROJECT_PATH }}artisan migrate --force
 
       - name: Verify Database Connection
-        run: php artisan migrate:status
+        run: php ${{ env.PROJECT_PATH }}artisan migrate:status
 
       - name: Clear Cache
         run: |
-          php artisan cache:clear
-          php artisan view:clear
-          php artisan config:clear
+          php ${{ env.PROJECT_PATH }}artisan cache:clear
+          php ${{ env.PROJECT_PATH }}artisan view:clear
+          php ${{ env.PROJECT_PATH }}artisan config:clear
 
       - name: Zip project for deployment
         run: zip -r release.zip . -x "*.git*"
