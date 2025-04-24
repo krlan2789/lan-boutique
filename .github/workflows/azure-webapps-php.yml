@@ -1,7 +1,7 @@
 name: Deploy Laravel to Azure Web App
 
 env:
-  DATABASE_PATH: ./storage/
+  DATABASE_PATH: database/
 
 on:
   push:
