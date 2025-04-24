@@ -1,7 +1,7 @@
 name: Deploy Laravel to Azure Web App
 
 env:
-  APP_HOST: lanvender.azurewebsites.net
+  AZURE_NGINX_CONFIG: lanvender.conf
   DATABASE_PATH: database/
 
 on:
@@ -61,12 +61,7 @@ jobs:
                 fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
                 include fastcgi_params;
             }
-          }" | sudo tee /etc/nginx/sites-available/${{ env.APP_HOST }}
-
-      - name: Enable Nginx Configuration
-        run: |
-          sudo ln -s /etc/nginx/sites-available/${{ env.APP_HOST }} /etc/nginx/sites-enabled/
-          sudo systemctl restart nginx
+          }" | sudo tee ${{ env.AZURE_NGINX_CONFIG }}
 
       - name: Run migrations
         run: |
