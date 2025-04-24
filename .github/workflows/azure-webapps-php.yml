@@ -39,6 +39,7 @@ jobs:
       - name: Install Laravel dependencies
         run: |
           composer install --no-dev --optimize-autoloader
+          composer require fakerphp/faker --dev
           php artisan key:generate
           php artisan config:cache
           php artisan route:cache
@@ -49,11 +50,10 @@ jobs:
           touch ${{ env.DATABASE_PATH }}database.sqlite
           chmod -R 775 ${{ env.DATABASE_PATH }}
           php artisan cache:table
+          composer dump-autoload
           php artisan migrate:fresh --force
           php artisan db:seed --force
-
-      - name: Verify Database Connection
-        run: php artisan migrate:status
+          php artisan migrate:status
 
       - name: Clear Cache
         run: |
