@@ -35,13 +35,23 @@ jobs:
 
       - name: Install Laravel dependencies
         run: |
+          composer install --no-dev --optimize-autoloader
+          php artisan key:generate
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
-          composer install --no-dev --optimize-autoloader
 
       - name: Run migrations
         run: php artisan migrate --force
+
+      - name: Verify Database Connection
+        run: php artisan migrate:status
+
+      - name: Clear Cache
+        run: |
+          php artisan cache:clear
+          php artisan view:clear
+          php artisan config:clear
 
       - name: Zip project for deployment
         run: zip -r release.zip . -x "*.git*"
