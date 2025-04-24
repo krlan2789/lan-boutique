@@ -52,7 +52,9 @@ jobs:
 
       - name: Run migrations
         run: |
+          pwd
           ls -alh
+          ls -alh ${{ env.DATABASE_PATH }}
           ls -alh ${{ env.DATABASE_PATH }}database.sqlite
           touch ${{ env.DATABASE_PATH }}database.sqlite
           chmod -R 775 ${{ env.DATABASE_PATH }}
