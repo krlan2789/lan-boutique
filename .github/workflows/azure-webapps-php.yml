@@ -52,6 +52,9 @@ jobs:
 
       - name: Run migrations
         run: |
+          ls -alh
+          touch ${{ env.DATABASE_PATH }}database.sqlite
+          chmod -R 775 ${{ env.DATABASE_PATH }}
           php artisan cache:table
           php artisan migrate:fresh --force
           php artisan db:seed --force
