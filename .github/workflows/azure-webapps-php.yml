@@ -1,0 +1,52 @@
+name: Deploy Laravel to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up PHP
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, bcmath, intl, pdo_sqlite
+          ini-values: post_max_size=256M, upload_max_filesize=256M
+          coverage: none
+
+      # Install Composer dependencies
+      - name: Install dependencies
+        run: composer install --optimize-autoloader --no-dev
+
+      # Install Node.js dependencies and build assets
+      - name: Install Node.js and build assets
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm ci && npm run build
+
+      # Set up Laravel environment
+      - name: Set up environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+      # Deploy to Azure
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
