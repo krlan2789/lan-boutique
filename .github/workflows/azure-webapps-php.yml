@@ -21,7 +21,7 @@ jobs:
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Generate .htacces at project root
-        run: echo "${{ env.AZURE_WEBAPP_ROOT_HTACCESS }}" > .htaccess
+        run: echo "${{ vars.AZURE_WEBAPP_ROOT_HTACCESS }}" > .htaccess
 
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
@@ -53,6 +53,7 @@ jobs:
       - name: Run migrations
         run: |
           ls -alh
+          ls -alh ${{ env.DATABASE_PATH }}database.sqlite
           touch ${{ env.DATABASE_PATH }}database.sqlite
           chmod -R 775 ${{ env.DATABASE_PATH }}
           php artisan cache:table
