@@ -19,6 +19,9 @@ jobs:
       - name: Generate environment file
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
+      - name: Generate .htacces at project root
+        run: echo "${{ vars.AZURE_WEBAPP_ROOT_HTACCESS }}" > .htaccess
+
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
         with:
@@ -44,7 +47,7 @@ jobs:
       - name: Run migrations
         run: |
           php artisan cache:table
-          php artisan migrate --force
+          php artisan migrate:fresh --seed --force
 
       - name: Verify Database Connection
         run: php artisan migrate:status
