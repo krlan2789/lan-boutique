@@ -141,10 +141,10 @@ jobs:
 
           #Turn off maintenance mode
           php /home/site/wwwroot/artisan up
-          " | sudo tee /home/site/wwwroot/startup.sh
+          " | sudo tee startup.sh
 
       - name: Make startup.sh as executable
-        run: chmod +x /home/site/wwwroot/startup.sh
+        run: chmod +x startup.sh
 
       - name: Run migrations
         run: |
