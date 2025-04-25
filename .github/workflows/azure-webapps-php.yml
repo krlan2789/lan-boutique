@@ -1,4 +1,4 @@
-name: Deploy Laravel to Azure Web App
+name: Deploy Laravel to Azure Web App - Lanvender
 
 env:
   AZURE_NGINX_CONFIG: lanvender.conf
@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -31,30 +32,57 @@ jobs:
         with:
           php-version: 8.2
           extensions: mbstring, bcmath, intl, pdo_sqlite
-          ini-values: post_max_size=256M, upload_max_filesize=256M
           coverage: none
 
       - name: Install Laravel dependencies
         run: |
-          composer install --no-dev --optimize-autoloader
+          composer validate --no-check-publish
+          composer install --no-dev --prefer-dist --optimize-autoloader --no-progress
           composer require fakerphp/faker --dev
-          php artisan key:generate
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
 
       - name: Configure Nginx for Laravel
         run: |
           echo "server {
+            #proxy_cache cache;
+                #proxy_cache_valid 200 1s;
             listen 8080;
             listen [::]:8080;
-            server_name lanvender.azurewebsites.net www.lanvender.azurewebsites.net example.com www.example.com;
             root /home/site/wwwroot/public;
-            index index.php index.html index.htm;
+            server_name lanvender.azurewebsites.net www.lanvender.azurewebsites.net;
             port_in_redirect off;
 
+            add_header X-Frame-Options "SAMEORIGIN";
+            add_header X-Content-Type-Options "nosniff";
+
+            index index.php index.html index.htm;
+            charset utf-8;
+
+            if ($http_x_arr_ssl = "") {
+                return 301 https://$host$request_uri;
+            }
+
             location / {
-                try_files \$uri \$uri/ /index.php?\$query_string;
+                try_files $uri $uri/ /index.php?$query_string;
+            }
+
+            location = /favicon.ico {
+                access_log off;
+                log_not_found off;
+                expires 30d;
+            }
+
+            location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+                expires 30d;
+                access_log off;
+                add_header Cache-Control "public";
+            }
+
+            error_page 400 404 /index.php;
+
+            # redirect server error pages to the static page /50x.html
+            error_page   500 502 503 504  /50x.html;
+            location = /50x.html {
+                root   /html/;
             }
 
             # Disable .git directory
@@ -64,7 +92,11 @@ jobs:
                 log_not_found off;
             }
 
-            location ~ \.php\$ {
+            location ~ /\.(?!well-known).* {
+                deny all;
+            }
+
+            location ~ [^/]\.php(/|$) {
                 fastcgi_split_path_info ^(.+?\.[Pp][Hh][Pp])(|/.*)$;
                 fastcgi_pass 127.0.0.1:9000;
                 include fastcgi_params;
@@ -83,26 +115,45 @@ jobs:
             }
           }" | sudo tee ${{ env.AZURE_NGINX_CONFIG }}
 
+      - name: Create startup.sh in /home/
+        run: |
+          echo "#!/bin/bash
+            unlink /etc/nginx/sites-enabled/default
+            cp /home/site/wwwroot/lanvender.conf /etc/nginx/sites-available/lanvender
+            ln -s /etc/nginx/sites-available/lanvender /etc/nginx/sites-enabled/
+
+            nginx -s reload
+            service nginx restart
+
+            # Laravel migration and database seeding
+            # php /home/site/wwwroot/artisan migrate --force
+            # Laravel clear cache
+            php /home/site/wwwroot/artisan cache:clear
+            php /home/site/wwwroot/artisan view:clear
+            php /home/site/wwwroot/artisan config:clear
+            # Cache config,route,view
+            php /home/site/wwwroot/artisan config:cache
+            php /home/site/wwwroot/artisan route:cache
+            php /home/site/wwwroot/artisan view:cache
+
+            #php artisan key:generate key:generate
+            #php artisan key:generate storage:link
+
+            #Turn off maintenance mode
+            php /home/site/wwwroot/artisan up
+          " > /home/startup.sh
+
       - name: Run migrations
         run: |
           touch ${{ env.DATABASE_PATH }}database.sqlite
           chmod -R 775 ${{ env.DATABASE_PATH }}
-          php artisan cache:table
           composer dump-autoload
-          php artisan migrate:fresh --force
-          php artisan db:seed --force
-          php artisan migrate:status
-
-      - name: Clear Cache
-        run: |
-          php artisan cache:clear
-          php artisan view:clear
-          php artisan config:clear
+          php artisan migrate:fresh --seed --force
 
       - name: Zip project for deployment
-        run: zip -r release.zip . -x "*.git*"
+        run: zip -r release.zip ./* -x "*.git*"
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App - Lanvender
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
