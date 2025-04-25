@@ -148,6 +148,7 @@ jobs:
           touch ${{ env.DATABASE_PATH }}database.sqlite
           chmod -R 775 ${{ env.DATABASE_PATH }}
           composer dump-autoload
+          php artisan cache:table
           php artisan migrate:fresh --seed --force
 
       - name: Zip project for deployment
