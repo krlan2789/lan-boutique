@@ -141,7 +141,7 @@ jobs:
 
             #Turn off maintenance mode
             php /home/site/wwwroot/artisan up
-          " > sudo /home/startup.sh
+          " | sudo tee /home/startup.sh
 
       - name: Run migrations
         run: |
