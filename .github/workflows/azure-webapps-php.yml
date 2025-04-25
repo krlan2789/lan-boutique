@@ -18,8 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Generate environment file
-        run: echo "${{ secrets.ENV_FILE }}" > .env
+      # - name: Generate environment file
+      #   run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Install Node.js and build dependencies
         uses: actions/setup-node@v3
@@ -126,22 +126,22 @@ jobs:
             service nginx restart
 
             # Laravel migration and database seeding
-            # php /home/site/wwwroot/artisan migrate --force
+            php /home/site/wwwroot/artisan migrate --force
             # Laravel clear cache
             php /home/site/wwwroot/artisan cache:clear
             php /home/site/wwwroot/artisan view:clear
             php /home/site/wwwroot/artisan config:clear
-            # Cache config,route,view
+            # Store config,route,view to cache
             php /home/site/wwwroot/artisan config:cache
             php /home/site/wwwroot/artisan route:cache
             php /home/site/wwwroot/artisan view:cache
 
-            #php artisan key:generate key:generate
-            #php artisan key:generate storage:link
+            #php artisan key:generate --show
+            php artisan storage:link
 
             #Turn off maintenance mode
             php /home/site/wwwroot/artisan up
-          " > /home/startup.sh
+          " > sudo tee /home/startup.sh
 
       - name: Run migrations
         run: |
