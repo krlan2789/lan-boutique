@@ -170,6 +170,16 @@ jobs:
       - name: Wait for deployment files
         run: sleep 8
 
+      - name: Ensure /home/site/build/ Exists
+        run: |
+          pwd
+          mkdir -p /home/site/build/
+
       - name: Move project files (except public, startup.sh) to /home/site/build
         run: |
+          pwd
           rsync -av --progress --exclude=public --exclude=startup.sh /home/site/wwwroot/ /home/site/build/
+
+      - name: Move project public files to /home/site/wwwroot/
+        run: |
+          rsync -av --progress /home/site/wwwroot/public/ /home/site/wwwroot/
