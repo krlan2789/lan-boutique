@@ -119,8 +119,8 @@ jobs:
         run: |
           echo "#!/bin/bash
             unlink /etc/nginx/sites-enabled/default
-            cp /home/site/wwwroot/lanvender.conf /etc/nginx/sites-available/lanvender
-            ln -s /etc/nginx/sites-available/lanvender /etc/nginx/sites-enabled/
+            cp -f /home/site/wwwroot/lanvender.conf /etc/nginx/sites-available/default
+            ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
             nginx -s reload
             service nginx restart
@@ -141,7 +141,7 @@ jobs:
 
             #Turn off maintenance mode
             php /home/site/wwwroot/artisan up
-          " > sudo tee /home/startup.sh
+          " > sudo /home/startup.sh
 
       - name: Run migrations
         run: |
