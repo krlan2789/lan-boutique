@@ -118,31 +118,33 @@ jobs:
       - name: Create startup.sh in /home/
         run: |
           echo "#!/bin/bash
-            unlink /etc/nginx/sites-enabled/default
-            cp -f /home/site/wwwroot/lanvender.conf /etc/nginx/sites-available/default
-            ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+          unlink /etc/nginx/sites-enabled/default
+          cp -f /home/site/wwwroot/lanvender.conf /etc/nginx/sites-available/default
+          ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
-            nginx -s reload
-            service nginx restart
+          nginx -s reload
+          service nginx restart
 
-            # Laravel migration and database seeding
-            php /home/site/wwwroot/artisan migrate --force
-            # Laravel clear cache
-            php /home/site/wwwroot/artisan cache:clear
-            php /home/site/wwwroot/artisan view:clear
-            php /home/site/wwwroot/artisan config:clear
-            # Store config,route,view to cache
-            php /home/site/wwwroot/artisan config:cache
-            php /home/site/wwwroot/artisan route:cache
-            php /home/site/wwwroot/artisan view:cache
+          # Laravel migration and database seeding
+          php /home/site/wwwroot/artisan migrate --force
+          # Laravel clear cache
+          php /home/site/wwwroot/artisan cache:clear
+          php /home/site/wwwroot/artisan view:clear
+          php /home/site/wwwroot/artisan config:clear
+          # Store config,route,view to cache
+          php /home/site/wwwroot/artisan config:cache
+          php /home/site/wwwroot/artisan route:cache
+          php /home/site/wwwroot/artisan view:cache
 
-            #php artisan key:generate --show
-            php artisan storage:link
+          #php artisan key:generate --show
+          php artisan storage:link
 
-            #Turn off maintenance mode
-            php /home/site/wwwroot/artisan up
+          #Turn off maintenance mode
+          php /home/site/wwwroot/artisan up
           " | sudo tee /home/site/wwwroot/startup.sh
-          chmod +x /home/site/wwwroot/startup.sh
+
+      - name: Make startup.sh as executable
+        run: chmod +x /home/site/wwwroot/startup.sh
 
       - name: Run migrations
         run: |
