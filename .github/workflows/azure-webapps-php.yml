@@ -143,8 +143,8 @@ jobs:
           php /home/site/wwwroot/artisan up
           " | sudo tee startup.sh
 
-      - name: Make startup.sh as executable
-        run: chmod +x startup.sh
+      # - name: Make startup.sh as executable
+      #   run: chmod +x startup.sh
 
       - name: Run migrations
         run: |
