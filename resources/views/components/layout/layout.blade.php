@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
         rel="stylesheet">
     @vite('resources/css/app.css')
+    {{-- <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}"> --}}
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
@@ -41,6 +42,7 @@
     {{-- <x-layout.loading></x-layout.loading> --}}
 
     @vite('resources/js/app.js')
+    {{-- <script src="{{ asset('resources/js/app.js') }}"></script> --}}
 </body>
 
 </html>

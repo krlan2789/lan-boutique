@@ -2,13 +2,16 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    private function getRoutesManifest() {
+    private function getRoutesManifest()
+    {
         // Check if data is already stored in the session or cache
         $routesManifestJson = session('routes_manifest', false); // ?? cache('routes_manifest', false);
 
@@ -43,5 +46,8 @@ class AppServiceProvider extends ServiceProvider
         //     $sharedData = ['menu' => $routes['menu']];
         //     $view->with($sharedData);
         // });
+        if (App::environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
