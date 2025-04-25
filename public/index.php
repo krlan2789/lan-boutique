@@ -19,11 +19,10 @@ define('LARAVEL_START', microtime(true));
 
 
 
-
 // Adjust paths based on the environment
 $basePath = __DIR__ . '/../';
-if (app()->environment('production')) {
-    $basePath .= 'build/';
+if (file_exists(__DIR__ . '/../build/bootstrap/app.php')) {
+    $basePath = __DIR__ . '/../build/';
 }
 
 // Determine if the application is in maintenance mode...
