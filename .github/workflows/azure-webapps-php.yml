@@ -148,6 +148,7 @@ jobs:
 
       - name: Run migrations
         run: |
+          pwd
           touch ${{ env.DATABASE_PATH }}database.sqlite
           chmod -R 775 ${{ env.DATABASE_PATH }}
           composer dump-autoload
@@ -155,7 +156,9 @@ jobs:
           php artisan migrate:fresh --seed --force
 
       - name: Zip project for deployment
-        run: zip -r release.zip ./* -x "*.git*"
+        run: |
+          pwd
+          zip -r release.zip ./* -x "*.git*"
 
       - name: Deploy to Azure Web App - Lanvender
         uses: azure/webapps-deploy@v2
