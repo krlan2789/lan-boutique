@@ -125,26 +125,32 @@ jobs:
           nginx -s reload
           service nginx restart
 
+          # Ensure the build directory exists
+          mkdir -p /home/site/build/
+
+          # Check if Laravel project files exist in /home/site/wwwroot/
+          if [ -e /home/site/wwwroot/app ] && [ -e /home/site/wwwroot/artisan ] && [ -e /home/site/wwwroot/config ]; then
+              rsync -av --progress --exclude=public --exclude=startup.sh /home/site/wwwroot/ /home/site/build/
+              rsync -av --progress /home/site/wwwroot/public/ /home/site/wwwroot/
+          fi
+
           # Laravel migration and database seeding
-          php /home/site/wwwroot/artisan migrate --force
+          php /home/site/wwwroot/build/artisan migrate --force
           # Laravel clear cache
-          php /home/site/wwwroot/artisan cache:clear
-          php /home/site/wwwroot/artisan view:clear
-          php /home/site/wwwroot/artisan config:clear
+          php /home/site/wwwroot/build/artisan cache:clear
+          php /home/site/wwwroot/build/artisan view:clear
+          php /home/site/wwwroot/build/artisan config:clear
           # Store config,route,view to cache
-          php /home/site/wwwroot/artisan config:cache
-          php /home/site/wwwroot/artisan route:cache
-          php /home/site/wwwroot/artisan view:cache
+          php /home/site/wwwroot/build/artisan config:cache
+          php /home/site/wwwroot/build/artisan route:cache
+          php /home/site/wwwroot/build/artisan view:cache
 
           #php artisan key:generate --show
           php artisan storage:link
 
           #Turn off maintenance mode
-          php /home/site/wwwroot/artisan up
+          php /home/site/wwwroot/build/artisan up
           " | sudo tee startup.sh
-
-      # - name: Make startup.sh as executable
-      #   run: chmod +x startup.sh
 
       - name: Run migrations
         run: |
@@ -167,19 +173,3 @@ jobs:
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: release.zip
 
-      - name: Wait for deployment files
-        run: sleep 8
-
-      - name: Ensure /home/site/build/ Exists
-        run: |
-          pwd
-          mkdir -p /home/site/build/
-
-      - name: Move project files (except public, startup.sh) to /home/site/build
-        run: |
-          pwd
-          rsync -av --progress --exclude=public --exclude=startup.sh /home/site/wwwroot/ /home/site/build/
-
-      - name: Move project public files to /home/site/wwwroot/
-        run: |
-          rsync -av --progress /home/site/wwwroot/public/ /home/site/wwwroot/
